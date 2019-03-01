@@ -1,0 +1,211 @@
+.purplecolor {
+	color: #993366;
+}
+.menunav {
+	font-size: 18px;
+}
+.centernav {
+	margin: 0%;
+	color: #b5b5b5;
+	font-size: 18px;
+}
+.rightnav {
+	margin-right: 0%;
+
+}
+.leftnav {
+	margin-left: 0%;
+	color: #666666;
+}
+.pad10 {
+	padding: 10px !important;
+}
+.pad30 {
+	padding: 30px;
+}
+.purplebg {
+	background-color: #993366;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	top: 60px;
+}
+.leftpurplenav {
+	margin-left: 0%;
+	padding-left: 30px;
+	color: white;
+}
+.titlenavpur {
+	padding-right: 10px;
+	font-size: 18px;
+}
+.rightnavpur {
+	margin-right: 0%;
+	color: white;
+	font-size: 18px;
+}
+.noborder {
+    border-top-width: 0px !important;
+
+}
+.padleft {
+	width: 100%;
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 150px;
+    position: fixed;
+  	color: #eeeeee;
+    height: 100vh;
+    z-index: 1; 
+    transition: all 0.3s;
+    margin-left: 0px;
+    padding-top: 150px;
+    padding-left: 50px;
+    background-color: #333333;
+    border-right-width: 2px;
+    border-color: #444444;
+    padding-right: 20px;
+	top: 0px !important;
+}
+#sidebar.active {
+  
+    margin-left: -250px;
+}
+#content {
+	position: absolute;
+	transition: all 0.3s;
+	right: 0;
+	width: calc(100% - 150px);
+	top:60px;
+}
+#content.active {
+	width: 100%;
+}
+.sidebar-header {
+	padding-bottom:  15px;
+	color: #ffffff;
+}
+.btnsidebar {
+	border: 0px;
+	background-color: transparent;
+	padding: 0;
+}
+.titleFilters {
+	color: #eeeeee;
+	display: block;
+	cursor: pointer;
+}
+.contentFilters {
+	color: #bbbbbb;
+	width: 100%;
+}
+.spanright {
+	float: right;
+	color: #bbbbbb;
+}
+.divFilters {
+	width: 100%;
+}
+.avatarUser {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color:  #993366;
+	color: white;
+	display: inline;
+	padding: 5px;
+	font-size: 12px;
+}
+.NameUser {
+	color: #b5b5b5;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.dropdown-content {
+   display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    min-width: 160px;
+    text-align: center;
+    padding: 20px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 10px;
+}
+.dropdown-content a{
+	color: black;
+	}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown a:hover {background-color: #ddd;}
+
+.showDropdown {display: block;}
+.dropbtn {}
+.dropbtn :hover {
+	cursor: pointer;
+}
+.padleft50 {
+	padding-left: 50px !important;
+}
+.padright50 {
+	padding-right: 50px !important;
+}
+.maxwith400 {
+	max-width: 200px;
+}
+#clickmenu {
+	cursor: pointer;
+}
+.padleft50 {
+	padding-left: 50px;
+}
+#imaginary_container{
+    margin-top:20%; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+.IconRe {
+	float: right;
+	height: 50px !important;
+	width: 50px;
+}
+.modal-container {
+  position: relative;
+  z-index: 10;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+.fade {
+	opacity: 1;
+}
+.modal-dialog {
+	top: 120px !important;
+}
+.pointcur {
+	cursor:pointer;
+}
+.bg-light {
+	z-index: 0;
+	position: fixed;
+	width: 100%;
+}

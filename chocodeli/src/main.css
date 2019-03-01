@@ -1,0 +1,120 @@
+.purplecolor {
+	color: #993366;
+}
+.menunav {
+	font-size: 18px;
+}
+.centernav {
+	margin: 0%;
+	color: #b5b5b5;
+	font-size: 18px;
+}
+.rightnav {
+	margin-right: 0%;
+
+}
+.leftnav {
+	margin-left: 0%;
+	color: #666666;
+}
+.pad10 {
+	padding: 10px;
+}
+.pad30 {
+	padding: 30px;
+}
+.purplebg {
+	background-color: #993366;
+}
+.leftpurplenav {
+	margin-left: 0%;
+	padding-left: 30px;
+	color: white;
+}
+.titlenavpur {
+	padding-right: 10px;
+	font-size: 18px;
+}
+.rightnavpur {
+	margin-right: 0%;
+	color: white;
+	font-size: 18px;
+}
+.noborder {
+    border-top-width: 0px !important;
+
+}
+.padleft {
+	padding-left: 30px;
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 86px;
+    height: 100vh;
+    z-index: 999; 
+    transition: all 0.3s;
+    margin-left: -250px;
+    padding-top: 30px;
+    padding-left: 50px;
+    background-color: #f4f4f4;
+    border-right-width: 2px;
+    border-color: #444444;
+    padding-right: 20px;
+
+}
+#sidebar.active {
+  
+    margin-left: 0px;
+}
+#content {
+	position: fixed;
+	width: 100%;
+	transition: all 0.3s;
+	right: 0;
+}
+#content.active {
+	width: calc(100% - 250px);
+}
+.sidebar-header {
+	padding-bottom:  15px;
+	color: #444444;
+}
+.btnsidebar {
+	border: 0px;
+	background-color: transparent;
+	padding: 0;
+}
+.titleFilters {
+	color: #993366;
+	display: block;
+}
+.contentFilters {
+	color: #bbbbbb;
+	width: 100%;
+}
+.spanright {
+	float: right;
+	color: #bbbbbb;
+}
+.divFilters {
+	width: 100%;
+}
+.avatarUser {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color:  #993366;
+	color: white;
+	display: inline;
+	padding: 5px;
+	font-size: 12px;
+}
+.NameUser {
+	color: #b5b5b5;
+}
