@@ -37,7 +37,11 @@ class Menu extends PureComponent {
 			onClick={()=>this.handleClick('apiori') }>apiori</p>
 			<hr/>
 			</li>
-
+			<li>
+			<p className="titleFilters"
+			onClick={()=>this.handleClick('product') }>product</p>
+			<hr/>
+			</li>
 			</ul>
 
 			</nav>

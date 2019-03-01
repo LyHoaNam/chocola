@@ -20,6 +20,7 @@ app.config["DEBUG"] = True
 @app.route('/')
 def home():
    return 'home'
+# get file upload
 @app.route('/api',methods = ['POST', 'GET'])
 def result():
 
@@ -33,7 +34,6 @@ def result():
 @app.route('/api/fpgrowth')
 def api_fp():
 	dataFileName="./container/"+str(foo.CountofFile()+1)+".csv"
-	print (dataFileName)
 	store_data = pd.read_csv(dataFileName,header=None, keep_default_na=False)
 	result_fpgrowth= fp.fpgrowth(store_data,4,0.9)
 	return jsonify(result_fpgrowth)
