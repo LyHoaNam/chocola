@@ -7,7 +7,7 @@ I) Setup Eviroment
 
 1) Setup Python Enviroment (if you don't have one)
 -Dowload python here https://www.python.org/downloads/
--Setup python
+-Setup python 3.7.x
 
 2) Setup Node Enviroment (if you don't have one)
 -Dowload Node here https://nodejs.org/en/
@@ -22,6 +22,7 @@ II) Install Algorithm package
 -Run it in cmd: pip install pyfpgrowth
 pip install apyori
 
+3) Install Flask
 ...
 *START*
 
