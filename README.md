@@ -7,7 +7,7 @@ I) Setup Eviroment
 
 1) Setup Python Enviroment (if you don't have one)
 -Dowload python here https://www.python.org/downloads/
--Setup python
+-Setup python 3.7.x
 
 2) Setup Node Enviroment (if you don't have one)
 -Dowload Node here https://nodejs.org/en/
@@ -23,10 +23,15 @@ II) Install Algorithm package
 pip install apyori
 ...
 
+<<<<<<< HEAD
 *CHANGE UPLOAD FOLDER*
 -Open file main.py in folder cacao-choco
 -Change path at variable UPLOAD_FOLDER
 note: The upload file must go to the address "./chocola/cacao-choco/container/"
+=======
+3) Install Flask
+
+>>>>>>> e28a854b157ee878aff4ddb0c9574603334ab4a2
 ...
 *START*
 
