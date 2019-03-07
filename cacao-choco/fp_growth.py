@@ -1,16 +1,6 @@
 import pyfpgrowth as fp
 
-def fpgrowth(dataset, minsup=4,minconf=0.7):
-	#convert Dataframe to Array
-	records = []
-	for i in range(0,7501):
-		temps = []
-		for j in range(0,20):
-			if (dataset.values[i,j] == ''):
-				break	
-			else:
-	 			temps.append(str(dataset.values[i,j]))
-		records.append(temps)
+def fpgrowth(records, minsup=4,minconf=0.7):
 
 	patterns = fp.find_frequent_patterns(records, minsup)
 	rules = list(fp.generate_association_rules(patterns, minconf))

@@ -21,13 +21,18 @@ II) Install Algorithm package
 2) Apiory algorithm
 -Run it in cmd: pip install pyfpgrowth
 pip install apyori
+...
 
+*CHANGE UPLOAD FOLDER*
+-Open file main.py in folder cacao-choco
+-Change path at variable UPLOAD_FOLDER
+note: The upload file must go to the address "./chocola/cacao-choco/container/"
 ...
 *START*
 
 1) Start python backend
 -open folder cacao-choco
--run cmd: python getData.py
+-run cmd: python main.py
 -> It starts with port 5000 (localhost:5000)
 
 2)Start reactjs frontend

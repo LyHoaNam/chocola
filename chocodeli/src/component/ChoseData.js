@@ -47,21 +47,26 @@ class ChoseData extends PureComponent {
 render() {
 
   return (
+      <div className="App">
+          <div className="ContainLogo">
+            <img src={require('../img/color-logo.png')} className="App-logo" alt="logo" />
+          </div>
+        <div className="App-header col-lg-6 col-sm-6 col-xl-6">
 
-    <div>
-    <div className="App">
-    <div className="App-header">
-    <img src={require('../img/logo.png')} className="App-logo" alt="logo" />
-    <strong className="welcome">
-    WELCOME TO CHOCOLA
-    </strong>
-    <input id="choseFile" 
-    name='fileName' 
-    type="file"
-    onChange= {this.SelectData} />
-    </div>
-    </div>
-    </div>
+          <p className="welcome">
+            Recommender System Tool For Everyone
+          </p>
+          <div className="toChocola">
+          Welcome to Chocola, this tool can help you make everything great than. Click a button below, choose a best data and get a good result
+          </div>
+          <div className="ButtonChoosefile">
+          <input id="choseFile" 
+          name='fileName' 
+          type="file"
+          onChange= {this.SelectData} />
+          </div>
+        </div>
+      </div>
     );
   }
 }

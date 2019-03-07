@@ -7,15 +7,17 @@ import urllib.request
 import fp_growth as fp 
 #import apiori algorthm
 import apiori as ap
+import readData as rd
+#Where to save file
+UPLOAD_FOLDER = './container/'
 #import CountFile module
 import importlib.util
-spec = importlib.util.spec_from_file_location("module.name", "F:/học tập/KHÓA LUẬN/chocola/cacao-choco/container/countfile.py")
+spec = importlib.util.spec_from_file_location("module.name", UPLOAD_FOLDER+"/countfile.py")
 foo = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(foo)
-#Where to save file
-UPLOAD_FOLDER = 'F:/học tập/KHÓA LUẬN/chocola/cacao-choco/container/'
+
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config["DEBUG"] = True
 @app.route('/')
 def home():
@@ -31,10 +33,15 @@ def result():
 		recive=request.files["key"]
 		recive.save(UPLOAD_FOLDER+str(NameofFile)+".csv")
 	return recive
+@app.route('/rawdata')
+def api_raw():
+	store_data=rd.readCSV()
+	obj_data={}
+	obj_data['data']=store_data
+	return jsonify(obj_data)
 @app.route('/api/fpgrowth')
 def api_fp():
-	dataFileName="./container/"+str(foo.CountofFile()+1)+".csv"
-	store_data = pd.read_csv(dataFileName,header=None, keep_default_na=False)
+	store_data=rd.readCSV()
 	result_fpgrowth= fp.fpgrowth(store_data,4,0.9)
 	return jsonify(result_fpgrowth)
 @app.route('/api/apiori')

@@ -1,18 +1,20 @@
 import React, { PureComponent } from "react";
 import "../style/main.css";
-
+import {Link } from 'react-router-dom';
 class Menu extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			alg: null
+			alg: null,
+			active: true
 		};
 		this.handleClick = this.handleClick.bind(this);
 	}
 	handleClick(algorithm){
 		if(algorithm != null)
 		{
-    		this.props.callbackFromParent(algorithm);		
+    		this.props.callbackFromParent(algorithm);
+    		this.setState({active: algorithm});
 		}
 
 	}
@@ -20,30 +22,44 @@ class Menu extends PureComponent {
 	render() {
 		return (
 			<nav id="sidebar">
+			<div className="logoContainer">
+			<img src={require('../img/color-logo.png')} className="LogoInMenu" alt="logo"/>
+			</div>
+
+			<div className="ListMenu">
+			<div className="ButtonMenu">
+			<Link to={'/readdata'}>Your data</Link>
+			</div>
 			<div className="sidebar-header">
 			<strong>Algorthm</strong>
 			</div>
-
-			<ul className="list-unstyled components">
-
+			<div className="containList">
+			<div className="ButtonMenu">
+			Association rules
+			</div>
+			<ul className="list-unstyled padleft-10">
 			<li>
-			<p className="titleFilters"
-			onClick={()=>this.handleClick('fpgrowth') }>fpgrowth</p>
+			<Link to={'/'} className= {
+				this.state.active==="fpgrowth" ? "ActiveButton titleFilters":
+			 " titleFilters"}
+			onClick={()=>this.handleClick('fpgrowth') }>fpgrowth</Link>
 
-			<hr/>
 			</li>
 			<li>
-			<p className="titleFilters"
-			onClick={()=>this.handleClick('apiori') }>apiori</p>
-			<hr/>
+			<Link to={'/'} className={
+				this.state.active==="apiori" ? "ActiveButton titleFilters":
+			 " titleFilters"}
+			onClick={()=>this.handleClick('apiori') }>apiori</Link>
 			</li>
 			<li>
-			<p className="titleFilters"
+			<p className={
+				this.state.active==="product" ? "ActiveButton titleFilters":
+			 " titleFilters"}
 			onClick={()=>this.handleClick('product') }>product</p>
-			<hr/>
 			</li>
 			</ul>
-
+			</div>
+			</div>
 			</nav>
 			);
 	}

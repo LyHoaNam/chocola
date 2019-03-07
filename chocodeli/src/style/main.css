@@ -57,19 +57,18 @@
 }
 
 #sidebar {
-    width: 150px;
+	height: 100%;
+    width: 170px;
     position: fixed;
-  	color: #eeeeee;
-    height: 100vh;
+  	color: #000;
     z-index: 1; 
     transition: all 0.3s;
     margin-left: 0px;
-    padding-top: 150px;
-    padding-left: 50px;
-    background-color: #333333;
+    padding-top: 15px;
+    padding-left: 15px;
+    background-color: #fff;
     border-right-width: 2px;
-    border-color: #444444;
-    padding-right: 20px;
+    padding-right: 15px;
 	top: 0px !important;
 }
 #sidebar.active {
@@ -77,29 +76,25 @@
     margin-left: -250px;
 }
 #content {
-	position: absolute;
+	position: fixed;
 	transition: all 0.3s;
 	right: 0;
-	width: calc(100% - 150px);
-	top:60px;
+	width: calc(100% - 180px);
 }
 #content.active {
 	width: 100%;
 }
 .sidebar-header {
-	padding-bottom:  15px;
-	color: #ffffff;
+	color: #9999;
+	font-size: 13px;
+	margin-bottom: 10px;
 }
 .btnsidebar {
 	border: 0px;
 	background-color: transparent;
 	padding: 0;
 }
-.titleFilters {
-	color: #eeeeee;
-	display: block;
-	cursor: pointer;
-}
+
 .contentFilters {
 	color: #bbbbbb;
 	width: 100%;
@@ -208,4 +203,87 @@
 	z-index: 0;
 	position: fixed;
 	width: 100%;
+}
+.logoContainer {
+
+}
+.LogoInMenu {
+	height: 80%;
+}
+.ListMenu {
+	padding-top: 100px;
+}
+.ButtonMenu {
+	color:#666666;
+	font-size: 16px;	
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+.ActiveButton {
+	color:#005b97 !important;
+	border-bottom: 1px solid #005b97 !important;
+}
+.ButtonMenu:hover {
+	cursor: pointer;
+		color:#005b97;
+	border-bottom-width: 1px solid #005b97;
+	opacity: 0.7;
+}
+.titleFilters {
+	color: #666666;
+	display: block;
+	cursor: pointer;
+	font-size: 15px;
+	margin-bottom: 7px;
+}
+.titleFilters.active {
+	color:#005b97;
+	border-bottom-width: 1px solid #005b97;
+}
+.titleFilters:hover {
+	cursor: pointer;
+	color:#005b97;
+	opacity: 0;
+	border-bottom-width: 1px solid #005b97;
+	opacity: 0.7;
+}
+.padleft-10 {
+	padding-left: 10px;
+}
+body {
+	background-color: #f8f9fa;
+}
+.ContainerContent {
+	padding: 0px 15px;
+}
+.titleContent {
+	font-size: 24px;
+	color:#133b4f;
+}
+.Infomation {
+	border-radius: 10px;
+	background-color: #fff;
+	margin-right:10px;
+	padding: 10px;
+}
+.DetailInfo {
+	font-size: 13px;
+	color:#999999;
+	font-weight: 700;
+}
+p {
+	margin-bottom: 3px;
+}
+.martop10 {
+	margin-top: 10px;
+}
+.NameTable {
+	color: #999999;
+	font-size: 14px;
+	font-weight: 700;
+}
+.OverFlow {
+	 overflow:auto;
+width: inherit;
+    height: -webkit-fill-available;
 }
