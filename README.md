@@ -23,6 +23,13 @@ II) Install Algorithm package
 pip install apyori
 
 3) Install Flask
+py -3 -m venv venv
+pip install Flask
+pip install -U flask-cors
+pip install wheel
+pip install pandas
+pip install pyfpgrowth
+pip install jupyter
 
 ...
 *START*
