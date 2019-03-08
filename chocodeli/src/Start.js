@@ -10,7 +10,6 @@ class Start extends PureComponent {
     }
   }
   choseFileCallBack = (result) =>{
-    console.log(result);
     this.setState({ShowApp:result},console.log(""));
     
   }
@@ -21,7 +20,7 @@ class Start extends PureComponent {
       {
           this.state.ShowApp ==='hide' ?
               <ChoseData SendSuccess={this.choseFileCallBack}/>:
-              <App/>            
+              <App/>           
       }
       
       </div>

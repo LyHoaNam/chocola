@@ -1,0 +1,17 @@
+		#loading {
+		-webkit-animation: rotation 0.2s infinite linear;
+}
+.ContainLoading {
+	margin:auto;
+	top:35%;
+	left:45%;
+	position: absolute;
+}
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}

@@ -1,20 +1,27 @@
 .App {
-  text-align: center;
   height: 100%;
   position: absolute;
   width: 100%;
+  background-image: url(../img/bg.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
   height: 100%;
+}
+.ContainLogo {
   padding: 20px;
-  color: white;
+}
+.App-header {
+  padding: 30px;
+  color: #000;
+  position: relative;
+  top: 40%;
+   -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .App-title {
@@ -23,4 +30,55 @@
 
 .App-intro {
   font-size: large;
+}
+body {
+  height: 100%;
+}
+.welcome {
+  font-size: 36px;
+  display: block;
+  font-weight: 700;
+  padding: 0px;
+  height: inherit;
+  color: #133b4f;
+}
+.toChocola {
+  font-size: 24px;
+  text-transform: lowercase;
+  font-weight: 400;
+  color:#8e8e8e;
+}
+#choseFile {
+ margin-top: 10px;
+}
+input[type=file] {
+  cursor: pointer;
+  width: 170px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+input[type=file]:before {
+  width: 170px;
+  height: 60px;
+  font-size: 16px;
+  content: 'Select your file';
+  display: inline-block;
+  background: #00ccff;
+  color: #fff;
+  padding:  8px;
+  border-radius: 10px;
+  text-align: center;
+
+}
+input[type=file]:hover {
+  opacity: 0.5;
+}
+.ButtonChoosefile{
+  padding: 30px;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
 }
