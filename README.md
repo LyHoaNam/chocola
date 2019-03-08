@@ -22,7 +22,9 @@ pip install wheel
 pip install pandas
 pip install pyfpgrowth
 pip install jupyter
-
+python -m pip install -U pip
+python -m pip install -U matplotlib
+pip install apyori
 ... START
 
 Start python backend -open folder cacao-choco -run cmd: python getData.py -> It starts with port 5000 (localhost:5000)
