@@ -15,7 +15,13 @@ Fpgrowth algorithm -Run it in cmd: pip install pyfpgrowth
 
 Apiory algorithm -Run it in cmd: pip install pyfpgrowth pip install apyori
 
-Install Flask py -3 -m venv venv pip install Flask pip install -U flask-cors pip install wheel pip install pandas pip install pyfpgrowth pip install jupyter
+Install Flask py -3 -m venv venv 
+pip install Flask 
+pip install -U flask-cors
+pip install wheel
+pip install pandas
+pip install pyfpgrowth
+pip install jupyter
 
 ... START
 
