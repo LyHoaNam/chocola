@@ -17,8 +17,8 @@
 	margin-left: 0%;
 	color: #666666;
 }
-.pad10 {
-	padding: 10px !important;
+.pad20 {
+	padding: 15px !important;
 }
 .pad30 {
 	padding: 30px;
@@ -228,6 +228,9 @@
 		color:#005b97;
 	border-bottom-width: 1px solid #005b97;
 	opacity: 0.7;
+}
+.ButtonMenu:after {
+	color:#005b97;
 }
 .titleFilters {
 	color: #666666;
