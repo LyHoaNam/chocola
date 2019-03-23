@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import PropsTypes from "prop-types";
 import "../style/main.css";
 import Loading from "./Loading";
 import Infomation from "./Infomation";
@@ -48,7 +47,9 @@ componentWillReceiveProps(nextProps){
           </div>
         </div>
        
-        <Infomation/>
+        <Infomation Algorthm={"Algorthm: "+this.state.showcontent}
+                    minCof={"min_conf: "+this.state.min_conf}
+                    minSup={"min_sup: "+this.props.min_sup}/>
         <Content Data={this.state.result}
                   Show={this.state.showcontent}/>
       </div>

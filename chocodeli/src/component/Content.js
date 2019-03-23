@@ -2,7 +2,6 @@ import React, {PureComponent} from "react";
 import "../style/main.css";
 import PropTypes from "prop-types";
 import AssoRule from "./AssoRule";
-import ReadRawData from "./ReadRawData";
 class Content extends PureComponent {
 	constructor(props){
 		super(props);
@@ -39,8 +38,6 @@ class Content extends PureComponent {
     }
   }
 	render(){
-    console.log("SHow",this.state.Show);
-    console.log("Data",this.props.Data);
     let data=this.filterItem();
 		return (
 	<div className="col-lg-12">
@@ -55,7 +52,7 @@ class Content extends PureComponent {
 	       </span>
 	     </div>
 	     <div className="OverFlow">
-          <AssoRule Data={this.props.Data}/>
+          <AssoRule Data={data}/>
       </div>
       </div>
       </div>

@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import	Menu from './Menu';
 import Result from './Result';
-import Loading from './Loading';
 import ReadRawData from './ReadRawData';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -27,8 +26,8 @@ class App extends PureComponent {
 
         <Menu callbackFromParent={this.myCallback} />      
         <Switch>
-          <Route exact path='/readdata' component={ReadRawData} />
-          <Route path='/' 
+          <Route exact path='/' component={ReadRawData} />
+          <Route path='/algorthm' 
           render={(props)=> <Result {...props} 
           showContent={this.state.showContent}/>} />
           </Switch>

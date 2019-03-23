@@ -1,12 +1,15 @@
 import React, {PureComponent} from "react";
-import {Table} from "react-bootstrap";
+import {Table,ButtonToolbar,Button} from "react-bootstrap";
 import Loading from "./Loading";
 import Infomation from "./Infomation";
+import '../style/chill.css';
+import SetAlgorthm from "./SetAlgorthm";
 class ReadRawData extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state ={
-			result: ''
+			result: '',
+			seShow: false
 		}
 	}
 	componentDidMount () {
@@ -25,21 +28,35 @@ class ReadRawData extends PureComponent {
 
 	}
 	render(){ 
-
+		let modalClose = () => this.setState({ seShow: false });
+		let modalOpen = () => this.setState({seShow:true});
+		let arrData = this.state.result;
 		if(this.state.result)
 		{
 			return (   
 				<div id="content">
 
 				<div className="row">
-				<div className="col-lg-12 pad10">
-				<div className="col-lg-6">
+
+				<div className="col-lg-6 pad20">
 				<p className="titleContent">Algorthm: </p>
 				</div>
+				<div className="col-lg-6 pad20">
+				<ButtonToolbar>
+				<Button variant="primary" className="GetStart"
+				onClick= {modalOpen}
+				>Get Start</Button>
+				<SetAlgorthm show={this.state.seShow} 
+				onHide={modalClose}
+				/>
+				</ButtonToolbar>
+
 				</div>
 				</div>
 
-				<Infomation/>
+				<Infomation Algorthm={"Algorthm: "}
+				minCof={"min_conf: "}
+				minSUp={"min_sup: "}/>
 
 				<div className="col-lg-12">
 				<div className="Infomation martop10">
@@ -54,29 +71,38 @@ class ReadRawData extends PureComponent {
 				</div>
 				<div className="OverFlow">
 				<Table responsive>
-				<tbody>
+				<tbody striped="true">
 				{
-					this.state.result.map((record,index)=>
-						<tr key ={index}>
-						{record.map((item,i)=>
+					arrData.length <100 ?
+					arrData.map((record,index)=>
+						<tr key={index}>
+						<td key={'i'+index}> {index+1} </td>
+						{record.map((item,i)=>(
 							<td key={i}>{item}</td>
-							)
-						}
-						</tr>
-						)
-
+							))
 					}
-
-
-					</tbody>
-					</Table>
-					</div>
-					</div>
-					</div>
-					</div>
+					</tr>
+					):
+					arrData.slice(0,100).map((record,index)=>
+						<tr key={index}>
+						<td key={'i'+index}> {index+1} </td>
+						{record.map((item,i)=>(
+							<td key={i}>{item}</td>
+							))
+					}
+					</tr>
 					)
 				}
-				else return <Loading />
-			}
+				</tbody>
+				</Table>
+			
+				</div>
+				</div>
+				</div>
+				</div>
+				)
+		}
+		else return <Loading />
 	}
-	export default ReadRawData;
+}
+export default ReadRawData;
