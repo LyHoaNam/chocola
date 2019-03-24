@@ -10,10 +10,13 @@ class Infomation extends PureComponent {
            </div>
          <div className="row">
            <div className="col-lg-4">
-           <span>Algorthm: </span>
+           <span>{this.props.Algorthm} </span>
            </div>
            <div className="col-lg-4">
-           <span>Min_Sup </span>
+           <span>{this.props.minCof} </span>
+           </div>
+           <div className="col-lg-4">
+           <span>{this.props.minSup} </span>
            </div>
          </div>
       </div>

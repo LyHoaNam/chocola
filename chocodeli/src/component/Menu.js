@@ -28,7 +28,7 @@ class Menu extends PureComponent {
 
 			<div className="ListMenu">
 			<div className="ButtonMenu">
-			<Link to={'/readdata'}>Your data</Link>
+			<Link to={'/'}>Your data</Link>
 			</div>
 			<div className="sidebar-header">
 			<strong>Algorthm</strong>
@@ -39,14 +39,14 @@ class Menu extends PureComponent {
 			</div>
 			<ul className="list-unstyled padleft-10">
 			<li>
-			<Link to={'/'} className= {
+			<Link to={'/algorthm'} className= {
 				this.state.active==="fpgrowth" ? "ActiveButton titleFilters":
 			 " titleFilters"}
 			onClick={()=>this.handleClick('fpgrowth') }>fpgrowth</Link>
 
 			</li>
 			<li>
-			<Link to={'/'} className={
+			<Link to={'/algorthm'} className={
 				this.state.active==="apiori" ? "ActiveButton titleFilters":
 			 " titleFilters"}
 			onClick={()=>this.handleClick('apiori') }>apiori</Link>
