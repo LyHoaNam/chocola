@@ -8,9 +8,11 @@ class Tables extends PureComponent {
 		this.state={
 			ruler:30,
 			hasMoreItem:true,
+			inputValue: '',
 			table: this.props.data.slice(0,30)
 		}
 		this.loadFunc = this.loadFunc.bind(this);
+		this.filterFunc = this.filterFunc.bind(this);
 	}
 
 	loadFunc(){
@@ -22,7 +24,17 @@ class Tables extends PureComponent {
 			ruler:endpoint});
 
 	}
-
+	filterFunc(e){
+		let masterData = this.props.data;
+		let toSearch= e.target.value;
+		let searchData = [];
+		for(let i=0;i<masterData.length;i++)
+			{ 
+				if(masterData[i].indexOf(toSearch)!==-1)
+					searchData.push(masterData[i]);
+			}
+		this.setState({inputValue:toSearch,table:searchData});
+	}
 	writeFunc(){
 		let result=[];
 		this.state.table.map((record,index)=>
@@ -47,8 +59,10 @@ class Tables extends PureComponent {
 				Result
 				</span>
 				<span className="SerachButton">
-				<input type="text" className="form-control"  placeholder="Search" 
-				
+				<input type="text" className="form-control"  
+				placeholder="Search" 
+				value={this.state.inputValue}
+				onChange={this.filterFunc}
 				/>
 				</span>
 				</div>
