@@ -9,7 +9,8 @@ class Tables extends PureComponent {
 			ruler:30,
 			hasMoreItem:true,
 			inputValue: '',
-			table: this.props.data.slice(0,30)
+			table: this.props.data.slice(0,30),
+			original: this.props.data
 		}
 		this.loadFunc = this.loadFunc.bind(this);
 		this.filterFunc = this.filterFunc.bind(this);
@@ -19,7 +20,7 @@ class Tables extends PureComponent {
 		let limit = this.props.data.length;
 		let startpoint = this.state.ruler;
 		let endpoint = startpoint+30>limit ? limit: startpoint+30;
-		let tables =this.props.data.slice(0,endpoint);
+		let tables = this.state.original.slice(0,endpoint);
 		this.setState({table:tables,
 			ruler:endpoint});
 
@@ -28,24 +29,31 @@ class Tables extends PureComponent {
 		let masterData = this.props.data;
 		let toSearch= e.target.value;
 		let searchData = [];
-		for(let i=0;i<masterData.length;i++)
-			{ 
-				if(masterData[i].indexOf(toSearch)!==-1)
-					searchData.push(masterData[i]);
-			}
-		this.setState({inputValue:toSearch,table:searchData});
+		if(toSearch !=="")
+		{masterData.filter(item =>
+					{ 
+					if(item.includes(toSearch)===true)
+						searchData.push(item);
+					})
+		}		
+		else {
+			searchData=masterData;
+		}
+		this.setState({inputValue:toSearch,original:searchData,
+					hasMoreItem:false});
 	}
 	writeFunc(){
 		let result=[];
-		this.state.table.map((record,index)=>
-			{			
-				result.push(	<tr key={index}>
-				<td key={'i'+index}> {index+1} </td>
-				{record.map((item,i)=>(
-					<td key={i}>{item}</td>
-					))
-				}
-			</tr>)})
+		if(this.state.table.length>0)
+		{this.state.table.map((record,index)=>
+					{			
+						result.push(	<tr key={index}>
+						<td key={'i'+index}> {index+1} </td>
+						{record.map((item,i)=>(
+							<td key={i}>{item}</td>
+							))
+						}
+					</tr>)})}
 		return result;
 	}
 	render() {

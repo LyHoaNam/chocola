@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "../style/chill.css";
-import {FormControl,InputGroup,Modal, Button} from  "react-bootstrap";
+import {Link } from 'react-router-dom';
+import {Modal, Button} from  "react-bootstrap";
 class NextAlgorthm extends PureComponent {
 	constructor(props){
 		super(props);
@@ -8,15 +9,13 @@ class NextAlgorthm extends PureComponent {
 			min_conf: '',
 			min_supf: ''
 		}
+		this.handleChange=this.handleChange.bind(this);
 	}
-	updateMinCof(e){
-		if(e.target.value >0 & e.target.value <1)
-			this.setState({min_conf:e.target.value});
-	}
-	updateMinSup(e){
-		if(e.target.value >0 & e.target.value <1)
-		this.setState({min_supf:e.target.value});
-	}
+  handleChange(event) {
+  	const value= event.target.value;
+  	const name= event.target.name;
+    this.setState({[name]: value});
+  }
 	render(){
 		return(
 			<Modal
@@ -46,32 +45,46 @@ class NextAlgorthm extends PureComponent {
 			<div className="FontTitle">
 			Setup
 			</div>
-			<InputGroup className="mb-3">
-			<FormControl
-			placeholder="min conf"
-			aria-label="min_conf"
-			aria-describedby="basic-addon1"
-			value={this.state.min_conf}
-			onChange={this.updateMinCof}
-			/>
-			</InputGroup>
 
-			<InputGroup className="mb-3">
-			<FormControl
-			placeholder="min sup"
-			aria-label="min_sup"
-			aria-describedby="basic-addon1"
-			value={this.state.min_supf}
-			onChange={this.updateMinSup}
-			/>
-			</InputGroup>
-			</div>	
+			<div className="InputGroup">
+			<input type="text" 
+			value={this.state.min_supf} 
+			name='min_supf'
+			placeholder="Enter min sup"
+			className="Inputfields"
+			onChange={this.handleChange} />
+			</div>
+
+			<div className="InputGroup">
+			<input type="text" 
+			value={this.state.min_conf}
+			name='min_conf' 
+			placeholder="Enter min conf"
+			className="Inputfields"
+			onChange={this.handleChange} />
+			</div>
+
+			</div>
+			
 			</Modal.Body>
 			<Modal.Footer>
-			<Button onClick={this.props.onNeHide}
+			<Button 
+			onClick={this.props.onNeHide}
 			className="Close">Back</Button>
-			<Button className="Next">Finish
+			 
+			<Button className="Next">
+			<Link to={{
+				pathname:'/algorthm',
+				datasend: {
+					ChooseAl: this.props.listdata,
+					min_supf:this.state.min_supf,
+					min_conf:this.state.min_conf
+				}
+			}}>
+			Finish
+			</Link>
 			</Button>
+
 			</Modal.Footer>
 			</Modal>
 			)

@@ -10,18 +10,16 @@ class Result extends PureComponent {
       result: null, 
       min_conf: 0,
       min_sup:0,
-      showcontent: this.props.showContent
+      showcontent: "fpgrowth"
     };
 
   }
+
   componentDidMount () {
+    let states = this.props.location.datasend;
+    console.log("cho",states);
     this.getData();
   }
-componentWillReceiveProps(nextProps){ 
-  if(nextProps.showContent !== this.props.showContent)
-    this.setState({showcontent: nextProps.showContent},this.getData);
-
-}
   getData() {
      fetch(`http://127.0.0.1:5000/api/${this.state.showcontent}`)
       .then(response => response.json())
