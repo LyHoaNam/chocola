@@ -1,5 +1,5 @@
 import React, { PureComponent, Suspense, lazy } from 'react';
-import	Menu from './Menu';
+import	Header from './Header';
 import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 const Result = lazy(()=> import('./Result'));
@@ -24,7 +24,7 @@ class App extends PureComponent {
       <Router>
       <Suspense fallback= {<Loading />}>
       <div className="wrapper">
-        <Menu callbackFromParent={this.myCallback} />      
+        <Header callbackFromParent={this.myCallback} />      
         <Switch>
           <Route exact path='/' render={()=><ReadRawData/>} />
           <Route path='/algorthm' 

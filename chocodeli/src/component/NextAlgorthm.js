@@ -7,14 +7,23 @@ class NextAlgorthm extends PureComponent {
 		super(props);
 		this.state ={
 			min_conf: '',
-			min_supf: ''
+			min_supf: '',
+			tooltipmin_conf: false,
+			tooltipmin_supf:false
 		}
 		this.handleChange=this.handleChange.bind(this);
 	}
   handleChange(event) {
   	const value= event.target.value;
   	const name= event.target.name;
-    this.setState({[name]: value});
+  	const tooltipname = 'tooltip'+name;
+
+  	if( value>0 && value <=1 )
+  		{
+  			this.setState({[tooltipname]:false});}
+  	else
+  		this.setState({[tooltipname]:true});
+  	this.setState({[name]: value});
   }
 	render(){
 		return(
@@ -22,13 +31,14 @@ class NextAlgorthm extends PureComponent {
 			{...this.props}
 			size="lg"
 			aria-labelledby="contained-modal-title-vcenter"
-			
 			>
+
 			<Modal.Header>
 			<Modal.Title id="contained-modal-title-vcenter">
 			Setting Algorthm
 			</Modal.Title>
 			</Modal.Header>
+
 			<Modal.Body>
 			<div>
 			<div className="FontTitle">
@@ -53,6 +63,13 @@ class NextAlgorthm extends PureComponent {
 			placeholder="Enter min sup"
 			className="Inputfields"
 			onChange={this.handleChange} />
+			<div className="tooltipNoti">
+			<span className={!this.state.tooltipmin_supf ? 
+				"tooltiptext":
+				"tooltipActive"}>
+			{'0<min_supf<1'}
+			</span>
+			</div>
 			</div>
 
 			<div className="InputGroup">
@@ -62,11 +79,19 @@ class NextAlgorthm extends PureComponent {
 			placeholder="Enter min conf"
 			className="Inputfields"
 			onChange={this.handleChange} />
+						<div className="tooltipNoti">
+			<span className={!this.state.tooltipmin_conf ? 
+				"tooltiptext":
+				"tooltipActive"}>
+			{'0<min_supf<1'}
+			</span>
+			</div>
 			</div>
 
 			</div>
 			
 			</Modal.Body>
+
 			<Modal.Footer>
 			<Button 
 			onClick={this.props.onNeHide}
@@ -76,7 +101,7 @@ class NextAlgorthm extends PureComponent {
 			<Link to={{
 				pathname:'/algorthm',
 				datasend: {
-					ChooseAl: this.props.listdata,
+					ChooseAl:this.props.listdata,
 					min_supf:this.state.min_supf,
 					min_conf:this.state.min_conf
 				}

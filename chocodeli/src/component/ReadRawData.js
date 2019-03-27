@@ -45,16 +45,18 @@ class ReadRawData extends PureComponent {
 		
 		if(this.state.result.length>0){
 		return (   
-
+			<div className='containRRD'>
 			<div id="content">
-
+			
 			<Title title={"Your data"}/>
-
+			<div className="row">
 			<Infomation Algorthm={"Size file: "}
 			minCof={"Column: "}
 			minSup={"Row: "}/>
 
 			<Tables data={this.state.result}/>
+			</div>
+			</div>
 			</div>
 			)
 		}

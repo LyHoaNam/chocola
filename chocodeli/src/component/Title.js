@@ -14,7 +14,7 @@ class Title extends PureComponent {
         let modalClose = () => this.setState({ seShow: false });
         let modalOpen = () => this.setState({seShow:true});
         return (
-            <div className="row">
+            <div className='row'>
             <div className="col-lg-6 pad20">
             <p className="titleContent">{this.props.title} </p>
             </div>

@@ -3,8 +3,8 @@ import Loading from "./Loading";
 import Infomation from "./Infomation";
 import '../style/chill.css';
 import Title from "./Title";
-import Content from "./Content";
-class Fpgrowth extends PureComponent {
+import Tables from "./Tables";
+class Apiori extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ class Fpgrowth extends PureComponent {
     
   }
   componentDidMount () {
-    if(localStorage.getItem('Fpgrowth')){
+    if(localStorage.getItem('Apiori')){
       this.setDataToState();  
     }
     else{
@@ -24,18 +24,18 @@ class Fpgrowth extends PureComponent {
     }
   }
   setDataToState(){
-    let tempdata= localStorage.getItem('Fpgrowth');
+    let tempdata= localStorage.getItem('Apiori');
       tempdata=JSON.parse(tempdata);
       this.setState({result:tempdata.rules,
         min_sup:tempdata.min_sup,
         min_conf:tempdata.min_conf});
   }
   getData() {
-    fetch('http://localhost:5000/api/fpgrowth')
+    fetch('http://localhost:5000/api/apiori')
     .then(res=>res.json())
     .then(result=>
     {
-      localStorage.setItem("Fpgrowth",JSON.stringify(result));
+      localStorage.setItem("Apiori",JSON.stringify(result));
       this.setDataToState();
     }
     )
@@ -57,7 +57,7 @@ class Fpgrowth extends PureComponent {
       minCof={"Column: "}
       minSup={"Row: "}/>
 
-      <Content Data={this.state.result}/>
+      <Tables data={this.state.result}/>
       </div>
       )
     }
@@ -66,4 +66,4 @@ class Fpgrowth extends PureComponent {
 
   }
 }
-export default Fpgrowth;
+export default Apiori;

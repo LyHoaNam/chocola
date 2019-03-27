@@ -39,7 +39,7 @@ class SetAlgorthm extends PureComponent {
 		let ShowAssoRule = ()=> this.setState({showRule:"displayBlock",
 			Apyori:true, fpgrowth:true});
 		let showApiori = ()=>this.setState({Apyori:!this.state.Apyori});
-		let showFpgrowth = ()=> this.setState({Fpgrowth:!this.state.Fpgrowth});
+		let showFpgrowth = ()=>this.setState({fpgrowth:!this.state.fpgrowth});
 		return (
 			<div>
 			<Modal
