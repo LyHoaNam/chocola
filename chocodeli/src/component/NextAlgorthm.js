@@ -9,7 +9,8 @@ class NextAlgorthm extends PureComponent {
 			min_conf: '',
 			min_supf: '',
 			tooltipmin_conf: false,
-			tooltipmin_supf:false
+			tooltipmin_supf:false,
+			check:false
 		}
 		this.handleChange=this.handleChange.bind(this);
 	}
@@ -20,11 +21,14 @@ class NextAlgorthm extends PureComponent {
 
   	if( value>0 && value <=1 )
   		{
-  			this.setState({[tooltipname]:false});}
+  			this.setState({[tooltipname]:false,
+  				check:true});}
   	else
-  		this.setState({[tooltipname]:true});
+  		this.setState({[tooltipname]:true,
+  			check:false});
   	this.setState({[name]: value});
   }
+
 	render(){
 		return(
 			<Modal
@@ -98,16 +102,24 @@ class NextAlgorthm extends PureComponent {
 			className="Close">Back</Button>
 			 
 			<Button className="Next">
-			<Link to={{
+			{
+				 this.state.check ? ( 
+				<Link to={{
 				pathname:'/algorthm',
 				datasend: {
 					ChooseAl:this.props.listdata,
 					min_supf:this.state.min_supf,
-					min_conf:this.state.min_conf
-				}
+					min_conf:this.state.min_conf }
 			}}>
 			Finish
+			{
+				sessionStorage.getItem('datasend') ?
+				sessionStorage.removeItem('datasend'): ""
+			}
 			</Link>
+			):
+				'Finish'	}
+
 			</Button>
 
 			</Modal.Footer>

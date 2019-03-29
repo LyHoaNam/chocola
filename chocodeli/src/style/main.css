@@ -252,7 +252,7 @@ p {
 }
 .OverFlow {
 	 overflow:auto;
-width: inherit;
+	width: inherit;
     height: -webkit-fill-available;
 }
 .ContainRightText{
@@ -270,4 +270,13 @@ width: inherit;
 .BtnYourData:hover {
 	background-color: #eeeeee;
 	border-radius: 15px;
+}
+.containtAlG{
+	padding-top: 15px;
+  position: fixed;
+  width: 100%;
+}
+.Listmenu{
+	height: 100%;
+	padding: 50px 0px 50px 30px;
 }

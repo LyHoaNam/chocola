@@ -19,11 +19,11 @@ class SetAlgorthm extends PureComponent {
 		let Count=0;
 		if(this.state.Apyori)
 		{
-			Datatonext.push("Apyori");
+			Datatonext.push("apiori");
 			Count++;
 		}
 		if(this.state.fpgrowth){
-			Datatonext.push("Fpgrowth");
+			Datatonext.push("fpgrowth");
 			Count++;
 		}
 		if(Count>0){

@@ -51,7 +51,9 @@ class Apiori extends PureComponent {
 
       <div id="content">
 
-      <Title title={"Your data"}/>
+            <span className="titleAlgo">
+      Algorthm: Fpgrowth
+      </span>
 
       <Infomation Algorthm={"Size file: "}
       minCof={"Column: "}

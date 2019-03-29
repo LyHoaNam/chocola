@@ -2,15 +2,13 @@ import React, { PureComponent, Suspense, lazy } from 'react';
 import	Header from './Header';
 import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-const Result = lazy(()=> import('./Result'));
+import Result from "./Result";
 const ReadRawData = lazy(()=> import('./ReadRawData'));
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
-  this.state ={
-    showContent:"fpgrowth"
-    }
+
   }
 
 
@@ -28,8 +26,7 @@ class App extends PureComponent {
         <Switch>
           <Route exact path='/' render={()=><ReadRawData/>} />
           <Route path='/algorthm' 
-          render={(props)=> <Result {...props} 
-          showContent={this.state.showContent}/>} />
+          render={props=> <Result  {...props} algorthm={'fpgrowth'}/>} />
           </Switch>
       </div>
       </Suspense>

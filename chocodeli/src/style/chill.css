@@ -239,3 +239,40 @@
   position: absolute;
   width: 100%;
 }
+.titleAlgo {
+  font-weight: 700;
+  font-size:1.2em;
+  color: #999999;
+  padding: 30px 15px;
+}
+.menu {
+  min-width: 270px;
+  min-height: 70px;
+  z-index: 3;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+.menuTitle {
+  font-weight: 700;
+  color: #004C9E;
+  font-size: 1em;
+}
+.menuInfo {
+  font-weight: 400;
+  color: rgb(102,102,102);  ;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+.menu:hover{
+  background-color: #77D9FF;
+  color: #ffff;
+  cursor: pointer;
+}
+.menu:hover .menuTitle {
+  color:#ffff;
+}
+.menu:hover .menuInfo{
+  color:#eeeeee;
+}
