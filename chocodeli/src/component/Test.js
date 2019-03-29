@@ -1,23 +1,27 @@
 import React, {PureComponent} from "react";
-import "../style/main.css";
+import '../style/chill.css';
+
 import Menulist from "./Menulist";
 import Loading from "./Loading";
-import Apiori from "./Apiori";
-import Fpgrowth from "./Fpgrowth";
-
-class Result extends PureComponent {
+class Test extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
+ this.state = {
       result: null, 
       min_conf: null,
       min_sup:null,
       listAl: null
     };
-
+    
   }
-
+ 
   componentDidMount () {
+    let urltest=this.props.match.params.id;
+    console.log('urltest',urltest);
+        if(urltest!=='')
+        console.log("test",this.props.match.params.id);
+      else
+    console.log('test/');
     //check session exist?
     if(sessionStorage.getItem('datasend')) {
       this.setDatasend();
@@ -29,45 +33,27 @@ class Result extends PureComponent {
     }
   }
   setDatasend(){
-    //get data from Next Algorthm and setState
+    //set state
     let tempdata=sessionStorage.getItem('datasend');
     tempdata=JSON.parse(tempdata);
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
       listAl:tempdata.ChooseAl})
   }
-  writeContent(){
-    //write result of algorthm
-    let nameAlgorthm = this.props.match.params.id;
-    switch(nameAlgorthm){
-      case 'fpgrowth':
-      return  <Fpgrowth 
-      min_conf= {this.state.min_conf} 
-       min_supf= {this.state.min_sup}/>;
-      case 'apiori':
-      return <Apiori 
-      min_conf = {this.state.min_conf} 
-      min_supf = {this.state.min_sup}/>;
-      default:
-       return 'err some thing';
-    }
+  render(){ 
 
-  }
-
-  render() {
-    if(this.state.listAl){
-      let listAlgorthm=this.state.listAl;
-      //get id from url
-
-      let showcontent = this.writeContent();
+      if(this.state.listAl){
+      let list = [];
+      list=this.state.listAl;
       return (
+
         <div className="containtAlG">
         <div className="row">
         <div className='col-lg-3'>
         <div className='Listmenu'>
         {
 
-          listAlgorthm.map((Name,index)=>  
+          list.map((Name,index)=>  
             <Menulist key={index} 
             algorthm={Name} 
             min_conf={this.state.min_conf}
@@ -79,13 +65,14 @@ class Result extends PureComponent {
         </div>
         </div>
         <div className="col-lg-9">
-        {showcontent}
+
         </div>
         </div>
         </div>
+
         )      
     }
     else return <Loading />
-  }
-};
-export default Result;
+}
+}
+export default Test;

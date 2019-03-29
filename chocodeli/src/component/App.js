@@ -3,20 +3,13 @@ import	Header from './Header';
 import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Result from "./Result";
+import Test from "./Test";
 const ReadRawData = lazy(()=> import('./ReadRawData'));
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-  }
 
 
-  //this fuction get data from child
-  myCallback = (dataFromChild) => {
-        this.setState({showContent:dataFromChild})
-     
-    }
+
   render() {
      return (
       <Router>
@@ -25,8 +18,9 @@ class App extends PureComponent {
         <Header callbackFromParent={this.myCallback} />      
         <Switch>
           <Route exact path='/' render={()=><ReadRawData/>} />
-          <Route path='/algorthm' 
-          render={props=> <Result  {...props} algorthm={'fpgrowth'}/>} />
+          <Route path='/algorthm/:id' 
+          render={(props)=> <Result  {...props}/>} />
+          <Route path='/test/:id' render={(props)=><Test  {...props}/>} />
           </Switch>
       </div>
       </Suspense>

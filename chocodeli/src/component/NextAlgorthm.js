@@ -105,7 +105,7 @@ class NextAlgorthm extends PureComponent {
 			{
 				 this.state.check ? ( 
 				<Link to={{
-				pathname:'/algorthm',
+				pathname:'/algorthm/'+this.props.listdata[0],
 				datasend: {
 					ChooseAl:this.props.listdata,
 					min_supf:this.state.min_supf,
