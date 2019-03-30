@@ -273,10 +273,13 @@ p {
 }
 .containtAlG{
 	padding-top: 15px;
-  position: fixed;
+  position: relative;
   width: 100%;
 }
 .Listmenu{
 	height: 100%;
 	padding: 50px 0px 50px 30px;
+}
+.marginright0 {
+	margin-right: 0;
 }

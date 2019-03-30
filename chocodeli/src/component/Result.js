@@ -62,7 +62,7 @@ class Result extends PureComponent {
       let showcontent = this.writeContent();
       return (
         <div className="containtAlG">
-        <div className="row">
+        <div className="row marginright0">
         <div className='col-lg-3'>
         <div className='Listmenu'>
         {
@@ -71,7 +71,7 @@ class Result extends PureComponent {
             <Menulist key={index} 
             algorthm={Name} 
             min_conf={this.state.min_conf}
-            min_supf={this.state.min_supf}/>
+            min_supf={this.state.min_sup}/>
 
             )
         }
