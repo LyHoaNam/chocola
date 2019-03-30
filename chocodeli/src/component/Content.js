@@ -2,68 +2,124 @@ import React, {PureComponent} from "react";
 import "../style/main.css";
 import PropTypes from "prop-types";
 import AssoRule from "./AssoRule";
-import ReadRawData from "./ReadRawData";
+import {Table} from "react-bootstrap";
+import InfiniteScroll from 'react-infinite-scroller';
 class Content extends PureComponent {
 	constructor(props){
 		super(props);
     this.state ={
-      textChange: "",
-      Show: this.props.Show,
-      Data: this.props.Data
+      inputValue: '',
+      ruler:30,
+      hasMoreItem:true,
+      table: this.props.data.slice(0,30),
+      original: this.props.data
     }
-        this.filterItem=this.filterItem.bind(this);
-        this.handleChange=this.handleChange.bind(this);
-	}
-  componentWillReceiveProps(nextProps){ 
-  if(nextProps.Show !== this.props.Show)
-    this.setState({Show: nextProps.Show,
-      Data: this.props.Data});
-
-}
-  handleChange(event) {
-    this.setState({textChange:event.target.value});
+    this.loadFunc = this.loadFunc.bind(this);
+    this.filterFunc=this.filterFunc.bind(this);
   }
-  filterItem() 
-  {
-    if(this.state.textChange === "")
-      return this.props.Data;
-    else {
-      let olrule=this.props.Data;
-      let filrule =[];
-      for(let i=0;i<olrule.length;i++) {
-        for (let key in olrule[i])
-          if(olrule[i][key].indexOf(this.state.textChange)!==-1)
-          filrule.push(olrule[i])
+
+  loadFunc(){
+    //get a next of check point
+    if(this.state.hasMoreItem){
+   let limit = this.props.data.length;
+    let startpoint = this.state.ruler;
+    let endpoint=0;
+    if(startpoint+30>limit)
+    {
+      endpoint=limit;
+      this.setState({hasMoreItem:false});
+    }
+    else
+      endpoint=startpoint+30;
+    let tables = this.state.original.slice(0,endpoint);
+    this.setState({table:tables,
+      ruler:endpoint});
+    }
+
+  }
+  filterFunc(e){
+    //search value of input search
+    let masterData = this.props.data;
+    let toSearch= e.target.value;
+    let searchData = [];
+    if(toSearch !=="")
+      {masterData.filter(item =>
+        { 
+          if(item.includes(toSearch)===true)
+          searchData.push(item);
+        })
+      }   
+      else {
+        searchData=masterData;
       }
-      return filrule;
+      this.setState({inputValue:toSearch,original:searchData,
+       hasMoreItem:false});
     }
+  writeFunc(){
+    let result=[];
+    if(this.state.table.length>0)
+      {this.state.table.map((record,index)=>
+        {     
+          result.push(  
+          <tr key={index}>
+          <td key={'i'+index}> {index+1} </td>
+          <td>
+          {record.fist.map((item,i) => (
+            <div key={i}>{item}</div>
+            ))}
+          </td>
+          <td key={"tdn"+index}>
+          {record.next.map((item,i) => (
+            <div key={i}>{item}</div>
+            ))}
+          </td>
+          </tr>
+          )
+    })}
+    return result;
   }
-	render(){
-    console.log("SHow",this.state.Show);
-    console.log("Data",this.props.Data);
-    let data=this.filterItem();
-		return (
-	<div className="col-lg-12">
-      <div className="Infomation martop10">
-      <div className="DetailContent">
-	      <span className="DetailInfo">
-	      Result
-	       </span>
-	       <span className="SerachButton">
-	        <input type="text" className="form-control"  placeholder="Search" 
-            value={this.state.textChange} onChange={this.handleChange} />
-	       </span>
-	     </div>
-	     <div className="OverFlow">
-          <AssoRule Data={this.props.Data}/>
-      </div>
-      </div>
-      </div>
+  render(){
+    let items=this.writeFunc();
+    return (
+     <div className="col-lg-12">
+     <div className="Infomation martop10">
+     <div className="DetailContent">
+     <span className="DetailInfo">
+     Result
+     </span>
+     <span className="SerachButton">
+     <input type="text" className="form-control"  placeholder="Search" 
+     value={this.state.textChange} onChange={this.handleChange} />
+     </span>
+     </div>
+     <div className="OverFlow">
+      <InfiniteScroll
+     pageStart={0}
+     loadMore={()=>this.loadFunc()}
+     hasMore={this.state.hasMoreItem}
+     loader={<div className="loader" key={0}>Loading ...</div>}
+     useWindow={false}
+     >
+     <Table responsive>
+     <thead>
+     <tr>
+     <th>No</th>
+     <th>Buy Product</th>
+     <th scope="col">Recomend Product</th>
+     </tr>
+     </thead>
+     <tbody>
+     {items}
+     </tbody>
+     
+     </Table>
+     </InfiniteScroll>
+     </div>
+     </div>
+     </div>
 
-			)
-	}
+     )
+  }
 };
-Content.propTypes = {
-  data: PropTypes.array
-};
+
 export default Content;

@@ -1,38 +1,29 @@
-import React, { PureComponent } from 'react';
-import	Menu from './Menu';
-import Result from './Result';
+import React, { PureComponent, Suspense, lazy } from 'react';
+import	Header from './Header';
 import Loading from './Loading';
-import ReadRawData from './ReadRawData';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Result from "./Result";
+import Test from "./Test";
+const ReadRawData = lazy(()=> import('./ReadRawData'));
+
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  this.state ={
-    showContent:"fpgrowth"
-    }
-  }
 
 
-  //this fuction get data from child
-  myCallback = (dataFromChild) => {
-        this.setState({showContent:dataFromChild})
-     
-    }
+
   render() {
-
      return (
       <Router>
-      
+      <Suspense fallback= {<Loading />}>
       <div className="wrapper">
-
-        <Menu callbackFromParent={this.myCallback} />      
+        <Header callbackFromParent={this.myCallback} />      
         <Switch>
-          <Route exact path='/readdata' component={ReadRawData} />
-          <Route path='/' 
-          render={(props)=> <Result {...props} 
-          showContent={this.state.showContent}/>} />
+          <Route exact path='/' render={()=><ReadRawData/>} />
+          <Route path='/algorthm/:id' 
+          render={(props)=> <Result  {...props}/>} />
+          <Route path='/test/:id' render={(props)=><Test  {...props}/>} />
           </Switch>
       </div>
+      </Suspense>
       </Router>
     );
   }

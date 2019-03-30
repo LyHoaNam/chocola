@@ -20,6 +20,7 @@ componentWillReceiveProps(nextProps){
 			<Table responsive>
 			<thead>
 			<tr>
+			<th>No</th>
 			<th>Buy Product</th>
 			<th scope="col">Recomend Product</th>
 			</tr>

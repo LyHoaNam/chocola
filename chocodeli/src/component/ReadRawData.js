@@ -1,82 +1,68 @@
 import React, {PureComponent} from "react";
-import {Table} from "react-bootstrap";
 import Loading from "./Loading";
 import Infomation from "./Infomation";
+import '../style/chill.css';
+import Title from "./Title";
+import Tables from "./Tables";
 class ReadRawData extends PureComponent {
 	constructor(props) {
 		super(props);
+
 		this.state ={
-			result: ''
+			result: [],
+			seShow: false,
 		}
+		
 	}
 	componentDidMount () {
-		this.getData();
+		if(localStorage.getItem('rawdata')){
+			this.setDataToState();	
+		}
+		else{
+			this.getData();
+		}
+	}
+	setDataToState(){
+		let tempdata= localStorage.getItem('rawdata');
+			tempdata=JSON.parse(tempdata);
+			this.setState({result:tempdata.data});
 	}
 	getData() {
 		fetch('http://localhost:5000/rawdata')
 		.then(res=>res.json())
 		.then(result=>
 		{
-			this.setState({result: result.data})
+			localStorage.setItem("rawdata",JSON.stringify(result));
+			this.setDataToState();
 		}
 		)
 		.catch(e=>e);   
 		console.log("err");
 
 	}
+
 	render(){ 
+		
+		if(this.state.result.length>0){
+		return (   
+			<div className='containRRD'>
+			<div id="content">
+			
+			<Title title={"Your data"}/>
+			<div className="row">
+			<Infomation Algorthm={"Size file: "}
+			minCof={"Column: "}
+			minSup={"Row: "}/>
 
-		if(this.state.result)
-		{
-			return (   
-				<div id="content">
+			<Tables data={this.state.result}/>
+			</div>
+			</div>
+			</div>
+			)
+		}
+		else
+			return <Loading />
 
-				<div className="row">
-				<div className="col-lg-12 pad10">
-				<div className="col-lg-6">
-				<p className="titleContent">Algorthm: </p>
-				</div>
-				</div>
-				</div>
-
-				<Infomation/>
-
-				<div className="col-lg-12">
-				<div className="Infomation martop10">
-				<div className="DetailContent">
-				<span className="DetailInfo">
-				Result
-				</span>
-				<span className="SerachButton">
-				<input type="text" className="form-control"  placeholder="Search" 
-				value={this.state.textChange} onChange={this.handleChange} />
-				</span>
-				</div>
-				<div className="OverFlow">
-				<Table responsive>
-				<tbody>
-				{
-					this.state.result.map((record,index)=>
-						<tr key ={index}>
-						{record.map((item,i)=>
-							<td key={i}>{item}</td>
-							)
-						}
-						</tr>
-						)
-
-					}
-
-
-					</tbody>
-					</Table>
-					</div>
-					</div>
-					</div>
-					</div>
-					)
-				}
-				else return <Loading />
-			}
 	}
-	export default ReadRawData;
+}
+export default ReadRawData;

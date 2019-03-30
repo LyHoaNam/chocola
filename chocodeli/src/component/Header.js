@@ -1,36 +1,40 @@
 import React, { PureComponent } from "react";
 import "../style/main.css";
-
-import PropTypes from "prop-types";
+import {Link } from 'react-router-dom';
 class Header extends PureComponent {
+	constructor(props) {
+		super(props);
+		this.state = {
+			alg: null,
+			active: true
+		};
+		this.handleClick = this.handleClick.bind(this);
+	}
+	handleClick(algorithm){
+		if(algorithm != null)
+		{
+    		this.props.callbackFromParent(algorithm);
+    		this.setState({active: algorithm});
+		}
 
-	  handleChange = event => {
-	    this.props.textChange(event);
-  };
-  render() {
-    return (
-<nav className="navbar navbar-light bg-light">
-		<div className="leftnav">
-			<button className="pad10 btnsidebar"  id="clickmenu"> 
-				<i className="fas fa-bars purplecolor menunav"></i>	
-				</button>	
-			<span>
-				<strong>MENU</strong>
+	}
+
+	render() {
+		return (
+			<nav id="sidebar">
+			<div className="logoContainer">
+			<img src={require('../img/color-logo.png')} className="LogoInMenu" alt="logo"/>
+			</div>
+
+			<div className="ContainRightText">
+			<span className="BtnYourData">
+			<Link to={'/'}>
+			Your Data
+			</Link>
 			</span>
-			
-		</div>
-		<div className="centernav">
-			 <div className="input-group stylish-input-group">
-                    <input type="text" className="form-control"  placeholder="Search" 
-                    onChange={this.handleChange}/>
-                </div>
-		</div>
-
-	</nav>
-    );
-  }
+			</div>
+			</nav>
+			);
+	}
 }
-Header.propTypes ={
-	textChange: PropTypes.func
-};
 export default Header;
