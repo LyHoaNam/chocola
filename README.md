@@ -15,6 +15,7 @@ Fpgrowth algorithm -Run it in cmd: pip install pyfpgrowth
 
 Apiory algorithm -Run it in cmd: pip install pyfpgrowth pip install apyori
 
+
 Install Flask py -3 -m venv venv 
 pip install Flask 
 pip install -U flask-cors
@@ -25,6 +26,12 @@ pip install jupyter
 python -m pip install -U pip
 python -m pip install -U matplotlib
 pip install apyori
+
+Install Flask py -3 -m venv venv pip install Flask pip install -U flask-cors pip install wheel pip install pandas pip install pyfpgrowth pip install jupyter
+kmean:
+Install: 
+pip install -U scikit-learn
+
 ... START
 
 Start python backend -open folder cacao-choco -run cmd: python getData.py -> It starts with port 5000 (localhost:5000)
