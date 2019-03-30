@@ -28,7 +28,17 @@ class NextAlgorthm extends PureComponent {
   			check:false});
   	this.setState({[name]: value});
   }
-
+  removeCache(){
+  	//remove session datasend (obj = {minsup... min conf...})
+  	sessionStorage.getItem('datasend') ?
+				sessionStorage.removeItem('datasend'): "";
+				//remove localStorage fpgrowth
+				localStorage.getItem('fpgrowth')?
+				localStorage.removeItem('fpgrowth'): "";
+				//remove localStorage apiori
+				localStorage.getItem('apiori')?
+				localStorage.removeItem('apiori'): "";
+  }
 	render(){
 		return(
 			<Modal
@@ -113,8 +123,8 @@ class NextAlgorthm extends PureComponent {
 			}}>
 			Finish
 			{
-				sessionStorage.getItem('datasend') ?
-				sessionStorage.removeItem('datasend'): ""
+				this.removeCache()
+				
 			}
 			</Link>
 			):

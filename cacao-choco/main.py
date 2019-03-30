@@ -11,11 +11,7 @@ import readData as rd
 #Where to save file
 UPLOAD_FOLDER = './container/'
 #import CountFile module
-import importlib.util
-
-spec = importlib.util.spec_from_file_location("module.name", UPLOAD_FOLDER+"/countfile.py")
-foo = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(foo)
+import countfile as file
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -28,7 +24,7 @@ def home():
 def result():
 
 	#Count file in folder container
-	NameofFile = foo.CountofFile()+1
+	NameofFile = file.CountofFile()+1
 	recive = "null"	
 	if request.method== "POST":
 		recive=request.files["key"]
@@ -42,14 +38,22 @@ def api_raw():
 	return jsonify(obj_data)
 @app.route('/api/fpgrowth')
 def api_fp():
+	#read url parameters min sup and min conf
+	minsup = request.args.get('minsup',type = float)
+	minconf = request.args.get('minconf',type = float)
+	#read file csv in folder container
 	store_data=rd.readCSV()
-	result_fpgrowth= fp.fpgrowth(store_data,4,0.9)
+	result_fpgrowth= fp.fpgrowth(store_data,minsup,minconf)
 	return jsonify(result_fpgrowth)
 @app.route('/api/apiori')
 def api_ap():
-	dataFileName="./container/"+str(foo.CountofFile()+1)+".csv"
-	store_data = pd.read_csv(dataFileName,header=None, keep_default_na=False)
-	result_apyori = ap.apyori_ar(store_data,0.045,0.7)
+	#read url parameters min sup and min conf
+	minsup = request.args.get('minsup',type = float)
+	minconf = request.args.get('minconf',type = float)
+	#read file csv in folder container
+	dataFileName=rd.readCSV()
+	store_data = rd.readCSV()
+	result_apyori = ap.apyori_ar(store_data,minsup,minconf)
 	return jsonify(result_apyori)
 # @app.route('/api/kmean')
 # def api_kmean():

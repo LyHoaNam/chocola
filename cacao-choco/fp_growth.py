@@ -1,8 +1,9 @@
 import pyfpgrowth as fp
 
-def fpgrowth(records, minsup=4,minconf=0.7):
-
-	patterns = fp.find_frequent_patterns(records, minsup)
+def fpgrowth(records, minsup=0.4,minconf=0.7):
+	#get len want to show 
+	minlen = round(minsup*10,0)
+	patterns = fp.find_frequent_patterns(records, minlen)
 	rules = list(fp.generate_association_rules(patterns, minconf))
 	data = {}
 	arr =[]
@@ -17,5 +18,4 @@ def fpgrowth(records, minsup=4,minconf=0.7):
 	data["rules"]=arr
 	data["min_sup"]= minsup
 	data["min_conf"]=minconf
-	
 	return data

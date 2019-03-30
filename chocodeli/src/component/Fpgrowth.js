@@ -30,7 +30,10 @@ class Fpgrowth extends PureComponent {
         min_conf:tempdata.min_conf});
   }
   getData() {
-    fetch('http://localhost:5000/api/fpgrowth')
+    console.log(`http://localhost:5000/api/fpgrowth?minsup=${this.state.min_sup}`+
+      `&minconf=${this.state.min_conf}`);
+    fetch(`http://localhost:5000/api/fpgrowth?minsup=${this.state.min_sup}`+
+      `&minconf=${this.state.min_conf}`)
     .then(res=>res.json())
     .then(result=>
     {

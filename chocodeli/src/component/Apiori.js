@@ -30,7 +30,9 @@ class Apiori extends PureComponent {
         min_conf:tempdata.min_conf});
   }
   getData() {
-    fetch('http://localhost:5000/api/apiori')
+    //http://localhost:5000/api/apiori?minsup=0.45&minconf=0.2
+    fetch(`http://localhost:5000/api/apiori?minsup=${this.state.min_sup}`+
+      `&minconf=${this.state.min_conf}`)
     .then(res=>res.json())
     .then(result=>
     {

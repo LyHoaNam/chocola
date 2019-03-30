@@ -5,17 +5,8 @@ from apyori import apriori
 import json
 
 def apyori_ar(dataset,minsup=0.045,minconf=0.7):
-    records = []
-    #dataset have col: 20, row: 7501
-    for i in range(0,7501):
-        temps = []
-        for j in range(0,20):
-            if (dataset.values[i,j] == ''):
-                break   
-            else:
-                temps.append(str(dataset.values[i,j]))
-        records.append(temps)
-    associantion_rules = apriori(records, min_support=0.0045, min_confidence=0.2, min_lift=3, min_length=2)  
+    minsupport=minsup*0.01
+    associantion_rules = apriori(dataset,  min_support=minsupport, min_confidence=minconf, min_lift=3, min_length=1)  
     association_results=list(associantion_rules)
     data = {}
     arr= []
