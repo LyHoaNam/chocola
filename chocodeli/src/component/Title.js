@@ -16,7 +16,7 @@ class Title extends PureComponent {
             tempdata=JSON.parse(tempdata);
             let linkto= tempdata.ChooseAl[0];
             return <Button variant="primary" className="GetStart">
-            <Link to={'/algorthm/'+linkto}>
+            <Link to={'/algorthm/'+linkto} className="whiretext">
             Your algorthm
             </Link>
             </Button>

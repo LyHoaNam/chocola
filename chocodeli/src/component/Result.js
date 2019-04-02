@@ -12,6 +12,7 @@ class Result extends PureComponent {
       result: null, 
       min_conf: null,
       min_sup:null,
+      min_len:null,
       listAl: null
     };
 
@@ -34,6 +35,7 @@ class Result extends PureComponent {
     tempdata=JSON.parse(tempdata);
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
+      min_len:tempdata.min_len,
       listAl:tempdata.ChooseAl})
   }
   writeContent(){
@@ -43,11 +45,13 @@ class Result extends PureComponent {
       case 'fpgrowth':
       return  <Fpgrowth 
       min_conf= {this.state.min_conf} 
-       min_supf= {this.state.min_sup}/>;
+       min_supf= {this.state.min_sup}
+       min_len={this.state.min_len}/>;
       case 'apiori':
       return <Apiori 
       min_conf = {this.state.min_conf} 
-      min_supf = {this.state.min_sup}/>;
+      min_supf = {this.state.min_sup}
+      min_len={this.state.min_len}/>;
       default:
        return 'err some thing';
     }
@@ -71,7 +75,8 @@ class Result extends PureComponent {
             <Menulist key={index} 
             algorthm={Name} 
             min_conf={this.state.min_conf}
-            min_supf={this.state.min_sup}/>
+            min_supf={this.state.min_sup}
+            min_len={this.state.min_len}/>
 
             )
         }

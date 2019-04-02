@@ -50,9 +50,9 @@ class ReadRawData extends PureComponent {
 			
 			<Title title={"Your data"}/>
 			<div className="row">
-			<Infomation Algorthm={"Size file: "}
-			minCof={"Column: "}
-			minSup={"Row: "}/>
+			<Infomation Content1={"Size file: "}
+			Content2={"Column: "}
+			Content3={"Row: "}/>
 
 			<Tables data={this.state.result}/>
 			</div>

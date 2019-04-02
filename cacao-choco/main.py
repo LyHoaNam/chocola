@@ -39,21 +39,22 @@ def api_raw():
 @app.route('/api/fpgrowth')
 def api_fp():
 	#read url parameters min sup and min conf
-	minsup = request.args.get('minsup',type = float)
+	minlen = request.args.get('minlen',type = float)
 	minconf = request.args.get('minconf',type = float)
 	#read file csv in folder container
 	store_data=rd.readCSV()
-	result_fpgrowth= fp.fpgrowth(store_data,minsup,minconf)
+	result_fpgrowth= fp.fpgrowth(store_data,minlen,minconf)
 	return jsonify(result_fpgrowth)
 @app.route('/api/apiori')
 def api_ap():
 	#read url parameters min sup and min conf
 	minsup = request.args.get('minsup',type = float)
 	minconf = request.args.get('minconf',type = float)
+	minlen = request.args.get('minlen',type = float)
 	#read file csv in folder container
 	dataFileName=rd.readCSV()
 	store_data = rd.readCSV()
-	result_apyori = ap.apyori_ar(store_data,minsup,minconf)
+	result_apyori = ap.apyori_ar(store_data,minsup,minconf,minlen)
 	return jsonify(result_apyori)
 # @app.route('/api/kmean')
 # def api_kmean():
