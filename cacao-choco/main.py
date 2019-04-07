@@ -7,12 +7,13 @@ import urllib.request
 import fp_growth as fp 
 #import apiori algorthm
 import apiori as ap
+import kmean as km
 import readData as rd
 #Where to save file
 UPLOAD_FOLDER = './container/'
 #import CountFile module
 import importlib.util
-
+import numpy as np
 spec = importlib.util.spec_from_file_location("module.name", UPLOAD_FOLDER+"/countfile.py")
 foo = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(foo)
@@ -51,8 +52,10 @@ def api_ap():
 	store_data = pd.read_csv(dataFileName,header=None, keep_default_na=False)
 	result_apyori = ap.apyori_ar(store_data,0.045,0.7)
 	return jsonify(result_apyori)
-# @app.route('/api/kmean')
-# def api_kmean():
-# 	return 'kmean'
+@app.route('/api/kmean')
+def api_kmean():
+	result_optimum_cluster=km.defineOptimumCluster()
+	result_kmean=km.defineClusters(3)
+	return jsonify(result_kmean) 
 app.run(debug = True)
 flask_cors.CORS(app, expose_headers='Authorization')
