@@ -23,3 +23,5 @@ npm install node-sass --save
 npm install webpack-dev-server --save-dev
 #react router
 npm install react-router-dom
+#react scroller loading
+npm install react-infinite-scroller --save

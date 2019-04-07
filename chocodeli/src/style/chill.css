@@ -188,3 +188,91 @@
   font-size: 14px;  
   font-weight: 400;
 }
+.InputGroup {
+  width: inherit;
+  padding: 10px;
+
+}
+.Inputfields{
+  border-radius: 15px;
+  border:2px #dddddd solid;
+  width: 70%;
+  padding: 5px 10px;
+}
+.tooltipNoti {
+  position: relative;
+  display: inline-block;
+  height: 10px;
+}
+.tooltipNoti .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+.tooltipActive {
+  visibility: visible;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+.containRRD{
+  padding: 0 50px;
+  position: absolute;
+  width: 100%;
+}
+.titleAlgo {
+  font-weight: 700;
+  font-size:1.2em;
+  color: #999999;
+  padding: 30px 15px;
+}
+.menu {
+  min-width: 270px;
+  min-height: 70px;
+  z-index: 3;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+.menuTitle {
+  font-weight: 700;
+  color: #004C9E;
+  font-size: 1em;
+}
+.menuInfo {
+  font-weight: 400;
+  color: rgb(102,102,102);  ;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+.menu:hover{
+  background-color: #77D9FF;
+  color: #ffff;
+  cursor: pointer;
+}
+.menu:hover .menuTitle {
+  color:#ffff;
+}
+.menu:hover .menuInfo{
+  color:#eeeeee;
+}

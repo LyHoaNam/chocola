@@ -23,27 +23,6 @@
 .pad30 {
 	padding: 30px;
 }
-.purplebg {
-	background-color: #993366;
-	position: fixed;
-	z-index: 10;
-	width: 100%;
-	top: 60px;
-}
-.leftpurplenav {
-	margin-left: 0%;
-	padding-left: 30px;
-	color: white;
-}
-.titlenavpur {
-	padding-right: 10px;
-	font-size: 18px;
-}
-.rightnavpur {
-	margin-right: 0%;
-	color: white;
-	font-size: 18px;
-}
 .noborder {
     border-top-width: 0px !important;
 
@@ -57,31 +36,20 @@
 }
 
 #sidebar {
-	height: 100%;
-    width: 170px;
+	height: 50px;
+    width: 100%;
     position: fixed;
   	color: #000;
     z-index: 1; 
-    transition: all 0.3s;
-    margin-left: 0px;
-    padding-top: 15px;
-    padding-left: 15px;
+	padding: 5px 50px;
     background-color: #fff;
-    border-right-width: 2px;
-    padding-right: 15px;
 	top: 0px !important;
 }
-#sidebar.active {
-  
-    margin-left: -250px;
-}
+
 #content {
-	position: fixed;
+	position: relative;
 	transition: all 0.3s;
-	right: 0;
-	width: calc(100% - 180px);
-}
-#content.active {
+	top: 50px;
 	width: 100%;
 }
 .sidebar-header {
@@ -115,11 +83,6 @@
 	display: inline;
 	padding: 5px;
 	font-size: 12px;
-}
-.NameUser {
-	color: #b5b5b5;
-	padding-left: 10px;
-	padding-right: 10px;
 }
 .dropdown-content {
    display: none;
@@ -205,10 +168,12 @@
 	width: 100%;
 }
 .logoContainer {
-
+	position: relative;
 }
 .LogoInMenu {
-	height: 80%;
+	width: 7em;
+	top:50%;
+	position: absolute;
 }
 .ListMenu {
 	padding-top: 100px;
@@ -254,7 +219,7 @@
 	padding-left: 10px;
 }
 body {
-	background-color: #f8f9fa;
+	background-color:rgb(238, 238, 238);
 }
 .ContainerContent {
 	padding: 0px 15px;
@@ -287,6 +252,34 @@ p {
 }
 .OverFlow {
 	 overflow:auto;
-width: inherit;
+	width: inherit;
     height: -webkit-fill-available;
+}
+.ContainRightText{
+	display: inline;
+	float:right;
+	padding: 5px 0px;
+}
+.BtnYourData{
+	text-align: center;
+	color:#005b97 !important;
+	font-weight: 700;
+	font-size: 1.1em;
+	padding: 5px 10px;
+}
+.BtnYourData:hover {
+	background-color: #eeeeee;
+	border-radius: 15px;
+}
+.containtAlG{
+	padding-top: 15px;
+  position: relative;
+  width: 100%;
+}
+.Listmenu{
+	height: 100%;
+	padding: 50px 0px 50px 30px;
+}
+.marginright0 {
+	margin-right: 0;
 }

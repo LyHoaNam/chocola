@@ -1,63 +1,91 @@
 import React, {PureComponent} from "react";
 import "../style/main.css";
+import Menulist from "./Menulist";
 import Loading from "./Loading";
-import Infomation from "./Infomation";
-import Content from "./Content";
+import Apiori from "./Apiori";
+import Fpgrowth from "./Fpgrowth";
+
 class Result extends PureComponent {
   constructor(props) {
     super(props);
-  this.state = {
+    this.state = {
       result: null, 
-      min_conf: 0,
-      min_sup:0,
-      showcontent: this.props.showContent
+      min_conf: null,
+      min_sup:null,
+      listAl: null
     };
 
   }
-  componentDidMount () {
-    this.getData();
-  }
-componentWillReceiveProps(nextProps){ 
-  if(nextProps.showContent !== this.props.showContent)
-    this.setState({showcontent: nextProps.showContent},this.getData);
 
-}
-  getData() {
-     fetch(`http://127.0.0.1:5000/api/${this.state.showcontent}`)
-      .then(response => response.json())
-      .then(ruleData => this.setState({result:ruleData.rules,
-        min_sup:ruleData.min_sup,
-        min_conf:ruleData.min_conf
-      }))
-      .catch(e => e)
-   
+  componentDidMount () {
+    //check session exist?
+    if(sessionStorage.getItem('datasend')) {
+      this.setDatasend();
+    }
+    else{
+      sessionStorage.setItem('datasend',
+        JSON.stringify(this.props.location.datasend));
+      this.setDatasend();
+    }
+  }
+  setDatasend(){
+    //get data from Next Algorthm and setState
+    let tempdata=sessionStorage.getItem('datasend');
+    tempdata=JSON.parse(tempdata);
+    this.setState({min_conf:tempdata.min_conf,
+      min_sup:tempdata.min_supf,
+      listAl:tempdata.ChooseAl})
+  }
+  writeContent(){
+    //write result of algorthm
+    let nameAlgorthm = this.props.match.params.id;
+    switch(nameAlgorthm){
+      case 'fpgrowth':
+      return  <Fpgrowth 
+      min_conf= {this.state.min_conf} 
+       min_supf= {this.state.min_sup}/>;
+      case 'apiori':
+      return <Apiori 
+      min_conf = {this.state.min_conf} 
+      min_supf = {this.state.min_sup}/>;
+      default:
+       return 'err some thing';
+    }
+
   }
 
   render() {
-    if(this.state.result)
-    {
-    return (   
-      <div id="content">
-      
-        <div className="row">
-          <div className="col-lg-12 pad10">
-            <div className="col-lg-6">
-            <p className="titleContent">Algorthm: </p>
-            </div>
-          </div>
+    if(this.state.listAl){
+      let listAlgorthm=this.state.listAl;
+      //get id from url
+
+      let showcontent = this.writeContent();
+      return (
+        <div className="containtAlG">
+        <div className="row marginright0">
+        <div className='col-lg-3'>
+        <div className='Listmenu'>
+        {
+
+          listAlgorthm.map((Name,index)=>  
+            <Menulist key={index} 
+            algorthm={Name} 
+            min_conf={this.state.min_conf}
+            min_supf={this.state.min_sup}/>
+
+            )
+        }
+
         </div>
-       
-        <Infomation Algorthm={"Algorthm: "+this.state.showcontent}
-                    minCof={"min_conf: "+this.state.min_conf}
-                    minSup={"min_sup: "+this.props.min_sup}/>
-        <Content Data={this.state.result}
-                  Show={this.state.showcontent}/>
-      </div>
-
-      )
-      }
-      else return <Loading />
-
+        </div>
+        <div className="col-lg-9">
+        {showcontent}
+        </div>
+        </div>
+        </div>
+        )      
+    }
+    else return <Loading />
   }
 };
 export default Result;

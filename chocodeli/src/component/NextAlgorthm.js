@@ -1,35 +1,48 @@
 import React, {PureComponent} from "react";
 import "../style/chill.css";
-import {FormControl,InputGroup,Modal, Button} from  "react-bootstrap";
+import {Link } from 'react-router-dom';
+import {Modal, Button} from  "react-bootstrap";
 class NextAlgorthm extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state ={
 			min_conf: '',
-			min_supf: ''
+			min_supf: '',
+			tooltipmin_conf: false,
+			tooltipmin_supf:false,
+			check:false
 		}
+		this.handleChange=this.handleChange.bind(this);
 	}
-	updateMinCof(e){
-		if(e.target.value >0 & e.target.value <1)
-			this.setState({min_conf:e.target.value});
-	}
-	updateMinSup(e){
-		if(e.target.value >0 & e.target.value <1)
-		this.setState({min_supf:e.target.value});
-	}
+  handleChange(event) {
+  	const value= event.target.value;
+  	const name= event.target.name;
+  	const tooltipname = 'tooltip'+name;
+
+  	if( value>0 && value <=1 )
+  		{
+  			this.setState({[tooltipname]:false,
+  				check:true});}
+  	else
+  		this.setState({[tooltipname]:true,
+  			check:false});
+  	this.setState({[name]: value});
+  }
+
 	render(){
 		return(
 			<Modal
 			{...this.props}
 			size="lg"
 			aria-labelledby="contained-modal-title-vcenter"
-			
 			>
+
 			<Modal.Header>
 			<Modal.Title id="contained-modal-title-vcenter">
 			Setting Algorthm
 			</Modal.Title>
 			</Modal.Header>
+
 			<Modal.Body>
 			<div>
 			<div className="FontTitle">
@@ -46,32 +59,69 @@ class NextAlgorthm extends PureComponent {
 			<div className="FontTitle">
 			Setup
 			</div>
-			<InputGroup className="mb-3">
-			<FormControl
-			placeholder="min conf"
-			aria-label="min_conf"
-			aria-describedby="basic-addon1"
-			value={this.state.min_conf}
-			onChange={this.updateMinCof}
-			/>
-			</InputGroup>
 
-			<InputGroup className="mb-3">
-			<FormControl
-			placeholder="min sup"
-			aria-label="min_sup"
-			aria-describedby="basic-addon1"
-			value={this.state.min_supf}
-			onChange={this.updateMinSup}
-			/>
-			</InputGroup>
-			</div>	
+			<div className="InputGroup">
+			<input type="text" 
+			value={this.state.min_supf} 
+			name='min_supf'
+			placeholder="Enter min sup"
+			className="Inputfields"
+			onChange={this.handleChange} />
+			<div className="tooltipNoti">
+			<span className={!this.state.tooltipmin_supf ? 
+				"tooltiptext":
+				"tooltipActive"}>
+			{'0<min_supf<1'}
+			</span>
+			</div>
+			</div>
+
+			<div className="InputGroup">
+			<input type="text" 
+			value={this.state.min_conf}
+			name='min_conf' 
+			placeholder="Enter min conf"
+			className="Inputfields"
+			onChange={this.handleChange} />
+						<div className="tooltipNoti">
+			<span className={!this.state.tooltipmin_conf ? 
+				"tooltiptext":
+				"tooltipActive"}>
+			{'0<min_supf<1'}
+			</span>
+			</div>
+			</div>
+
+			</div>
+			
 			</Modal.Body>
+
 			<Modal.Footer>
-			<Button onClick={this.props.onNeHide}
+			<Button 
+			onClick={this.props.onNeHide}
 			className="Close">Back</Button>
-			<Button className="Next">Finish
+			 
+			<Button className="Next">
+			{
+				 this.state.check ? ( 
+				<Link to={{
+				pathname:'/algorthm/'+this.props.listdata[0],
+				datasend: {
+					ChooseAl:this.props.listdata,
+					min_supf:this.state.min_supf,
+					min_conf:this.state.min_conf }
+			}}>
+			Finish
+			{
+				sessionStorage.getItem('datasend') ?
+				sessionStorage.removeItem('datasend'): ""
+			}
+			</Link>
+			):
+				'Finish'	}
+
 			</Button>
+
 			</Modal.Footer>
 			</Modal>
 			)

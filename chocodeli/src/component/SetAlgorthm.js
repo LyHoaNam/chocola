@@ -9,7 +9,8 @@ class SetAlgorthm extends PureComponent {
 			Datatonext:null,
 			Apyori: false,
 			fpgrowth:false,
-			neShow:false
+			neShow:false,
+			showRule: 'displayNone'
 		}
 		this.ReadyToNext = this.ReadyToNext.bind(this);
 	}
@@ -18,11 +19,11 @@ class SetAlgorthm extends PureComponent {
 		let Count=0;
 		if(this.state.Apyori)
 		{
-			Datatonext.push("Apyori");
+			Datatonext.push("apiori");
 			Count++;
 		}
 		if(this.state.fpgrowth){
-			Datatonext.push("Fpgrowth");
+			Datatonext.push("fpgrowth");
 			Count++;
 		}
 		if(Count>0){
@@ -32,51 +33,60 @@ class SetAlgorthm extends PureComponent {
 		}
 		
 	}
+
 	render(){
-		let modalNeClose = ()=>this.setState({neShow:false});
-		let ShowAssoRule = ()=> this.setState({showRule:"displayBlock",Apyori:true, fpgrowth:true});
-		let CheckApyori = ()=>this.setState({Apyori:!this.state.Apyori});
-		let CheckFpgrowth = ()=>this.setState({fpgrowth:!this.state.fpgrowth});
-		
+		let modalNeClose = ()=>{this.setState({neShow:false});}
+		let ShowAssoRule = ()=> this.setState({showRule:"displayBlock",
+			Apyori:true, fpgrowth:true});
+		let showApiori = ()=>this.setState({Apyori:!this.state.Apyori});
+		let showFpgrowth = ()=>this.setState({fpgrowth:!this.state.fpgrowth});
 		return (
 			<div>
 			<Modal
 			{...this.props}
 			size="lg"
-			aria-labelledby="contained-modal-title-vcenter"
-			
-			>
+			aria-labelledby="contained-modal-title-vcenter">
+
 			<Modal.Header>
 			<Modal.Title id="contained-modal-title-vcenter">
 			Setting Algorthm
 			</Modal.Title>
 			</Modal.Header>
+
 			<Modal.Body>
 			<div className="FontTitle">
 			Choose Algorthm
 			</div>
 			<div>
+			{// Name of Algorthm
+			}
 			<label className="containerRadio"
-			onChange={ShowAssoRule}>Association rules
+			onChange={ShowAssoRule}>
+			Association rules
 			<input type="radio"  name="radio"/>
 			<span className="checkmarkdot"></span>
 			</label>
+
 			<div className={"ContainCheckbox " +this.state.showRule}>
-				<label className="Btncontainer"
-				onChange={CheckApyori}>Apyori
-				<input type="checkbox"  name="apyori" checked=
-				{this.state.Apyori} />
+				<label className="Btncontainer">Apyori
+				<input type="Checkbox"  
+				name="Apyori" 
+				checked={this.state.Apyori}
+				onChange={showApiori} />
 				<span className="checkmark"></span>
 				</label>
-				<label className="Btncontainer"
-				onChange={CheckFpgrowth}>Fpgrowth
-				<input type="checkbox"  name="fpgrowth" checked=
-				{this.state.fpgrowth}/>
+				<label className="Btncontainer">
+				Fpgrowth
+				<input type="Checkbox"  
+				name="fpgrowth" 
+				checked={this.state.fpgrowth}
+				onChange={showFpgrowth}/>
 				<span className="checkmark"></span>
 				</label>
 			</div>
 			</div>
 			</Modal.Body>
+
 			<Modal.Footer>
 			<Button onClick={this.props.onHide}
 			className="Close">Close</Button>
