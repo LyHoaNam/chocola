@@ -12,6 +12,8 @@ import readData as rd
 UPLOAD_FOLDER = './container/'
 #import CountFile module
 import countfile as file
+import readitem as item
+import predit as pred
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -19,6 +21,7 @@ app.config["DEBUG"] = True
 @app.route('/')
 def home():
    return 'home'
+
 # get file upload
 @app.route('/api',methods = ['POST', 'GET'])
 def result():
@@ -30,12 +33,16 @@ def result():
 		recive=request.files["key"]
 		recive.save(UPLOAD_FOLDER+str(NameofFile)+".csv")
 	return recive
+
+#read raw data
 @app.route('/rawdata')
 def api_raw():
 	store_data=rd.readCSV()
 	obj_data={}
 	obj_data['data']=store_data
 	return jsonify(obj_data)
+
+#run algorthm fpgrowth
 @app.route('/api/fpgrowth')
 def api_fp():
 	#read url parameters min sup and min conf
@@ -45,6 +52,8 @@ def api_fp():
 	store_data=rd.readCSV()
 	result_fpgrowth= fp.fpgrowth(store_data,minlen,minconf)
 	return jsonify(result_fpgrowth)
+
+#run algorthm apiori
 @app.route('/api/apiori')
 def api_ap():
 	#read url parameters min sup and min conf
@@ -59,5 +68,23 @@ def api_ap():
 # @app.route('/api/kmean')
 # def api_kmean():
 # 	return 'kmean'
+
+#return list item of data 		
+@app.route('/returnitem')
+def api_item():
+	#get unique item of database
+	items=item.uniqueitem()
+	return jsonify(items)
+@app.route('/api/knnbasic')
+def api_knn():
+	#get parameter form url
+	user = request.args.get('user',type = str)
+	item = request.args.get('item',type = str)
+	rati = request.args.get('rati',type = str)
+	idd = request.args.get('idd')
+	iid =request.args.get('iid')
+	#call fuction knnbasic algorthm
+	result = pred.AlKNNBasic(user,item,rati,idd,iid)
+	return jsonify(result)
 app.run(debug = True)
 flask_cors.CORS(app, expose_headers='Authorization')

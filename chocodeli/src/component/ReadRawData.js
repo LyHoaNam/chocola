@@ -42,7 +42,7 @@ class ReadRawData extends PureComponent {
 	}
 
 	render(){ 
-		
+			
 		if(this.state.result.length>0){
 		return (   
 			<div className='containRRD'>

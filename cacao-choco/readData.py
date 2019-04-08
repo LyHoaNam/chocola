@@ -23,4 +23,3 @@ def readCSV():
 	return records
 def lenOfRow():
 	return count_row
-

@@ -67,7 +67,7 @@ class Result extends PureComponent {
       return (
         <div className="containtAlG">
         <div className="row marginright0">
-        <div className='col-lg-3'>
+        <div className='col-lg-2 paddingLeft0'>
         <div className='Listmenu'>
         {
 
@@ -83,7 +83,7 @@ class Result extends PureComponent {
 
         </div>
         </div>
-        <div className="col-lg-9">
+        <div className="col-lg-10 pading0">
         {showcontent}
         </div>
         </div>

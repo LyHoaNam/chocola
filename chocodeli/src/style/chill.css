@@ -248,7 +248,6 @@
   padding: 30px 15px;
 }
 .menu {
-  min-width: 270px;
   min-height: 70px;
   z-index: 3;
   background-color: #fff;
@@ -306,4 +305,39 @@ a {
 }
 a:hover {
   text-decoration: none !important;
+}
+.ModalFooter{
+  position: relative;
+}
+.ContainBtnBox{
+  float: right;
+}
+.paddingRight15{
+  padding-right: 15px;
+}
+.NextModal {
+  position: absolute;
+  background-color: #ffffff;
+  top:0px;
+  left: 0px;
+  min-height: 350px;
+  width: 100%;
+  padding: 16px;
+
+}
+.NextPreLine{
+  position: relative;
+  padding: 15px;
+}
+.ColumnPara{
+
+  color: #333333;
+}
+.SelectCol{
+  padding-left: 30px;
+  display: inline-block;
+}
+.ColumnPara:hover{
+  cursor: pointer;
+
 }
