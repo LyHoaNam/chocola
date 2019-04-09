@@ -1,6 +1,7 @@
 from surprise import KNNBasic
 from surprise import Dataset,Reader
 import pandas as pd
+#read data with max number
 import countfile as file
 
 UPLOAD_FOLDER ='./container/'

@@ -6,10 +6,15 @@ import pandas as pd
 import sys
 from random import randint
 import json
+import countfile as file
 #importing the Iris dataset with pandas
 def inputData():
-	dataset = pd.read_csv('./Iris.csv')
-	x = dataset.iloc[:, [1, 2, 3, 4]].values
+	#read data with max number
+	UPLOAD_FOLDER ='./container/'
+	DataFileName= UPLOAD_FOLDER+str(file.CountofFile()+1)+".csv"
+	dt = pd.read_csv(DataFileName)
+	dt= dt.dropna()
+	x = dt.iloc[:, [0, 1]].values
 	return x
 
 # Finding the optimum number of clusters for k-means classification
@@ -110,8 +115,8 @@ def defineClusters(n):
 
 # print(convertToJson())
 # print(defineClusters(3))
-# defineClusters(5,inputData())
-
+#defineClusters(5,inputData())
+print(inputData())
 
 
     
