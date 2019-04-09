@@ -126,7 +126,7 @@ class SetAlgorthm extends PureComponent {
 				listdata={this.state.Datatonext}
 				onNeHide={modalNeClose}/>: ""
 			}
-			
+			<NextPredit/>
 			</Modal.Body>
 
 			</Modal>

@@ -5,10 +5,9 @@ import countfile as file
 
 UPLOAD_FOLDER ='./container/'
 DataFileName= UPLOAD_FOLDER+str(file.CountofFile()+1)+".csv"
-store_data = pd.read_csv(DataFileName)
+dt = pd.read_csv(DataFileName)
+
 def AlKNNBasic(uid,iid,rati,value_uid,value_iid):
-	#read date from container folder
-	dt=pd.DataFrame(store_data)
 	# Retrieve the trainset.
 	reader= Reader(rating_scale=(0,100))
 	data= Dataset.load_from_df(dt[[uid, iid,rati]], reader)
@@ -24,3 +23,6 @@ def AlKNNBasic(uid,iid,rati,value_uid,value_iid):
 	tempdata["predit"]=pred.est
 	jsondata["KNNBasic"]=tempdata
 	return jsondata
+
+def UniqueItem(item):
+	return dt[item].unique().tolist()

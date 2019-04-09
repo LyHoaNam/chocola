@@ -86,5 +86,15 @@ def api_knn():
 	#call fuction knnbasic algorthm
 	result = pred.AlKNNBasic(user,item,rati,idd,iid)
 	return jsonify(result)
+@app.route('/api/uniqueuser')
+def api_uniqueUser():
+	user = request.args.get('user',type = str)
+	Uniqueuser=pred.UniqueItem(user)
+	return jsonify(Uniqueuser)
+@app.route('/api/uniqueuser')
+def api_uniqueUser():
+	user = request.args.get('item',type = str)
+	Uniqueuser=pred.UniqueItem(user)
+	return jsonify(Uniqueuser)
 app.run(debug = True)
 flask_cors.CORS(app, expose_headers='Authorization')
