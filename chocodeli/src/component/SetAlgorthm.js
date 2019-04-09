@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import "../style/chill.css";
 import {Modal, Button} from "react-bootstrap";
 import NextAlgorthm from "./NextAlgorthm";
+import NextAssoRule from "./NextAssoRule";
+import NextPredit from "./NextPredit";
 class SetAlgorthm extends PureComponent {
 	constructor(props){
 		super(props);
@@ -9,8 +11,10 @@ class SetAlgorthm extends PureComponent {
 			Datatonext:null,
 			Apyori: false,
 			fpgrowth:false,
-			neShow:false,
-			showRule: 'displayNone'
+			neAsShow:false,
+			showRule: 'displayNone',
+			knn:false,
+			showPredic: 'displayNone'
 		}
 		this.ReadyToNext = this.ReadyToNext.bind(this);
 	}
@@ -26,20 +30,27 @@ class SetAlgorthm extends PureComponent {
 			Datatonext.push("fpgrowth");
 			Count++;
 		}
+		if(this.state.knn){
+			Datatonext.push("knn");
+			Count++;
+		}
 		if(Count>0){
 		this.setState({Datatonext:Datatonext});
-		this.setState({neShow:true});
+		this.setState({neAsShow:true});
 
 		}
 		
 	}
 
 	render(){
-		let modalNeClose = ()=>{this.setState({neShow:false});}
+		let modalNeClose = ()=>{this.setState({neAsShow:false});}
 		let ShowAssoRule = ()=> this.setState({showRule:"displayBlock",
-			Apyori:true, fpgrowth:true});
+			Apyori:true, fpgrowth:true,knn:false});
+		let ShowPredic = ()=> {this.setState({knn:true,showPredic:"displayBlock",
+			Apyori:false, fpgrowth:false})}
 		let showApiori = ()=>this.setState({Apyori:!this.state.Apyori});
 		let showFpgrowth = ()=>this.setState({fpgrowth:!this.state.fpgrowth});
+		let showKnn = ()=>this.setState({knn:!this.state.knn});
 		return (
 			<div>
 			<Modal
@@ -47,13 +58,8 @@ class SetAlgorthm extends PureComponent {
 			size="lg"
 			aria-labelledby="contained-modal-title-vcenter">
 
-			<Modal.Header>
-			<Modal.Title id="contained-modal-title-vcenter">
-			Setting Algorthm
-			</Modal.Title>
-			</Modal.Header>
-
 			<Modal.Body>
+			<h3>Setting Algorthm</h3>
 			<div className="FontTitle">
 			Choose Algorthm
 			</div>
@@ -84,20 +90,46 @@ class SetAlgorthm extends PureComponent {
 				<span className="checkmark"></span>
 				</label>
 			</div>
-			</div>
-			</Modal.Body>
 
-			<Modal.Footer>
+			<label className="containerRadio"
+			onChange={ShowPredic}>
+			Prediction algorithms
+			<input type="radio"  name="radio"/>
+			<span className="checkmarkdot"></span>
+			</label>
+
+			<div className={"ContainCheckbox " +this.state.showPredic}>
+				<label className="Btncontainer">k-NN (nearest neighbors approach)
+				<input type="Checkbox"  
+				name="Apyori" 
+				checked={this.state.knn}
+				onChange={showKnn} />
+				<span className="checkmark"></span>
+				</label>
+			</div>
+
+			</div>
+			<div className="ModalFooter">
+			<div className="ContainBtnBox">
+			<span className="paddingRight15">
 			<Button onClick={this.props.onHide}
 			className="Close">Close</Button>
+			</span>
 			<Button className="Next"
 			onClick={this.ReadyToNext}>Next
 			</Button>
-			</Modal.Footer>
+			</div>
+			</div>
+			{
+				this.state.neAsShow?
+				<NextAssoRule
+				listdata={this.state.Datatonext}
+				onNeHide={modalNeClose}/>: ""
+			}
+			<NextPredit/>
+			</Modal.Body>
+
 			</Modal>
-			<NextAlgorthm show={this.state.neShow} 
-			onNeHide={modalNeClose}
-			listdata={this.state.Datatonext}/>
 			</div>
 			)
 	}

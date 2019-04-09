@@ -1,10 +1,9 @@
 .GetStart{
-	right: 40px;
 	background-color: #0D84E8;
-	color: #ffff;
-	position: absolute;
+	color: #ffff !important;
 	border-radius: 15px;
 	width: 150px;
+  margin-right: 30px;
 }
 .GetStart:hover{
 	background-color: #77D9FF;
@@ -17,6 +16,9 @@
 }
 .Close:hover{
   background-color: #eeeeee;
+}
+.floatright{
+  float: right;
 }
 .Next{
   background-color: #0D84E8;
@@ -190,7 +192,7 @@
 }
 .InputGroup {
   width: inherit;
-  padding: 10px;
+  padding: 5px;
 
 }
 .Inputfields{
@@ -246,7 +248,6 @@
   padding: 30px 15px;
 }
 .menu {
-  min-width: 270px;
   min-height: 70px;
   z-index: 3;
   background-color: #fff;
@@ -275,4 +276,68 @@
 }
 .menu:hover .menuInfo{
   color:#eeeeee;
+}
+.propblem{
+  background-color: #ffff;
+  position: relative;
+  text-align: center;
+  height:-webkit-fill-available;
+  border-radius: 15px;
+}
+.coinproblem{
+    position: absolute;
+  top: 45%;
+  text-align: center;
+  left: 40%;
+}
+.strproblem{
+  color: #666666;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5em;
+
+}
+.whiretext{
+    color: #ffffff !important;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none !important;
+}
+.ModalFooter{
+  position: relative;
+}
+.ContainBtnBox{
+  float: right;
+}
+.paddingRight15{
+  padding-right: 15px;
+}
+.NextModal {
+  position: absolute;
+  background-color: #ffffff;
+  top:0px;
+  left: 0px;
+  min-height: 350px;
+  width: 100%;
+  padding: 16px;
+
+}
+.NextPreLine{
+  position: relative;
+  padding: 15px;
+}
+.ColumnPara{
+
+  color: #333333;
+}
+.SelectCol{
+  padding-left: 30px;
+  display: inline-block;
+}
+.ColumnPara:hover{
+  cursor: pointer;
+
 }

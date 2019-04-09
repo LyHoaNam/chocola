@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import Infomation from "./Infomation";
 import '../style/chill.css';
 import Content from "./Content";
+import Problem from "./Problem";
 class Fpgrowth extends PureComponent {
   constructor(props) {
     super(props);
@@ -10,7 +11,7 @@ class Fpgrowth extends PureComponent {
     this.state ={
       result: [],
       min_conf: this.props.min_conf,
-      min_sup:this.props.min_supf
+      min_len:this.props.min_len
     }
     
   }
@@ -26,11 +27,12 @@ class Fpgrowth extends PureComponent {
     let tempdata= localStorage.getItem('fpgrowth');
       tempdata=JSON.parse(tempdata);
       this.setState({result:tempdata.rules,
-        min_sup:tempdata.min_sup,
+        min_len:tempdata.min_len,
         min_conf:tempdata.min_conf});
   }
   getData() {
-    fetch('http://localhost:5000/api/fpgrowth')
+    fetch(`http://localhost:5000/api/fpgrowth?minlen=${this.state.min_len}`+
+      `&minconf=${this.state.min_conf}`)
     .then(res=>res.json())
     .then(result=>
     {
@@ -49,16 +51,16 @@ class Fpgrowth extends PureComponent {
     return (   
 
       <div id="content">
-      <Infomation Algorthm={"Size file: "}
-      minCof={"Column: "}
-      minSup={"Row: "}/>
+      <Infomation Content1={"Algorthm: Fpgrowth"}
+      Content2={"min support: "+ this.state.min_len}
+      Content3={"min confident: "+this.state.min_conf}/>
       <Content data={this.state.result}/>
     
       </div>
       )
     }
     else
-      return <Loading />
+      return <Problem />
 
   }
 }
