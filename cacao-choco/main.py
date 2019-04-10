@@ -70,8 +70,10 @@ def api_ap():
 
 @app.route('/api/kmean')
 def api_kmean():
+	#them phan xuat bieu do line nha a
 	result_optimum_cluster=km.defineOptimumCluster()
-	result_kmean=km.defineClusters(3)
+	parameter = request.args.get('parameter', type = int)
+	result_kmean=km.defineClusters(parameter)
 	return jsonify(result_kmean) 
 #return list item of data 		
 @app.route('/returnitem')
@@ -91,7 +93,6 @@ def api_knn():
 	result = pred.AlKNNBasic(user,item,rati,idd,iid)
 	return jsonify(result)
 @app.route('/api/uniqueuser')
-
 def api_uniqueUser():
 	user = request.args.get('user',type = str)
 	Uniqueuser=pred.UniqueItem(user)

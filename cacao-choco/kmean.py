@@ -116,7 +116,6 @@ def defineClusters(n):
 # print(convertToJson())
 # print(defineClusters(3))
 #defineClusters(5,inputData())
-print(inputData())
 
 
     
