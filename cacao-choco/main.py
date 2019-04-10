@@ -12,11 +12,10 @@ import readData as rd
 #Where to save file
 UPLOAD_FOLDER = './container/'
 #import CountFile module
-import importlib.util
-import numpy as np
-spec = importlib.util.spec_from_file_location("module.name", UPLOAD_FOLDER+"/countfile.py")
-foo = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(foo)
+import countfile as file
+import readitem as item
+import predit as pred
+
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -24,38 +23,84 @@ app.config["DEBUG"] = True
 @app.route('/')
 def home():
    return 'home'
+
 # get file upload
 @app.route('/api',methods = ['POST', 'GET'])
 def result():
 
 	#Count file in folder container
-	NameofFile = foo.CountofFile()+1
+	NameofFile = file.CountofFile()+1
 	recive = "null"	
 	if request.method== "POST":
 		recive=request.files["key"]
 		recive.save(UPLOAD_FOLDER+str(NameofFile)+".csv")
 	return recive
+
+#read raw data
 @app.route('/rawdata')
 def api_raw():
 	store_data=rd.readCSV()
 	obj_data={}
 	obj_data['data']=store_data
 	return jsonify(obj_data)
+
+#run algorthm fpgrowth
 @app.route('/api/fpgrowth')
 def api_fp():
+	#read url parameters min sup and min conf
+	minlen = request.args.get('minlen',type = float)
+	minconf = request.args.get('minconf',type = float)
+	#read file csv in folder container
 	store_data=rd.readCSV()
-	result_fpgrowth= fp.fpgrowth(store_data,4,0.9)
+	result_fpgrowth= fp.fpgrowth(store_data,minlen,minconf)
 	return jsonify(result_fpgrowth)
+
+#run algorthm apiori
 @app.route('/api/apiori')
 def api_ap():
-	dataFileName="./container/"+str(foo.CountofFile()+1)+".csv"
-	store_data = pd.read_csv(dataFileName,header=None, keep_default_na=False)
-	result_apyori = ap.apyori_ar(store_data,0.045,0.7)
+	#read url parameters min sup and min conf
+	minsup = request.args.get('minsup',type = float)
+	minconf = request.args.get('minconf',type = float)
+	minlen = request.args.get('minlen',type = float)
+	#read file csv in folder container
+	dataFileName=rd.readCSV()
+	store_data = rd.readCSV()
+	result_apyori = ap.apyori_ar(store_data,minsup,minconf,minlen)
 	return jsonify(result_apyori)
+
 @app.route('/api/kmean')
 def api_kmean():
 	result_optimum_cluster=km.defineOptimumCluster()
 	result_kmean=km.defineClusters(3)
 	return jsonify(result_kmean) 
+#return list item of data 		
+@app.route('/returnitem')
+def api_item():
+	#get unique item of database
+	items=item.uniqueitem()
+	return jsonify(items)
+@app.route('/api/knnbasic')
+def api_knn():
+	#get parameter form url
+	user = request.args.get('user',type = str)
+	item = request.args.get('item',type = str)
+	rati = request.args.get('rati',type = str)
+	idd = request.args.get('idd')
+	iid =request.args.get('iid')
+	#call fuction knnbasic algorthm
+	result = pred.AlKNNBasic(user,item,rati,idd,iid)
+	return jsonify(result)
+@app.route('/api/uniqueuser')
+
+def api_uniqueUser():
+	user = request.args.get('user',type = str)
+	Uniqueuser=pred.UniqueItem(user)
+	return jsonify(Uniqueuser)
+
+@app.route('/api/uniqueitem')
+def api_uniqueItem():
+	user = request.args.get('item',type = str)
+	Uniqueuser=pred.UniqueItem(user)
+	return jsonify(Uniqueuser)
 app.run(debug = True)
 flask_cors.CORS(app, expose_headers='Authorization')

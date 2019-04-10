@@ -23,7 +23,9 @@ class Header extends PureComponent {
 		return (
 			<nav id="sidebar">
 			<div className="logoContainer">
+			<Link to={'/'}>
 			<img src={require('../img/color-logo.png')} className="LogoInMenu" alt="logo"/>
+			</Link>
 			</div>
 
 			<div className="ContainRightText">

@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import Infomation from "./Infomation";
 import '../style/chill.css';
 import Content from "./Content";
+import Problem from "./Problem";
 class Apiori extends PureComponent {
   constructor(props) {
     super(props);
@@ -10,7 +11,8 @@ class Apiori extends PureComponent {
     this.state ={
       result: [],
       min_conf: this.props.min_conf,
-      min_sup:this.props.min_supf
+      min_sup:this.props.min_supf,
+      min_len:this.props.min_len
     }
     
   }
@@ -30,7 +32,10 @@ class Apiori extends PureComponent {
         min_conf:tempdata.min_conf});
   }
   getData() {
-    fetch('http://localhost:5000/api/apiori')
+    //http://localhost:5000/api/apiori?minsup=0.45&minconf=0.2
+    fetch(`http://localhost:5000/api/apiori?minsup=${this.state.min_sup}`+
+      `&minconf=${this.state.min_conf}`+
+      `&minlen=${this.state.min_len}`)
     .then(res=>res.json())
     .then(result=>
     {
@@ -44,21 +49,22 @@ class Apiori extends PureComponent {
   }
 
   render(){ 
-    
     if(this.state.result.length>0){
     return (   
 
       <div id="content">
-      <Infomation Algorthm={"Size file: "}
-      minCof={"Column: "}
-      minSup={"Row: "}/>
+ <Infomation Content1={"Algorthm: Fpgrowth"}
+      Content2={"min support: "+ this.state.min_sup}
+      Content3={"min confident: "+this.state.min_conf}/>
       <Content data={this.state.result}/>
     
       </div>
       )
     }
     else
-      return <Loading />
+      return (
+      <Problem/>
+    )
 
   }
 }

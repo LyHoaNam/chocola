@@ -17,12 +17,21 @@ class Tables extends PureComponent {
 	}
 
 	loadFunc(){
-		let limit = this.props.data.length;
-		let startpoint = this.state.ruler;
-		let endpoint = startpoint+30>limit ? limit: startpoint+30;
-		let tables = this.state.original.slice(0,endpoint);
-		this.setState({table:tables,
-			ruler:endpoint});
+	    if(this.state.hasMoreItem){
+   let limit = this.props.data.length;
+    let startpoint = this.state.ruler;
+    let endpoint=0;
+    if(startpoint+30>limit)
+    {
+      endpoint=limit;
+      this.setState({hasMoreItem:false});
+    }
+    else
+      endpoint=startpoint+30;
+    let tables = this.state.original.slice(0,endpoint);
+    this.setState({table:tables,
+      ruler:endpoint});
+    }
 
 	}
 	filterFunc(e){

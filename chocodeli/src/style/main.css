@@ -231,7 +231,6 @@ body {
 .Infomation {
 	border-radius: 10px;
 	background-color: #fff;
-	margin-right:10px;
 	padding: 10px;
 }
 .DetailInfo {
@@ -278,8 +277,14 @@ p {
 }
 .Listmenu{
 	height: 100%;
-	padding: 50px 0px 50px 30px;
+	padding: 50px 0px 15px 15px;
 }
 .marginright0 {
 	margin-right: 0;
+}
+.paddingLeft0 {
+	padding-right: 0px !important;
+}
+.pading0{
+	padding: 0px !important;
 }
