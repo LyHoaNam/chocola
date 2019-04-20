@@ -3,7 +3,7 @@ import "../style/chill.css";
 import {Modal, Button} from "react-bootstrap";
 import NextAlgorthm from "./NextAlgorthm";
 import NextAssoRule from "./NextAssoRule";
-import NextPredit from "./NextPredit";
+import NextPredit from "./predit/NextPredit";
 import NextClustering from "./Clustering/NextClustering";
 class SetAlgorthm extends PureComponent {
 	constructor(props){

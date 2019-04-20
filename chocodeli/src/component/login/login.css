@@ -1,0 +1,82 @@
+.haftBg {
+	background-image: linear-gradient(to bottom, #9CECFB , #65C7F7);
+	height: -webkit-fill-available;
+	padding-top: calc(50% - 100px);
+	padding-left: 50px;
+	padding-right: 50px;
+	text-align: center;
+}
+.marginRight0 {
+	margin-right: 0px !important;
+}
+.welcome {
+	font-size: 2em;
+	color:#333333;
+	font-weight: 700;
+
+}
+.toChocola {
+	font-size: 1em;
+	color:#333333;
+	font-weight: 400;
+}
+.containLg{
+	height: -webkit-fill-available;
+	padding-top: calc(50% - 200px);
+	padding-left: 50px;
+	padding-right: 50px;
+	text-align: center;
+}
+.App-logo{
+	height: 70%;
+}
+.ContainText{
+	padding: 7px;
+}
+.Inputfields{
+	max-width: 300px;
+	border-radius: 15px;
+	width: -webkit-fill-available;
+	border: solid 1px #cccccc;
+}
+.TextLogin{
+	font-size: 2em;
+	color:#65C7F7;
+	font-weight: 700;
+	padding: 7px;
+}
+.ButtonLogin{
+	padding: 3px 30px 3px 30px;
+	border-radius: 15px;
+	font-size: 1em;
+	border: solid 1px #65C7F7;
+	display: inline-block;
+	margin-right: 30px;
+	color:#65C7F7;
+	cursor: pointer;
+	max-width: 120px;
+	text-align: center;
+	background-color: #ffffff;
+}
+.ButtonLogin:hover{
+	background-color: #eeeeee;
+}
+.ButtonCreateAcc{
+	padding: 3px 15px 3px 15px;
+	border-radius: 15px;
+	font-size: 1em;
+	background-color: #65C7F7;
+	display: inline-block;
+	color: #ffffff;
+	cursor: pointer;
+	border: 0px;
+	max-width: 150px;
+
+}
+.ButtonCreateAcc:hover{
+	opacity: 0.5;
+}
+.containBtn{
+	padding: 7px;
+
+}

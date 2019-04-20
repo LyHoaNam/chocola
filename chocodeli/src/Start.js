@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import ChoseData from './component/ChoseData';
 import App from './component/App';
+import Login from "./component/login/Login";
 
 class Start extends PureComponent {
   constructor(props){
@@ -17,10 +17,11 @@ class Start extends PureComponent {
   render() {
     return (
       <div>
+      <Login />
       {
-          this.state.ShowApp ==='hide' ?
-              <ChoseData SendSuccess={this.choseFileCallBack}/>:
-              <App/>           
+         // this.state.ShowApp ==='hide' ?
+         //     <ChoseData SendSuccess={this.choseFileCallBack}/>:
+          //    <App/>           
       }
       
       </div>

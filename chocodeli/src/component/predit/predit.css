@@ -1,0 +1,49 @@
+.backgroupWhite {
+	background-color: #ffffff;
+}
+.preditContent{
+	background-color: #ffffff;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 15px;
+	border-radius: 15px;
+	padding: 15px 0 15px 0;
+}
+.ListPredit{
+	border: 1px solid #dddddd;
+}
+.ChoseItem {
+}
+.ChoseItem:hover{
+	background-color:#dddddd;
+	cursor: pointer;
+}
+.ChoseItem:after{
+	background-color: #005b97;
+}
+.ContainChose{
+	background-color: #005b97;
+	min-height: 20px;
+	min-width: 200px;
+
+}
+.LeftTitle{
+	font-weight: 700;
+	font-size: 14px;
+	color:#ffffff;
+}
+.rightTitle{
+	font-weight: 400;
+	font-size: 14px;
+	color:#ffffff;
+	float: right;
+}
+.btnPredit{
+	background-color: #005b97;
+	font-weight:700;
+	font-size: 14px;
+	cursor: pointer;
+}
+.resultPredit{
+
+}

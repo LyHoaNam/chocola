@@ -4,7 +4,7 @@ import Menulist from "./Menulist";
 import Loading from "./Loading";
 import Apiori from "./Apiori";
 import Fpgrowth from "./Fpgrowth";
-
+import Predit from "./predit/Predit";
 class Result extends PureComponent {
   constructor(props) {
     super(props);
@@ -13,7 +13,10 @@ class Result extends PureComponent {
       min_conf: null,
       min_sup:null,
       min_len:null,
-      listAl: null
+      listAl: null,
+      user: null,
+      rating: null,
+      item: null
     };
 
   }
@@ -33,10 +36,19 @@ class Result extends PureComponent {
     //get data from Next Algorthm and setState
     let tempdata=sessionStorage.getItem('datasend');
     tempdata=JSON.parse(tempdata);
+    let nameAlgorthm = this.props.match.params.id;
+    if(nameAlgorthm === 'fpgrowth' || nameAlgorthm =='apiori')
+    {
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
       min_len:tempdata.min_len,
-      listAl:tempdata.ChooseAl})
+      listAl:tempdata.ChooseAl}) }
+    if(nameAlgorthm === 'predit') {
+      this.setState ({user: tempdata.user,
+      listAl:tempdata.ChooseAl,
+      item: tempdata.item,
+      rating: tempdata.rating})
+    }
   }
   writeContent(){
     //write result of algorthm
@@ -52,6 +64,11 @@ class Result extends PureComponent {
       min_conf = {this.state.min_conf} 
       min_supf = {this.state.min_sup}
       min_len={this.state.min_len}/>;
+      case 'predit':
+      return <Predit 
+      user = {this.state.user}
+      item = {this.state.item}
+      rating= {this.state.rating} />
       default:
        return 'err some thing';
     }
@@ -59,6 +76,14 @@ class Result extends PureComponent {
   }
 
   render() {
+    /*
+    //check size of localStorage
+    var _lsTotal=0,_xLen,_x;
+    for(_x in localStorage)
+      { if(!localStorage.hasOwnProperty(_x)){continue;} 
+      _xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};
+      console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
+      */
     if(this.state.listAl){
       let listAlgorthm=this.state.listAl;
       //get id from url
@@ -70,15 +95,17 @@ class Result extends PureComponent {
         <div className='col-lg-2 paddingLeft0'>
         <div className='Listmenu'>
         {
-
           listAlgorthm.map((Name,index)=>  
-            <Menulist key={index} 
-            algorthm={Name} 
-            min_conf={this.state.min_conf}
-            min_supf={this.state.min_sup}
-            min_len={this.state.min_len}/>
+            {
+              
+              <Menulist key={index} 
+                        algorthm={Name} 
+                        min_conf={this.state.min_conf}
+                        min_supf={this.state.min_sup}
+                        min_len={this.state.min_len}/>}
 
             )
+            
         }
 
         </div>

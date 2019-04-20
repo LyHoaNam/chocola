@@ -18,8 +18,7 @@ class NextPredit extends PureComponent {
 			templatedata = JSON.parse(templatedata);
 			let values = templatedata.data;
 			let tempArr=[];
-			values[0].map((item,index)=>
-				tempArr.push(item));
+			tempArr=values[0];
 			this.setState({
 				arr:tempArr,
 				yaxits:tempArr[0],
@@ -37,7 +36,6 @@ class NextPredit extends PureComponent {
 		})
 	}
 	render(){
-		console.log(this.state.yaxits);
 		return(
 			<div className="NextModal">
 
