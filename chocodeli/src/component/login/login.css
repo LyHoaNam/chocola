@@ -80,3 +80,39 @@
 	padding: 7px;
 
 }
+.ContainModalBody{
+	width: -webkit-fill-available;
+	padding: 10px;
+	text-align: center;
+}
+.ContainImgModalBody{
+	
+}
+.imgModal{
+	width: 100px;
+}
+.BoldText{
+	padding: 10px;
+	font-weight: 700;
+	font-size: 1.5em;
+	color:#333333;
+}
+.RegularText{
+	padding: 10px;
+	font-weight: 400;
+	font-size: 0.9em;
+	color:#333333;
+}
+.btnCreatAccount{
+	max-width: 300px;
+    border-radius: 15px;
+    width: -webkit-fill-available;
+    background-color: #65C7F7;
+   	color: #ffffff;
+   	border: 0px;
+   	padding: 5px 10px;
+   	cursor: pointer;
+}
+.btnCreatAccount:hover{
+	opacity: 0.5;
+}

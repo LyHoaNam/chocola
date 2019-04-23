@@ -1,4 +1,4 @@
-import account.connectdb as db 
+import account.connectdb as db
 
 def check_account(username,password):
 	sql_str = """select * from users 
@@ -13,3 +13,14 @@ def check_account(username,password):
 		values["iddata"]=result[3]
 		return values
 	return False
+def create_account(username,password):
+	sql_str="""INSERT INTO `users`(`username`, `pass`) 
+	VALUES ('{}','{}');""".format(username,password)
+	try:
+		db.set_data(sql_str)
+	except Erros as e:
+		print("False as create account")
+		return False
+	finally:
+		print(sql_str)
+		return True

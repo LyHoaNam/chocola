@@ -46,7 +46,7 @@ def result():
 @app.route('/rawdata')
 def api_raw():
 	file_name = ''
-	if request.method =="GET":
+	if request.method =="POST":
 		file_name = request.form['iddata']
 	store_data=rd.readCSV(file_name)
 	obj_data={}
@@ -57,7 +57,7 @@ def api_raw():
 @app.route('/api/fpgrowth')
 def api_fp():
 	file_name = ''
-	if request.method =="GET":
+	if request.method =="POST":
 		file_name = request.form['iddata']
 	#read url parameters min sup and min conf
 	minlen = request.args.get('minlen',type = float)
@@ -71,7 +71,7 @@ def api_fp():
 @app.route('/api/apiori')
 def api_ap():
 	file_name = ''
-	if request.method =="GET":
+	if request.method =="POST":
 		file_name = request.form['iddata']
 	#read url parameters min sup and min conf
 	minsup = request.args.get('minsup',type = float)
@@ -83,7 +83,7 @@ def api_ap():
 	return jsonify(result_apyori)
 
 
-@app.route('/api/kmean/k', methods=['GET'])
+@app.route('/api/kmean/k', methods=['POST'])
 def api_optimum_cluster():
     col1 = request.args.get('col1', type=int)
     col2 = request.args.get('col2', type=int)
@@ -91,7 +91,7 @@ def api_optimum_cluster():
     return jsonify(result_optimum_cluster)
 
 
-@app.route('/api/kmean/c', methods=['GET'])
+@app.route('/api/kmean/c', methods=['POST'])
 def api_kmean():
 	# them phan xuat bieu do line nha a
 	# result_optimum_cluster=km.defineOptimumCluster()
@@ -137,20 +137,32 @@ def api_uniqueItem():
 	Uniqueitem = pred.UniqueItem(item)
 	return jsonify(Uniqueitem)
 
+	#create account
+@app.route('/api/createaccount',methods=['POST', 'GET'])
+def api_createaccount():
+	username = ""
+	password = ""
+	username = request.form['user']
+	password = request.form['pass']
+	if lg.create_account(username,password):
+		return 'true'
+	return 'false'
+		
 #login account
-@app.route('/api/login')
+@app.route('/api/login', methods=['POST', 'GET'])
 def api_login():
 	username = ""
 	password = ""
-	if request.method == "GET":
-		username = request.form['user']
-		password = request.form['pass']
+	username = request.form['user']
+	password = request.form['pass']
     #check in database
 	result = ''
 	if lg.check_account(username,password):
 		result = lg.check_account(username,password)
 		return jsonify(result)
-	return ''
+	return 'false'
+
+
 
 app.run(debug = True)
 flask_cors.CORS(app, expose_headers='Authorization')
