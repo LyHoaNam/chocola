@@ -32,6 +32,10 @@ kmean:
 Install: 
 pip install -U scikit-learn
 
+- connect mysql with python --
+pip install mysql-connector-python
+link: https://pynative.com/install-mysql-connector-python/
+
 ... START
 
 Start python backend -open folder cacao-choco -run cmd: python getData.py -> It starts with port 5000 (localhost:5000)

@@ -57,10 +57,21 @@ class NextAssoRule extends PureComponent {
 
 			<div className="NextModal">
 
-			<h3>Setting Algorthm</h3>
 			<div className="FontTitle">
-			Choose Algorthm
+			Algorthm: {this.props.listdata !== null ?
+				this.props.listdata.map((algo,index)=>
+				{
+					//write "," one each algo (alorthm)
+					return index ===0 ?
+						<span className="fontsmalltitle" key={index}>{" "+algo}</span>:
+					<span className="fontsmalltitle" key={index}>{", "+algo}</span>
+				}
+				): ""}
 			</div>
+			<div className="FontTitle">
+			Setup
+			</div>
+
 
 			<div className="InputGroup">
 			<input type="text" 
