@@ -40,7 +40,7 @@ class Start extends PureComponent {
 		}
 		else {
 			localStorage.setItem('account',result);
-			window.location.href="/test";
+			window.location.href="/profile";
 		}
 	}
 	handleSubmit(){

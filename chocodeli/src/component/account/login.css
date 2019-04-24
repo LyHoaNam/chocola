@@ -116,3 +116,105 @@
 .btnCreatAccount:hover{
 	opacity: 0.5;
 }
+.ContainProfile{
+	text-align: center;
+	height: -webkit-fill-available;
+	width: -webkit-fill-available;
+	padding-top: 100px;
+}
+.ProfileUser{
+	font-weight: 700;
+	font-size: 1.2em;
+	color:#333333;
+}
+.Avatar{
+	border-radius: 50%;
+	background-color: #999999;
+	left: 100px;
+	margin: 50px;
+}
+.avatarraw{
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	cursor: pointer;
+
+}
+.ContaintData{
+	background-color: #ffffff;
+	border: 1px solid #eeeeee;
+	height: -webkit-fill-available;
+	width: -webkit-fill-available;
+	padding: 15px;
+	text-align: center;
+	border-radius: 15px;
+}
+.pad100{
+	padding: 100px;
+}
+.btnChooseData{
+	padding: 3px 15px 3px 15px;
+	border-radius: 15px;
+	font-size: 1em;
+	background-color: #65C7F7;
+	display: inline-block;
+	color: #ffffff;
+	cursor: pointer;
+	border: 0px;
+	max-width: 150px;
+}
+.btnChooseData:hover{
+	opacity: 0.5;
+}
+.listData{
+	padding: 15px;
+}
+.detailData{
+	width: -webkit-fill-available;
+	border-bottom: 1px solid #cccccc;
+	margin: 15px;
+}
+.titleData{
+	color:;
+}
+.titlelistData{
+	font-size: 1.2em;
+	font-weight: 700;
+	color: #666666;
+	border-bottom: 1px solid #cccccc;
+}
+.icCheced{
+	margin-right: 5px;
+	color: #666666;
+}
+input[type=file] {
+  cursor: pointer;
+  width: 170px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+input[type=file]:before {
+  width: 170px;
+  height: 60px;
+  font-size: 16px;
+  content: 'Import Data';
+  display: inline-block;
+  background: #65C7F7;
+  color: #fff;
+  padding:  8px;
+  border-radius: 10px;
+  text-align: center;
+
+}
+input[type=file]:hover {
+  opacity: 0.5;
+}
+.ButtonChoosefile{
+  padding: 30px;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
+}

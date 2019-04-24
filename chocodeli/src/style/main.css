@@ -44,6 +44,7 @@
 	padding: 5px 50px;
     background-color: #fff;
 	top: 0px !important;
+	border:1px solid #eeeeee;
 }
 
 #content {
@@ -261,14 +262,21 @@ p {
 }
 .BtnYourData{
 	text-align: center;
-	color:#005b97 !important;
+
 	font-weight: 700;
 	font-size: 1.1em;
 	padding: 5px 10px;
 }
+.BtnYourData a{
+		color:#999999 !important;
+}
 .BtnYourData:hover {
 	background-color: #eeeeee;
 	border-radius: 15px;
+	color:#007bff;
+}
+.activebtn{
+	color:#007bff;
 }
 .containtAlG{
 	padding-top: 15px;

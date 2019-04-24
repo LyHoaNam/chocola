@@ -37,12 +37,6 @@ class ChoseData extends PureComponent {
     .catch( (err) =>{
       console.error( err.toString());
     });
- /*  
-   fetch('http://127.0.0.1:5000/api?data='+url)
- .then((res) => res.json())
- .then(ruleData=> this.setState({rule: ruleData}))
- .catch(e=> e)
- */
 }
 render() {
 

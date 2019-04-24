@@ -1,27 +1,31 @@
 import React, { PureComponent } from 'react';
 import App from './component/App';
-import Login from "./component/login/Login";
+import Login from "./component/account/Login";
 
 class Start extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      ShowApp:"hide"
+      profile:""
     }
   }
-  choseFileCallBack = (result) =>{
-    this.setState({ShowApp:result},console.log(""));
-    
+  componentDidMount(){
+    if(localStorage.getItem('account')){
+      let tempdata=localStorage.getItem('account');
+      tempdata=JSON.parse(tempdata);
+      this.setState({profile:tempdata});
+    }
   }
 
   render() {
+
     return (
       <div>
-      <Login />
       {
-         // this.state.ShowApp ==='hide' ?
-         //     <ChoseData SendSuccess={this.choseFileCallBack}/>:
-          //    <App/>           
+          this.state.profile==='' ?
+          <Login />:
+          <App/>
+         
       }
       
       </div>

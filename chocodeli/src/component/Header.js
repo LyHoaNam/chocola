@@ -6,32 +6,33 @@ class Header extends PureComponent {
 		super(props);
 		this.state = {
 			alg: null,
-			active: true
+			activeYD: '',
+			activeAc:''
 		};
-		this.handleClick = this.handleClick.bind(this);
-	}
-	handleClick(algorithm){
-		if(algorithm != null)
-		{
-    		this.props.callbackFromParent(algorithm);
-    		this.setState({active: algorithm});
-		}
-
 	}
 
 	render() {
+		let activeAccount = ()=> this.setState({activeAc:'activebtn',activeYD:''});
+		let activeYourData = ()=> this.setState({activeYD:'activebtn',activeAc:''});
 		return (
 			<nav id="sidebar">
 			<div className="logoContainer">
 			<Link to={'/'}>
-			<img src={require('../img/color-logo.png')} className="LogoInMenu" alt="logo"/>
+			<img src={require('../img/headerlogonew.png')} className="LogoInMenu" alt="logo"/>
 			</Link>
 			</div>
 
 			<div className="ContainRightText">
-			<span className="BtnYourData">
+			<span className={"BtnYourData "+this.state.activeYD}
+			onChange={activeYourData}>
 			<Link to={'/'}>
 			Your Data
+			</Link>
+			</span>
+			<span className={"BtnYourData "+this.state.activeAc}
+			onChange={activeAccount}>
+			<Link to={'/profile'}>
+			Account
 			</Link>
 			</span>
 			</div>

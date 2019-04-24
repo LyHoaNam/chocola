@@ -28,11 +28,21 @@ class ReadRawData extends PureComponent {
 			this.setState({result:tempdata.data});
 	}
 	getData() {
+		//get name data in sessionStorage
+		let nameData = sessionStorage.getItem('name_data');
+		//ready to fetch data
+		let root = "http://localhost:5000/";
+		let url= root + 'rawdata/'+nameData;
+		let options = {
+			method: 'POST',
+		}
+			let req = new Request(url,options);
 		fetch('http://localhost:5000/rawdata')
 		.then(res=>res.json())
 		.then(result=>
 		{
-			localStorage.setItem("rawdata",JSON.stringify(result));
+			localStorage.setItem("rawdata",
+				JSON.stringify(result));
 			this.setDataToState();
 		}
 		)

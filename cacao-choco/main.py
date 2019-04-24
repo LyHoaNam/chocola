@@ -13,7 +13,7 @@ import readData as rd
 UPLOAD_FOLDER = './container/'
 # import CountFile module
 import countfile as file
-import readitem as item
+#import readitem as item
 import predit.predit as pred
 import account.login as lg
 
@@ -24,30 +24,31 @@ app.config["DEBUG"] = True
 
 @app.route('/')
 def home():
-  return 'home'
+	return 'home'
 
 # get file upload
 
 
 @app.route('/api', methods=['POST', 'GET'])
 def result():
-
-    # Count file in folder container
-  NameofFile = file.CountofFile() + 1
-  recive = "null"
-  if request.method == "POST":
-    recive = request.files["key"]
-    recive.save(UPLOAD_FOLDER + str(NameofFile) + ".csv")
-  return recive
+	# Count file in folder container
+	NameofFile = file.CountofFile() + 1
+	recive = "null"
+	id_user = request.form["iduser"]
+	recive = request.files["key"]
+	data_name= id_user + str(NameofFile) + ".csv"
+	if lg.unselected(id_user):
+		lg.create_datafile(data_name,id_user)
+		recive.save(UPLOAD_FOLDER + data_name)
+		return 'true'
+	return 'false'
 
 # read raw data
 
 
-@app.route('/rawdata')
+@app.route('/rawdata', methods=['GET','POST'])
 def api_raw():
-	file_name = ''
-	if request.method =="POST":
-		file_name = request.form['iddata']
+	file_name = request.args.get('filename',type = str)
 	store_data=rd.readCSV(file_name)
 	obj_data={}
 	obj_data['data']=store_data
@@ -85,10 +86,10 @@ def api_ap():
 
 @app.route('/api/kmean/k', methods=['POST'])
 def api_optimum_cluster():
-    col1 = request.args.get('col1', type=int)
-    col2 = request.args.get('col2', type=int)
-    result_optimum_cluster = km.defineOptimumCluster(col1, col2)
-    return jsonify(result_optimum_cluster)
+		col1 = request.args.get('col1', type=int)
+		col2 = request.args.get('col2', type=int)
+		result_optimum_cluster = km.defineOptimumCluster(col1, col2)
+		return jsonify(result_optimum_cluster)
 
 
 @app.route('/api/kmean/c', methods=['POST'])
@@ -104,31 +105,31 @@ def api_kmean():
 # return list item of data
 
 
-@app.route('/returnitem')
-def api_item():
-   # get unique item of database
-  items = item.uniqueitem()
-  return jsonify(items)
+#@app.route('/returnitem')
+#def api_item():
+	 # get unique item of database
+	#items = item.uniqueitem()
+	#return jsonify(items)
 
 
 @app.route('/api/knnbasic')
 def api_knn():
-    # get parameter form url
-  user = request.args.get('user', type=str)
-  item = request.args.get('item', type=str)
-  rati = request.args.get('rati', type=str)
-  idd = request.args.get('idd')
-  iid = request.args.get('iid')
-  # call fuction knnbasic algorthm
-  result = pred.AlKNNBasic(user, item, rati, idd, iid)
-  return jsonify(result)
+		# get parameter form url
+	user = request.args.get('user', type=str)
+	item = request.args.get('item', type=str)
+	rati = request.args.get('rati', type=str)
+	idd = request.args.get('idd')
+	iid = request.args.get('iid')
+	# call fuction knnbasic algorthm
+	result = pred.AlKNNBasic(user, item, rati, idd, iid)
+	return jsonify(result)
 
 
 @app.route('/api/uniqueuser')
 def api_uniqueUser():
-  user = request.args.get('user', type=str)
-  Uniqueuser = pred.UniqueItem(user)
-  return jsonify(Uniqueuser)
+	user = request.args.get('user', type=str)
+	Uniqueuser = pred.UniqueItem(user)
+	return jsonify(Uniqueuser)
 
 
 @app.route('/api/uniqueitem')
@@ -155,14 +156,23 @@ def api_login():
 	password = ""
 	username = request.form['user']
 	password = request.form['pass']
-    #check in database
+		#check in database
 	result = ''
 	if lg.check_account(username,password):
 		result = lg.check_account(username,password)
 		return jsonify(result)
 	return 'false'
 
+#get all row with id_user
+@app.route('/api/getdata', methods=['POST', 'GET'])
+def api_getdata():
+	id_user = request.form['iduser']
+		#check in database
+	result = ''
+	if lg.select_all_row(id_user):
+		result = lg.select_all_row(id_user)
+		return jsonify(result)
+	return 'false'
 
-
-app.run(debug = True)
+app.run(threaded=True)
 flask_cors.CORS(app, expose_headers='Authorization')

@@ -3,7 +3,7 @@ import	Header from './Header';
 import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Result from "./Result";
-import Test from "./Test";
+import Profile from "./account/Profile";
 const ReadRawData = lazy(()=> import('./ReadRawData'));
 
 class App extends PureComponent {
@@ -20,7 +20,7 @@ class App extends PureComponent {
           <Route exact path='/' render={()=><ReadRawData/>} />
           <Route path='/algorthm/:id' 
           render={(props)=> <Result  {...props}/>} />
-          <Route path='/test/:id' render={(props)=><Test  {...props}/>} />
+          <Route path='/profile' render={(props)=><Profile  {...props}/>} />
           </Switch>
       </div>
       </Suspense>

@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {Modal, Button} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 
 class CreateAccount extends PureComponent {
     constructor(props){
