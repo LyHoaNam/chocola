@@ -2,9 +2,10 @@ import React, {PureComponent} from "react";
 import "../style/main.css";
 import Menulist from "./Menulist";
 import Loading from "./Loading";
-import Apiori from "./Apiori";
-import Fpgrowth from "./Fpgrowth";
+import Apiori from "./associationrule/Apiori";
+import Fpgrowth from "./associationrule/Fpgrowth";
 import Predit from "./predit/Predit";
+import Clustering from "./clustering/Clustering";
 class Result extends PureComponent {
   constructor(props) {
     super(props);
@@ -16,7 +17,9 @@ class Result extends PureComponent {
       listAl: null,
       user: null,
       rating: null,
-      item: null
+      item: null,
+      col1:null,
+      col2:null
     };
 
   }
@@ -37,13 +40,19 @@ class Result extends PureComponent {
     let tempdata=sessionStorage.getItem('datasend');
     tempdata=JSON.parse(tempdata);
     let nameAlgorthm = this.props.match.params.id;
-    if(nameAlgorthm === 'fpgrowth' || nameAlgorthm =='apiori')
+    if(nameAlgorthm === 'fpgrowth' || nameAlgorthm ==='apiori')
     {
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
       min_len:tempdata.min_len,
       listAl:tempdata.ChooseAl}) }
-    if(nameAlgorthm === 'predit') {
+    if(nameAlgorthm === 'kmeans') {
+      this.setState ({
+      listAl:tempdata.ChooseAl,
+      col1: tempdata.item,
+      col2: tempdata.rating})
+    }
+        if(nameAlgorthm === 'knn') {
       this.setState ({user: tempdata.user,
       listAl:tempdata.ChooseAl,
       item: tempdata.item,
@@ -64,11 +73,14 @@ class Result extends PureComponent {
       min_conf = {this.state.min_conf} 
       min_supf = {this.state.min_sup}
       min_len={this.state.min_len}/>;
-      case 'predit':
+      case 'knn':
       return <Predit 
       user = {this.state.user}
       item = {this.state.item}
-      rating= {this.state.rating} />
+      rating= {this.state.rating} />;
+      case 'kmeans':
+      return <Clustering 
+      />
       default:
        return 'err some thing';
     }
@@ -86,7 +98,6 @@ class Result extends PureComponent {
       */
     if(this.state.listAl){
       let listAlgorthm=this.state.listAl;
-      //get id from url
 
       let showcontent = this.writeContent();
       return (
@@ -96,18 +107,13 @@ class Result extends PureComponent {
         <div className='Listmenu'>
         {
           listAlgorthm.map((Name,index)=>  
-            {
-              
               <Menulist key={index} 
                         algorthm={Name} 
                         min_conf={this.state.min_conf}
                         min_supf={this.state.min_sup}
-                        min_len={this.state.min_len}/>}
-
-            )
-            
+                        min_len={this.state.min_len}/>
+            )        
         }
-
         </div>
         </div>
         <div className="col-lg-10 pading0">

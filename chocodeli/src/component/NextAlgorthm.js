@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import "../style/chill.css";
+import "../../style/chill.css";
 import {Link } from 'react-router-dom';
 import {Modal, Button} from  "react-bootstrap";
 class NextAlgorthm extends PureComponent {

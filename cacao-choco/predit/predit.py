@@ -4,13 +4,13 @@ import pandas as pd
 #read data with max number
 import countfile as file
 
-def getData():
+def getData(namefile):
 	UPLOAD_FOLDER ='./container/'
-	DataFileName= UPLOAD_FOLDER+str(file.CountofFile()+1)+".csv"
+	DataFileName= UPLOAD_FOLDER+namefile
 	dt = pd.read_csv(DataFileName)
 	return dt
-def AlKNNBasic(uid,iid,rati,value_uid,value_iid):
-	test_data=pd.read_csv('./container/3.csv')
+def AlKNNBasic(namefile,uid,iid,rati,value_uid,value_iid):
+	test_data=pd.read_csv('./container/'+namefile)
 	dt=pd.DataFrame(test_data)
 	# Retrieve the trainset.
 	reader= Reader(rating_scale=(0,100))
@@ -28,6 +28,6 @@ def AlKNNBasic(uid,iid,rati,value_uid,value_iid):
 	jsondata["KNNBasic"]=tempdata
 	return jsondata
 
-def UniqueItem(item):
-	dt=getData()
+def UniqueItem(item,namefile):
+	dt=getData(namefile)
 	return dt[item].unique().tolist()

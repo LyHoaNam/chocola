@@ -233,6 +233,7 @@ body {
 	border-radius: 10px;
 	background-color: #fff;
 	padding: 10px;
+	border:1px solid #eeeeee;
 }
 .DetailInfo {
 	font-size: 13px;
@@ -264,19 +265,19 @@ p {
 	text-align: center;
 
 	font-weight: 700;
-	font-size: 1.1em;
+	font-size: 0.9em;
 	padding: 5px 10px;
-}
-.BtnYourData a{
-		color:#999999 !important;
 }
 .BtnYourData:hover {
 	background-color: #eeeeee;
 	border-radius: 15px;
 	color:#007bff;
 }
+.unactivebtn{
+	color:#999999 !important;
+}
 .activebtn{
-	color:#007bff;
+	color:#007bff !important;
 }
 .containtAlG{
 	padding-top: 15px;

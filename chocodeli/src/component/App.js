@@ -4,7 +4,7 @@ import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Result from "./Result";
 import Profile from "./account/Profile";
-const ReadRawData = lazy(()=> import('./ReadRawData'));
+const ReadRawData = lazy(()=> import('./readdata/ReadRawData'));
 
 class App extends PureComponent {
 

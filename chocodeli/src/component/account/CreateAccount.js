@@ -35,7 +35,6 @@ class CreateAccount extends PureComponent {
             this.setState({newPass:'',newUser:''});
         }
         else {
-            this.props.onHide;
             window.location.href="/";
         }
     }
@@ -75,7 +74,9 @@ class CreateAccount extends PureComponent {
             <Modal.Body>
             <div className="ContainModalBody">
             <div className="ContainImgModalBody">
-            <img  src={require('../../img/logonew.png')} className="imgModal"/>
+            <img  src={require('../../img/logonew.png')} 
+            className="imgModal"
+            alt="logo"/>
             </div>
             <div className="Intro">
             <div className="BoldText">

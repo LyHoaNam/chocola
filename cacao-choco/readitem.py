@@ -2,11 +2,11 @@ import pandas as pd
 UPLOAD_FOLDER = './container/'
 import countfile as file
 
-DataFileName= "./container/"+str(file.CountofFile()+1)+".csv"
-store_data = pd.read_csv(DataFileName, keep_default_na=False)
-count_col=store_data.shape[0]
-count_row= store_data.shape[1]
 def uniqueitem():
+	DataFileName= UPLOAD_FOLDER+"22.csv"
+	store_data = pd.read_csv(DataFileName, keep_default_na=False)
+	count_col=store_data.shape[0]
+	count_row= store_data.shape[1]
 	arr = []
 	for i in range(0,count_row):
 		#get unique of column
@@ -16,3 +16,4 @@ def uniqueitem():
 	#result will have nan value.
 	#Nan value can drop in frontend
 	return result.tolist()
+print(uniqueitem())

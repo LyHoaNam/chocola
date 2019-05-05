@@ -48,7 +48,7 @@ def result():
 
 @app.route('/rawdata', methods=['GET','POST'])
 def api_raw():
-	file_name = request.args.get('filename',type = str)
+	file_name = request.args.get('filename')
 	store_data=rd.readCSV(file_name)
 	obj_data={}
 	obj_data['data']=store_data
@@ -58,11 +58,10 @@ def api_raw():
 @app.route('/api/fpgrowth')
 def api_fp():
 	file_name = ''
-	if request.method =="POST":
-		file_name = request.form['iddata']
 	#read url parameters min sup and min conf
 	minlen = request.args.get('minlen',type = float)
 	minconf = request.args.get('minconf',type = float)
+	file_name = request.args.get('filename',type = str)
 	#read file csv in folder container
 	store_data=rd.readCSV(file_name)
 	result_fpgrowth= fp.fpgrowth(store_data,minlen,minconf)
@@ -78,28 +77,32 @@ def api_ap():
 	minsup = request.args.get('minsup',type = float)
 	minconf = request.args.get('minconf',type = float)
 	minlen = request.args.get('minlen',type = float)
+	file_name = request.args.get('filename',type = str)
 	#read file csv in folder container
 	store_data = rd.readCSV(file_name)
 	result_apyori = ap.apyori_ar(store_data,minsup,minconf,minlen)
 	return jsonify(result_apyori)
 
 
-@app.route('/api/kmean/k', methods=['POST'])
+@app.route('/api/kmean/k', methods=['GET'])
 def api_optimum_cluster():
-		col1 = request.args.get('col1', type=int)
-		col2 = request.args.get('col2', type=int)
-		result_optimum_cluster = km.defineOptimumCluster(col1, col2)
-		return jsonify(result_optimum_cluster)
+	file_name=request.args.get('filename',type=str)
+	col1 = request.args.get('col1', type=int)
+	col2 = request.args.get('col2', type=int)
+	print('filename',file_name)
+	result_optimum_cluster = km.defineOptimumCluster(file_name,col1, col2)
+	return jsonify(result_optimum_cluster)
 
 
-@app.route('/api/kmean/c', methods=['POST'])
+@app.route('/api/kmean/c', methods=['GET'])
 def api_kmean():
 	# them phan xuat bieu do line nha a
 	# result_optimum_cluster=km.defineOptimumCluster()
+	file_name=request.args.get('filename',type=str)
 	col1=request.args.get('col1',type=int)
 	col2=request.args.get('col2',type=int)
 	parameter = request.args.get('parameter', type = int)
-	result_kmean=km.defineClusters(parameter,col1,col2)
+	result_kmean=km.defineClusters(file_name,parameter,col1,col2)
 	return jsonify(result_kmean)
 
 # return list item of data
@@ -115,27 +118,30 @@ def api_kmean():
 @app.route('/api/knnbasic')
 def api_knn():
 		# get parameter form url
+	file_name = request.args.get('filename',type = str)
 	user = request.args.get('user', type=str)
 	item = request.args.get('item', type=str)
 	rati = request.args.get('rati', type=str)
 	idd = request.args.get('idd')
 	iid = request.args.get('iid')
 	# call fuction knnbasic algorthm
-	result = pred.AlKNNBasic(user, item, rati, idd, iid)
+	result = pred.AlKNNBasic(file_name,user, item, rati, idd, iid)
 	return jsonify(result)
 
 
 @app.route('/api/uniqueuser')
 def api_uniqueUser():
 	user = request.args.get('user', type=str)
-	Uniqueuser = pred.UniqueItem(user)
+	file_name = request.args.get('filename',type = str)
+	Uniqueuser = pred.UniqueItem(user,file_name)
 	return jsonify(Uniqueuser)
 
 
 @app.route('/api/uniqueitem')
 def api_uniqueItem():
 	item = request.args.get('item',type = str)
-	Uniqueitem = pred.UniqueItem(item)
+	file_name = request.args.get('filename',type = str)
+	Uniqueitem = pred.UniqueItem(item,file_name)
 	return jsonify(Uniqueitem)
 
 	#create account

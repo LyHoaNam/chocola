@@ -8,22 +8,22 @@ from random import randint
 import json
 import countfile as file
 #importing the Iris dataset with pandas
-def inputData(column1,column2):
+def inputData(filename,column1,column2):
 	#read data with max number
 	UPLOAD_FOLDER ='./container/'
-	DataFileName= UPLOAD_FOLDER+str(file.CountofFile()+1)+".csv"
+	DataFileName= UPLOAD_FOLDER+filename
 	dt = pd.read_csv(DataFileName)
 	dt= dt.dropna()
 	x = dt.iloc[:, [column1, column2]].values
 	return x
 
 # Finding the optimum number of clusters for k-means classification
-def defineOptimumCluster(col1,col2):
+def defineOptimumCluster(filename,col1,col2):
 	data ={}
 	wcss = []
 	for i in range(1, 11):
 	    kmeans = KMeans(n_clusters = i, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
-	    kmeans.fit(inputData(col1,col2))
+	    kmeans.fit(inputData(filename,col1,col2))
 	    wcss.append(kmeans.inertia_)
 
 	    #Plotting the results onto a line graph, allowing us to observe 'The elbow'
@@ -69,9 +69,9 @@ def convertToJson():
 		for x in b[i]:
 			print(x)
 	return ''
-def defineClusters(n,col1,col2):
+def defineClusters(filename,n,col1,col2):
 	data={}
-	x=inputData(col1,col2)
+	x=inputData(filename,col1,col2)
 	kmeans = KMeans(n_clusters = n, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
 	y_kmeans = kmeans.fit_predict(x)
 	colors = initColors(n)

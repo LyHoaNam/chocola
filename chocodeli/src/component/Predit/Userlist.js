@@ -34,7 +34,11 @@ class UserList extends PureComponent {
   }
 
  getData() {
-    fetch(`http://localhost:5000/api/uniqueuser?user=${this.state.usercol}`)
+   if(sessionStorage.getItem('name_data')) {
+      let nameData = sessionStorage.getItem('name_data');
+    fetch(`http://localhost:5000/api/`+
+      `uniqueuser?user=${this.state.usercol}`+
+      `&filename=${nameData}`)
     .then(res=>res.json())
     .then(result=>
     {
@@ -44,6 +48,7 @@ class UserList extends PureComponent {
     )
     .catch(e=>e);   
     console.log("err in fetch at UserList (Predit)");
+  }
   }
   selectValue(value){
     this.props.callbackFromUser(value);

@@ -4,7 +4,7 @@ import countfile as file
 
 def readCSV(file_name):
 	#read fiel csv at folder container with a max (number) name
-	DataFileName= "./container/2.csv"
+	DataFileName= "./container/"+str(file_name)
 	store_data = pd.read_csv(DataFileName,header=None, keep_default_na=False)
 	count_row=store_data.shape[0]
 	count_col= store_data.shape[1]

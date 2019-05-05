@@ -16,25 +16,28 @@ class Rating extends PureComponent {
 	}
 
 	 getData() {
-	 let url = `http://localhost:5000/api/knnbasic?`+
-	 `user=${this.state.coluser}&item=${this.state.colitem}&`+
-	 `rati=${this.state.colrating}&idd=${this.props.selectUser}&iid=${this.props.selectItem}`
-	 let selectItem = this.props.selectItem;
-	 let selectUser= this.props.selectUser;
-
-	 if(selectUser !== '' && selectUser !== '')
-	 {
-	 	console.log('url: ',url);
-	 	fetch(url)
-    .then(res=>res.json())
-    .then(result=>
-    {
-      this.setState({rating:result.KNNBasic});
-      console.log('result fetch: ',result);
-    }
-    )
-    .catch(e=>e);   
-    console.log("err in fetch at Rating (Predit)");
+	 	if(sessionStorage.getItem('name_data')) {
+	      let nameData = sessionStorage.getItem('name_data');
+		 let url = `http://localhost:5000/api/knnbasic?`+
+		 `filename=${nameData}&`+
+		 `user=${this.state.coluser}&item=${this.state.colitem}&`+
+		 `rati=${this.state.colrating}&idd=${this.props.selectUser}&iid=${this.props.selectItem}`;
+		 let selectUser= this.props.selectUser;
+		 console.log('url: ',url);
+		 if(selectUser !== '' && selectUser !== '')
+		 {
+		 	
+		 	fetch(url)
+	    .then(res=>res.json())
+	    .then(result=>
+	    {
+	      this.setState({rating:result.KNNBasic});
+	      console.log('result fetch: ',result);
+	    }
+	    )
+	    .catch(e=>e);   
+	    console.log("err in fetch at Rating (Predit)");
+	}
 	 }
     /*
     */

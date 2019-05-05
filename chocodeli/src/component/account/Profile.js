@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import './login.css';
-
 class Profile extends PureComponent {
 	constructor(props){
 		super(props);
@@ -40,30 +39,31 @@ class Profile extends PureComponent {
 		})
 		.catch(error => console.error('Error:', error));
 	}
-	 SelectData(e){
-    const root = 'http://127.0.0.1:5000/';
-    let uri = root + 'api';
-    let formdata = new FormData();
-    formdata.append("key", e.target.files[0]);
-	formdata.append("iduser", this.state.idUser);
-    let options = {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formdata
-    }
-    let req = new Request(uri, options);
+	SelectData(e){
+		const root = 'http://127.0.0.1:5000/';
+		let uri = root + 'api';
+		let formdata = new FormData();
+		formdata.append("key", e.target.files[0]);
+		formdata.append("iduser", this.state.idUser);
+		let options = {
+			method: 'POST',
+			mode: 'no-cors',
+			body: formdata
+		}
+		let req = new Request(uri, options);
 
-    fetch(req)
-    .then((response)=>{
-    	console.log('response');
-    })
-    .then( (j) =>{
-      console.log("j",j);
-    })
-    .catch( (err) =>{
-      console.error( err.toString());
-    });
-    window.location.href="/";
+		fetch(req)
+		.then((response)=>{
+			console.log('response');
+		})
+		.then( (j) =>{
+			console.log("j",j);
+		})
+		.catch( (err) =>{
+			console.error( err.toString());
+		});
+		localStorage.removeItem('rawdata');
+		window.location.href="/";
 	}
 	saveNameData(name){
 		sessionStorage.setItem('name_data',name);
@@ -75,8 +75,8 @@ class Profile extends PureComponent {
 		{	
 			listData.listdata.map((record,index)=>{
 
-			let checkedBox = record.selected ? 
-					this.saveNameData(record.name_data):""
+				let checkedBox = record.selected ? 
+				this.saveNameData(record.name_data):""
 				
 				resultDiv.push(
 					<div className="detailData" key={'detailData'+index}>
@@ -93,10 +93,28 @@ class Profile extends PureComponent {
 		return resultDiv;
 
 	}
+	writeListDropDown(listData){
+		let resultLi=[];
+		if(listData.listdata)
+		{	
+			listData.listdata.map((record,index)=>{
+
+				let classLi = record.selected ? 
+				"selectedLi": "";
+				
+				resultLi.push(
+					<li key={index}
+					className = {classLi}>
+					{record.name_data}</li>
+					)})
+		}	
+		return resultLi;
+	}
 	
 	render(){
 		if(this.state.listData !=='') {
-			let writelist = this.writeDataFile(this.state.listData)
+			let writelist = this.writeDataFile(this.state.listData);
+			let writeLi = this.writeListDropDown(this.state.listData);
 			return(
 				<div className='containRRD'>
 				<div id="content">
@@ -111,15 +129,30 @@ class Profile extends PureComponent {
 				<div className="col-lg-4 pad100">
 				<div className="ContaintData">
 				<input id="choseFile" 
-          		name='fileName' 
-         		 type="file"
-         		 onChange= {this.SelectData} />
+				name='fileName' 
+				type="file"
+				onChange= {this.SelectData} />
 				<div className="listData">
 				<div className="titlelistData">List data</div>
 				{
 					writelist
-			}
+				}
 				</div>
+
+				<label className="dropdown">
+
+				<div className="dd-button">
+				Change Selected
+				</div>
+
+				<input type="checkbox" className="dd-input" id="test"/>
+
+				<ul className="dd-menu">
+				{writeLi}
+				</ul>
+
+				</label>
+
 				</div>
 				</div>
 				</div>

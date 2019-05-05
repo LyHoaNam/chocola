@@ -27,7 +27,12 @@ class ItemsList extends PureComponent {
       this.setState({item:tempdata});
   }
  getData() {
-    fetch(`http://localhost:5000/api/uniqueitem?item=${this.state.itemcol}`)
+  if(sessionStorage.getItem('name_data')) {
+    let nameData = sessionStorage.getItem('name_data');
+    let url=`http://localhost:5000/api/uniqueitem?`+
+      `item=${this.state.itemcol}`+
+      `&filename=${nameData}`;
+    fetch(url)
     .then(res=>res.json())
     .then(result=>
     {
@@ -38,10 +43,13 @@ class ItemsList extends PureComponent {
     .catch(e=>e);   
     console.log("err in fetch at ItemList (Predit)");
   }
+}
     selectValue(value){
     this.props.callbackFromItem(value);
   }
+
 	render(){
+    console.log('ItemList');
     if(this.state.item)
     {
 		return(
