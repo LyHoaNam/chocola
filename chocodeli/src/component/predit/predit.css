@@ -11,7 +11,7 @@
 	background-color: #ffffff;
 	border-radius: 15px;
 	padding: 15px;
-	max-height: 300px;
+	min-height: 500px;
 }
 .ChoseItem {
 }
@@ -38,10 +38,13 @@
 	float: right;
 }
 .btnPredit{
-	background-color: #005b97;
+	background-color: #65C7F7;
 	font-weight:700;
 	font-size: 14px;
 	cursor: pointer;
+	color: #ffffff;
+	border-radius: 15px;
+	padding: 10px 15px;
 }
 .resultPredit{
 
@@ -49,7 +52,7 @@
 .ContainLineChart{
 	background-color: #ffffff;
 	border-radius: 15px;
-	min-height: 300px;
+	min-height: 500px;
 	border: 1px solid #eeeeee;
 }
 .SerachButton{
@@ -65,8 +68,21 @@
 .searchIcon{
 	cursor: pointer;
 	position: absolute;
-	background-color: #0D84E8;
+	background-color: #65C7F7;
 	padding: 4px 10px;
 	border-radius: 15px;
 	right: 0;
+}
+.containRating{
+	background-color: #ffffff;
+	border-radius: 15px;
+	border: 1px solid #dddddd;
+	min-height: 500px;
+	padding: 15px;
+}
+th {
+	border-top: 0 !important;
+}
+.tableResult{
+	padding-top: 15px;
 }

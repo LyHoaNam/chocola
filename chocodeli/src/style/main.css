@@ -254,7 +254,7 @@ p {
 .OverFlow {
 	 overflow:auto;
 	width: inherit;
-    height: -webkit-fill-available;
+    height: 400px;
 }
 .ContainRightText{
 	display: inline;
