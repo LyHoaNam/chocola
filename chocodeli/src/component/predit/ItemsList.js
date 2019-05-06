@@ -49,7 +49,6 @@ class ItemsList extends PureComponent {
   }
 
 	render(){
-    console.log('ItemList');
     if(this.state.item)
     {
 		return(
@@ -63,7 +62,7 @@ class ItemsList extends PureComponent {
 			)
     }
      else
-      return <Problem />
+     { return <Problem />}
 	}
 }
 export default ItemsList;

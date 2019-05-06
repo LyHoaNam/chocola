@@ -68,7 +68,7 @@ class UserList extends PureComponent {
 			)
     }
      else
-      return <Problem />
+      {return <Problem />}
 	}
 }
 export default UserList;

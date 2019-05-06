@@ -1,7 +1,7 @@
 import React,{PureComponent} from "react";
 import "../../../style/chill.css";
 import {Link} from "react-router-dom";
-import {Modal,Button} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 class NextPredit extends PureComponent {
 	constructor(props){
 		super(props);
@@ -39,14 +39,14 @@ class NextPredit extends PureComponent {
 	}
 	    removeCache(){
   	//remove session datasend (obj = {minsup... min conf...})
-  	sessionStorage.getItem('datasend') ?
-	sessionStorage.removeItem('datasend'): "";
+  	if (sessionStorage.getItem('datasend'))
+		sessionStorage.removeItem('datasend');
 	//remove localStorage fpgrowth
-	localStorage.getItem('fpgrowth')?
-	localStorage.removeItem('fpgrowth'): "";
+	if (localStorage.getItem('fpgrowth'))
+		localStorage.removeItem('fpgrowth');
 	//remove localStorage apiori
-	localStorage.getItem('apiori')?
-	localStorage.removeItem('apiori'): "";
+	if (localStorage.getItem('apiori'))
+		localStorage.removeItem('apiori');
   }
 	render(){
 		return(

@@ -106,7 +106,6 @@
 .btnCreatAccount{
 	max-width: 300px;
     border-radius: 15px;
-    width: -webkit-fill-available;
     background-color: #65C7F7;
    	color: #ffffff;
    	border: 0px;

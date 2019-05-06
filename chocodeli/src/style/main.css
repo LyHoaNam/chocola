@@ -263,7 +263,7 @@ p {
 }
 .BtnYourData{
 	text-align: center;
-
+	position: relative;
 	font-weight: 700;
 	font-size: 0.9em;
 	padding: 5px 10px;
@@ -271,7 +271,6 @@ p {
 .BtnYourData:hover {
 	background-color: #eeeeee;
 	border-radius: 15px;
-	color:#007bff;
 }
 .unactivebtn{
 	color:#999999 !important;
@@ -296,4 +295,87 @@ p {
 }
 .pading0{
 	padding: 0px !important;
+}
+.dd-inputAc {
+	display: none;
+}
+.dd-menuAc{
+	right: 0;
+	max-width: 300px;
+	min-width: 250px;
+ position: absolute;
+  top: 75%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  font-weight: 400;
+}
+.dd-menuAc li:hover {
+  background-color: #eeeeee;
+  cursor:pointer;
+}
+.dd-menuAc li {
+	cursor: pointer;
+	padding: 8px 16px;
+	font-size: 14px;
+	min-width: 120px;
+	text-align: left;
+}
+.dd-menuAc {
+	display: none;
+}
+.dd-menuAc a{
+	color: #999999;
+}
+.dd-menuA a:hover{
+	color: #999999;
+}
+.dropdownAccount:hover +.dd-menuAc {
+  display: block;
+}
+.dropdownAccount:after + .dd-menuAc:hover {
+  display: block;
+}
+.BtnYourData li:hover {
+	color:#999999;
+}
+.dd-menuAc:hover{
+	display: block;
+}
+.imgAc{
+	max-width: 30px;
+	border-radius: 50%;
+}
+.containImgAc{
+	padding-top: 5px;
+	display: inline-block;
+	position: absolute;
+}
+.conatinDetailInfo{
+	display: inline-block;
+	padding-left: 50px;
+	color:#999999;
+}
+.containInfoAc{
+	text-align: left;
+	padding: 8px 16px;
+	cursor: default;
+}
+.containInfoAc:hover{
+	background-color: #ffffff !important;
+}
+.dd-menuAc li.divider{
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+}
+.infoAcName{
+	font-weight: 700;
+	color:#333333;
+}
+.imgLogout{
+	margin-right: 15px;
 }

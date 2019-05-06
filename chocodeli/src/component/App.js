@@ -2,9 +2,10 @@ import React, { PureComponent, Suspense, lazy } from 'react';
 import	Header from './Header';
 import Loading from './Loading';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Result from "./Result";
 import Profile from "./account/Profile";
+import Login from "./account/Login";
 const ReadRawData = lazy(()=> import('./readdata/ReadRawData'));
+const Result = lazy(()=> import('./Result'));
 
 class App extends PureComponent {
 
@@ -18,6 +19,7 @@ class App extends PureComponent {
         <Header callbackFromParent={this.myCallback} />      
         <Switch>
           <Route exact path='/' render={()=><ReadRawData/>} />
+          <Route exact path='/login' render={()=><Login/>} />
           <Route path='/algorthm/:id' 
           render={(props)=> <Result  {...props}/>} />
           <Route path='/profile' render={(props)=><Profile  {...props}/>} />

@@ -1,7 +1,7 @@
 import React,{PureComponent} from "react";
 import "../../../style/chill.css";
 import {Link} from "react-router-dom";
-import {Modal,Button} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 class NextPredit extends PureComponent {
 	constructor(props){
 		super(props);

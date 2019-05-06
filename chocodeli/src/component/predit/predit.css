@@ -2,15 +2,16 @@
 	background-color: #ffffff;
 }
 .preditContent{
-	background-color: #ffffff;
 	display: flex;
 	flex-wrap: wrap;
-	margin: 15px;
-	border-radius: 15px;
-	padding: 15px 0 15px 0;
+	margin: 0 15px;
 }
 .ListPredit{
 	border: 1px solid #dddddd;
+	background-color: #ffffff;
+	border-radius: 15px;
+	padding: 15px;
+	max-height: 300px;
 }
 .ChoseItem {
 }
@@ -22,20 +23,18 @@
 	background-color: #005b97;
 }
 .ContainChose{
-	background-color: #005b97;
-	min-height: 20px;
 	min-width: 200px;
 
 }
 .LeftTitle{
 	font-weight: 700;
 	font-size: 14px;
-	color:#ffffff;
+	color:#999999;
 }
 .rightTitle{
-	font-weight: 400;
+	font-weight: 700;
 	font-size: 14px;
-	color:#ffffff;
+	color:#333333;
 	float: right;
 }
 .btnPredit{
@@ -52,4 +51,22 @@
 	border-radius: 15px;
 	min-height: 300px;
 	border: 1px solid #eeeeee;
+}
+.SerachButton{
+	margin-bottom: 15px;
+	position: relative;
+}
+.formControl{
+	height: 30px;
+	border-radius: 15px !important;
+	border: 1px solid #dddddd;
+	padding: 15px;
+}
+.searchIcon{
+	cursor: pointer;
+	position: absolute;
+	background-color: #0D84E8;
+	padding: 4px 10px;
+	border-radius: 15px;
+	right: 0;
 }

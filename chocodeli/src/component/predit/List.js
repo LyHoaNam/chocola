@@ -84,7 +84,7 @@ class List extends PureComponent {
     let items=this.writeFunc();
     return (
      <div className="ListPredit">
-     <div className="Infomation martop10">
+     <div className="">
      <div className="DetailContent">
      <div className="ContainChose">
      <span className="LeftTitle">
@@ -95,8 +95,15 @@ class List extends PureComponent {
      </span>
      </div>
      <span className="SerachButton">
-     <input type="text" className="form-control"  placeholder="Search" 
-     value={this.state.textChange} onChange={this.handleChange} />
+     <input type="text" className="formControl"  
+     placeholder="Search" 
+     value={this.state.textChange} 
+     onChange={this.handleChange} />
+     <span className="searchIcon">
+     <img src={require('../../img/search.png')}
+     alt=""
+     className=""/>
+     </span>
      </span>
      </div>
      <div className="OverFlow">
