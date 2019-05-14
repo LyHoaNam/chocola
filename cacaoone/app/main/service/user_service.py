@@ -15,7 +15,6 @@ def save_new_user(data):
             password_hash=data['password'],
             registered_on=datetime.datetime.utcnow()
         )
-        print(new_user)
         save_changes(new_user)
         response_object = {
             'status': 'success',

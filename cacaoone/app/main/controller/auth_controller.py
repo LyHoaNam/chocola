@@ -31,3 +31,13 @@ class LogoutAPI(Resource):
         # get auth token
         auth_header = request.headers.get('Authorization')
         return Auth.logout_user(data=auth_header)
+
+@api.route('/selecteddata')
+class SectedData(Resource):
+    """
+    select all data from user
+    """
+    @api.doc('select all data')
+    def get(self):
+        #get auth token
+        return Auth.get_logged_in_user(new_request=request)
