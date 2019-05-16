@@ -34,13 +34,15 @@ class Start extends PureComponent {
 			this.setState({[name]: value});
 		}
 		readyToNext(result){
-			if(result === 'false') {
-				alert('Username or password Invalid');
-				this.setState({username:'',password:''});
+			console.log(result);
+			if(result.status === 'success') {
+				
+				localStorage.setItem('Auth',result.Authorization);
+				window.location.href="/profile";
 			}
 			else {
-				localStorage.setItem('account',result);
-				window.location.href="/profile";
+				alert('Username or password Invalid');
+				this.setState({username:'',password:''});
 			}
 		}
 		handleSubmit(){
@@ -50,12 +52,16 @@ class Start extends PureComponent {
 			else {
 				if(this.state.check) {
 					let root = "http://localhost:5000/";
-					let url= root + 'api/login'
-					let formdata = new FormData();
-					formdata.append('user', this.state.username);
-					formdata.append('pass', this.state.password);
+					let url= root + 'auth/login'
+					let formdata = {
+	"username":"test@test.com",
+	"password":"test"
+}
+					let headers = new Headers();
+					headers.append('Content-Type', 'application/json');
 					let options = {
 						method: 'POST',
+						headers: headers, 
 						body: formdata
 					}
 					let req = new Request(url,options);

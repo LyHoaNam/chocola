@@ -88,3 +88,19 @@ def read_data_csv(u_id,page):
             'message': 'Some error occurred. Please try again.'
         }
         return response_object, 401
+
+def read_all_data_csv(u_id):
+    file_name = get_a_data(u_id)
+    DataFileName= "./container/"+str(file_name)
+    try:
+        store_data = pd.read_csv(DataFileName, 
+        keep_default_na = False)
+        result = convert_to_json(store_data)
+        return result    
+
+    except Exception as e:
+        response_object = {
+            'status': 'fail',
+            'message': 'Some error occurred. Please try again.'
+        }
+        return response_object, 401

@@ -24,3 +24,6 @@ class DataDto:
         'selected': fields.String(description='selected data'),
         'data_name': fields.String(description='data name')
     })
+class AssoRuleDto:
+    api = Namespace('rule' , description='algorthm assosition rule operations')
+    
