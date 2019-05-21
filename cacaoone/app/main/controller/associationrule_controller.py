@@ -6,7 +6,7 @@ from ..service.association_rule_service import Fpgrowth, Apiori
 from app.main.service.auth_helper import Auth
 api = AssoRuleDto.api
 
-@api.route('/fpgrowth/rule')
+@api.route('/fpgrowth/result')
 class Data(Resource):
     @api.doc('run algorthm fpgrowth')
     @api.response(404, 'Data not found.')
@@ -35,7 +35,7 @@ class Data(Resource):
         Algorthm = Fpgrowth(data, minlen, minconf)
         return Algorthm.sort_patteerns()
 
-@api.route('/apiori/rule')
+@api.route('/apiori/result')
 class Data(Resource):
     @api.doc('run algorthm apiori')
     @api.response(404, 'Data not found.')

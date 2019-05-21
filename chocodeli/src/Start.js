@@ -6,14 +6,13 @@ class Start extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      profile:""
+      auth:""
     }
   }
   componentDidMount(){
-    if(localStorage.getItem('account')){
-      let tempdata=localStorage.getItem('account');
-      tempdata=JSON.parse(tempdata);
-      this.setState({profile:tempdata});
+    if(localStorage.getItem('Auth')){
+      let tempdata=localStorage.getItem('Auth');
+      this.setState({Auth:tempdata});
     }
   }
 

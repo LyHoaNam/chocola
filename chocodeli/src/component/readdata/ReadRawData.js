@@ -10,66 +10,66 @@ class ReadRawData extends PureComponent {
 
 		this.state ={
 			result: [],
+			authorization:"",
 			seShow: false,
+			page:0
 		}
-		
 	}
 	componentDidMount () {
-		if(localStorage.getItem('rawdata')){
-			this.setDataToState();	
+		if(localStorage.getItem('Auth')){
+			let author=localStorage.getItem('Auth');
+			this.setState({authorization:author});
+			this.getData(author,this.state.page);	
 		}
 		else{
-			this.getData();
 		}
 	}
-	setDataToState(){
-		let tempdata= localStorage.getItem('rawdata');
-			tempdata=JSON.parse(tempdata);
-			this.setState({result:tempdata.data});
-	}
-	getData() {
-		//get name data in sessionStorage
-		if(sessionStorage.getItem('name_data')) {
-			let nameData = sessionStorage.getItem('name_data');
+	getData(bearer,page) {
 			//ready to fetch data
-			let root = "http://localhost:5000/";
-			let url= root + 'rawdata?filename='+nameData;
-			fetch(url)
+			let url= '/data/page/'+page;
+			let options = {
+				method: 'GET',
+				headers: {
+					'Authorization': bearer
+				}
+			}
+			fetch(url,options)
 			.then(res=>res.json())
-			.then(result=>
+			.then(res=>
 			{
-				localStorage.setItem("rawdata",
-					JSON.stringify(result));
-				this.setDataToState();
+				this.setState({result:res})
 			}
 			)
-			.catch(e=>e);   
-			console.log("err");}
+			.catch(e=>{
+				//window.location.href="/login";
+			});   
 
-	}
-
-	render(){ 
-			
-		if(this.state.result.length>0){
-		return (   
-			<div className='containRRD'>
-			<div id="content">
-			
-			<Title/>
-			<div className="row">
-			<Infomation Content1={"Size file: "}
-			Content2={"Column: "}
-			Content3={"Row: "}/>
-
-			<Tables data={this.state.result}/>
-			</div>
-			</div>
-			</div>
-			)
 		}
-		else
-			return <Loading />
 
-	}
-}
-export default ReadRawData;
+		render(){ 
+			if(this.state.result.status === 'success'){
+				return (   
+					<div className='containRRD'>
+					<div id="content">
+
+					<Title
+					Column={this.state.result.data[0]}
+					/>
+					<div className="row">
+					<Infomation Content1={"Size file: "}
+					Content2={"Column: "}
+					Content3={"Row: "}
+				 	/>
+
+					<Tables data={this.state.result}/>
+					</div>
+					</div>
+					</div>
+					)
+				}
+				else
+					return <Loading />
+
+			}
+		}
+		export default ReadRawData;

@@ -60,11 +60,13 @@ class SetAlgorthm extends PureComponent {
 			case 'Prediction':
 			return <NextPredit 
 				listdata={this.state.Datatonext}
-				onNeHide={this.modalNeClose}/>;
+				onNeHide={this.modalNeClose}
+				column={this.props.column}/>;
 			case 'Clustering':
 			return <NextClustering 
 				listdata={this.state.Datatonext}
-				onNeHide={this.modalNeClose}/>;
+				onNeHide={this.modalNeClose}
+				column={this.props.column}/>;
 			default:
 				return false;
 		}

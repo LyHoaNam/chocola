@@ -34,7 +34,6 @@ class Start extends PureComponent {
 			this.setState({[name]: value});
 		}
 		readyToNext(result){
-			console.log(result);
 			if(result.status === 'success') {
 				
 				localStorage.setItem('Auth',result.Authorization);
@@ -51,25 +50,24 @@ class Start extends PureComponent {
 				{this.setState({tooltipusername:true,check:false});}
 			else {
 				if(this.state.check) {
-					let root = "http://localhost:5000/";
+					let root = "/";
 					let url= root + 'auth/login'
-					let formdata = {
-	"username":"test@test.com",
-	"password":"test"
-}
+					let formdata = "{\"username\":\""+
+					this.state.username+
+					"\",\"password\":\""+
+					this.state.password+"\"}";
 					let headers = new Headers();
-					headers.append('Content-Type', 'application/json');
+					headers.append('Content-Type', 'application/json',
+						'Accept': 'application/json');
 					let options = {
 						method: 'POST',
 						headers: headers, 
 						body: formdata
 					}
 					let req = new Request(url,options);
-					fetch(req)
-					.then(res => res.json())
+					fetch(req).then(res => res.json())
 					.then(response => {
-						let result = JSON.stringify(response);
-						this.readyToNext(result);
+						this.readyToNext(response);
 					})
 					.catch(error => console.error('Error:', error));
 				}

@@ -4,7 +4,7 @@ class Profile extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state={
-			idUser:"",
+			authorization:"",
 			listData:'',
 			writeList:"",
 			user:""
@@ -12,21 +12,19 @@ class Profile extends PureComponent {
 		this.SelectData=this.SelectData.bind(this);
 	}
 	componentDidMount(){
-		if(localStorage.getItem('account')){
-			let tempdata=localStorage.getItem('account');
-			tempdata=JSON.parse(tempdata);
-			this.setState({idUser:tempdata.id,user:tempdata.user});
-			this.getData(tempdata.id);
+		if(localStorage.getItem('Auth')){
+			let author=localStorage.getItem('Auth');
+			this.setState({authorization:author});
+			this.getData(author);
 		}
 	}
-	getData(iduser){
-		let root = "http://localhost:5000/";
-		let url= root + 'api/getdata'
-		let formdata = new FormData();
-		formdata.append('iduser', iduser);
+	getData(bearer){
+		let url= '/data/all';
 		let options = {
-			method: 'POST',
-			body: formdata
+			method: 'GET',
+			headers: {
+				'Authorization': bearer
+			}
 		}
 		let req = new Request(url,options);
 		fetch(req)
@@ -39,31 +37,31 @@ class Profile extends PureComponent {
 		})
 		.catch(error => console.error('Error:', error));
 	}
-	SelectData(e){
-		const root = 'http://127.0.0.1:5000/';
-		let uri = root + 'api';
+	readyToNext(result){
+		if(result.status === 'success') {
+			window.location.href="/";
+		}
+		else {
+			alert('Something Invalid, Try again!');
+		}
+	}	SelectData(e){
+		let url = '/data/import';
 		let formdata = new FormData();
-		formdata.append("key", e.target.files[0]);
-		formdata.append("iduser", this.state.idUser);
+		formdata.append("filecsv", e.target.files[0]);
 		let options = {
 			method: 'POST',
-			mode: 'no-cors',
+			headers: {
+				'Authorization': this.state.authorization
+			},
 			body: formdata
 		}
-		let req = new Request(uri, options);
-
-		fetch(req)
-		.then((response)=>{
-			console.log('response');
+		let req = new Request(url, options);
+		
+		fetch(req).then(res => res.json())
+		.then(response => {
+			this.readyToNext(response);
 		})
-		.then( (j) =>{
-			console.log("j",j);
-		})
-		.catch( (err) =>{
-			console.error( err.toString());
-		});
-		localStorage.removeItem('rawdata');
-		window.location.href="/";
+		.catch(error => console.error('Error:', error));
 	}
 	saveNameData(name){
 		sessionStorage.setItem('name_data',name);
@@ -71,21 +69,24 @@ class Profile extends PureComponent {
 	}
 	writeDataFile(listData){
 		let resultDiv=[];
-		if(listData.listdata)
+		if(listData)
 		{	
-			listData.listdata.map((record,index)=>{
+			listData.map((record,index)=>{
 
-				let checkedBox = record.selected ? 
-				this.saveNameData(record.name_data):""
+				let checkedBox = record.selected==="True"? 
+				"fas fa-angle-double-right icCheced":""
 				
 				resultDiv.push(
-					<div className="detailData" key={'detailData'+index}>
+					<div className="detailData" 
+					key={'detailData'+index}>
 					<i className={checkedBox} />
-					<span className="titleData" key={'titleData'+index}>
-					Data name: 
+					<span className="titleData" 
+					key={'titleData'+index}>
+					
 					</span>
-					<span className="nameData" key={'nameData'+index}>
-					{record.name_data}
+					<span className="nameData" 
+					key={'nameData'+index}>
+					{record.data_name}
 					</span>
 					</div>
 					)})
@@ -95,17 +96,15 @@ class Profile extends PureComponent {
 	}
 	writeListDropDown(listData){
 		let resultLi=[];
-		if(listData.listdata)
+		if(listData)
 		{	
-			listData.listdata.map((record,index)=>{
-
-				let classLi = record.selected ? 
+			listData.map((record,index)=>{
+				let classLi = record.selected==="True" ? 
 				"selectedLi": "";
-				
 				resultLi.push(
 					<li key={index}
 					className = {classLi}>
-					{record.name_data}</li>
+					{record.data_name}</li>
 					)})
 		}	
 		return resultLi;
@@ -113,8 +112,10 @@ class Profile extends PureComponent {
 	
 	render(){
 		if(this.state.listData !=='') {
-			let writelist = this.writeDataFile(this.state.listData);
-			let writeLi = this.writeListDropDown(this.state.listData);
+			let writelist = this.writeDataFile(
+				this.state.listData);
+			let writeLi = this.writeListDropDown(
+				this.state.listData);
 			return(
 				<div className='containRRD'>
 				<div id="content">
