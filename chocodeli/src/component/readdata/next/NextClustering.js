@@ -6,26 +6,11 @@ class NextPredit extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state ={
-			xaxits:"",
-			yaxits :"",
-			arr:[]
+			xaxits:this.props.column[0],
+			yaxits :this.props.column[1],
+			arr:this.props.column
 		}
 		this.handleChange=this.handleChange.bind(this);
-	}
-	componentDidMount(){
-		if(localStorage.getItem('rawdata')){
-			let templatedata=localStorage.getItem('rawdata');
-			templatedata = JSON.parse(templatedata);
-			let values = templatedata.data;
-			let tempArr=[];
-			tempArr=values[0];
-			this.setState({
-				arr:tempArr,
-				yaxits:tempArr[0],
-				xaxits:tempArr[0]
-			})
-		}
-		
 	}
 	handleChange(event){
 		const value=event.target.value;
@@ -49,7 +34,8 @@ class NextPredit extends PureComponent {
 			Choose User:
 			</span>
 			<div className="SelectCol">
-			<select name="yaxits" onChange={this.handleChange}>
+			<select name="yaxits" onChange={this.handleChange}
+			value={this.state.yaxits}>
 			{
 				this.state.arr.map((item,index)=>
 					<option value={item} key={index}>{item}</option>)
@@ -63,7 +49,8 @@ class NextPredit extends PureComponent {
 			Choose Ratings:
 			</span>
 			<div className="SelectCol">
-			<select name="xaxits" onChange={this.handleChange}>
+			<select name="xaxits" onChange={this.handleChange}
+			value={this.state.xaxits}>
 			{
 				this.state.arr.map((item,index)=>
 					<option value={item} key={index}>{item}</option>)

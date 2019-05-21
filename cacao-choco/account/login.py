@@ -23,8 +23,8 @@ def create_account(username,password):
 	finally:
 		return True
 def select_all_row(id_user):
-	sql_str= """SELECT `id_data`, `name_data`, 
-	`selected` FROM `datafile` WHERE id_user='{}'
+	sql_str= """SELECT `id_data`, `data_name`, 
+	`selected` FROM `data_file` WHERE id_user='{}'
 	""".format(id_user)
 	result = db.get_all_row(sql_str)
 	obj={}

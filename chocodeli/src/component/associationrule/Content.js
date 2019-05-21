@@ -8,14 +8,14 @@ class Content extends PureComponent {
     this.state ={
       inputValue: '',
       ruler:30,
-      hasMoreItem:true,
+      hasMoreItem:false,
       table: this.props.data.slice(0,30),
       original: this.props.data
     }
+    this.writeFunc = this.writeFunc.bind(this);
     this.loadFunc = this.loadFunc.bind(this);
     this.filterFunc=this.filterFunc.bind(this);
   }
-
   loadFunc(){
     //get a next of check point
     if(this.state.hasMoreItem){
@@ -53,15 +53,14 @@ class Content extends PureComponent {
       this.setState({inputValue:toSearch,original:searchData,
        hasMoreItem:false});
     }
-  writeFunc(){
+  writeFunc(listValue){
     let result=[];
-    if(this.state.table.length>0)
-      {this.state.table.map((record,index)=>
+     listValue.map((record,index)=>
         {     
           result.push(  
           <tr key={index}>
           <td key={'i'+index}> {index+1} </td>
-          <td>
+          <td key={"tdf"+index}>
           {record.fist.map((item,i) => (
             <div key={i}>{item}</div>
             ))}
@@ -73,51 +72,54 @@ class Content extends PureComponent {
           </td>
           </tr>
           )
-    })}
+    })
     return result;
   }
   render(){
-    let items=this.writeFunc();
-    return (
-     <div className="col-lg-12">
-     <div className="Infomation martop10">
-     <div className="DetailContent">
-     <span className="DetailInfo">
-     Result
-     </span>
-     <span className="SerachButton">
-     <input type="text" className="form-control"  placeholder="Search" 
-     value={this.state.textChange} onChange={this.handleChange} />
-     </span>
-     </div>
-     <div className="OverFlow">
-      <InfiniteScroll
-     pageStart={0}
-     loadMore={()=>this.loadFunc()}
-     hasMore={this.state.hasMoreItem}
-     loader={<div className="loader" key={0}>Loading ...</div>}
-     useWindow={false}
-     >
-     <Table responsive>
-     <thead>
-     <tr>
-     <th>No</th>
-     <th>Buy Product</th>
-     <th scope="col">Recomend Product</th>
-     </tr>
-     </thead>
-     <tbody>
-     {items}
-     </tbody>
-     
-     </Table>
-     </InfiniteScroll>
-     </div>
-     </div>
-     </div>
-
-     )
-  }
+    let items = [];
+    if(this.state.table.length > 0){
+        console.log('table',this.state.table);
+        items = this.writeFunc(this.state.table);
+      }
+        return (
+         <div className="col-lg-12">
+         <div className="Infomation martop10">
+         <div className="DetailContent">
+         <span className="DetailInfo">
+         Result
+         </span>
+         <span className="SerachButton">
+         <input type="text" className="form-control"  placeholder="Search" 
+         value={this.state.textChange} onChange={this.handleChange} />
+         </span>
+         </div>
+         <div className="OverFlow">
+          <InfiniteScroll
+         pageStart={0}
+         loadMore={()=>this.loadFunc()}
+         hasMore={this.state.hasMoreItem}
+         loader={<div className="loader" key={0}>Loading ...</div>}
+         useWindow={false}
+         >
+         <Table responsive>
+         <thead>
+         <tr>
+         <th>No</th>
+         <th>Buy Product</th>
+         <th scope="col">Recomend Product</th>
+         </tr>
+         </thead>
+         <tbody>
+         {items}
+         </tbody>
+         
+         </Table>
+         </InfiniteScroll>
+         </div>
+         </div>
+         </div>
+    
+         )}
 };
 
 export default Content;

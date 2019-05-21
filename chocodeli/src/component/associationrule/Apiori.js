@@ -8,6 +8,7 @@ class Apiori extends PureComponent {
 
     this.state ={
       result: [],
+      authorization:"",
       min_conf: this.props.min_conf,
       min_sup:this.props.min_supf,
       min_len:this.props.min_len
@@ -19,38 +20,43 @@ class Apiori extends PureComponent {
       this.setDataToState();  
     }
     else{
-      this.getData();
+      let author=localStorage.getItem('Auth');
+      this.setState({authorization:author});
+      this.getData(author);
     }
   }
   setDataToState(){
     let tempdata= localStorage.getItem('apiori');
       tempdata=JSON.parse(tempdata);
-      this.setState({result:tempdata.rules,
-        min_sup:tempdata.min_sup,
-        min_conf:tempdata.min_conf});
+      this.setState({result:tempdata});
   }
-  getData() {
-     if(sessionStorage.getItem('name_data')) {
-      let nameData = sessionStorage.getItem('name_data');
-    fetch(`http://localhost:5000/api/apiori?minsup=${this.state.min_sup}`+
-      `&minconf=${this.state.min_conf}`+
-      `&minlen=${this.state.min_len}`+
-      `&filename=${nameData}`)
-    .then(res=>res.json())
-    .then(result=>
-    {
-      localStorage.setItem("apiori",JSON.stringify(result));
-      this.setDataToState();
-    }
-    )
-    .catch(e=>e);   
-    console.log("err in fetch at apiori");
+  getData(bearer) {
+    let minlen = '?minlen='+this.state.min_len;
+    let minsup = '&minsup='+this.state.min_sup;
+    let minconf = '&minconf='+this.state.min_conf;
+    let url= '/rule/apiori/result'+minlen+minsup+minconf;
+      let options = {
+        method: 'GET',
+        headers: {
+          'Authorization': bearer
+        }
+      }
+      fetch(url,options)
+      .then(res=>res.json(  ))
+      .then(res=>
+      {
+        if(res.rules)
+          {localStorage.setItem("apiori",JSON.stringify(res.rules));
+          this.setDataToState();}
+      }
+      )
+      .catch(e=>{
+        console.log(e);
+      });  
+  }
 
-  }
-  }
-
-  render(){ 
-    if(this.state.result.length>0){
+  render(){
+    if(this.state.result){
     return (   
 
       <div id="content">

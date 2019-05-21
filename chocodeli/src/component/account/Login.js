@@ -34,13 +34,14 @@ class Start extends PureComponent {
 			this.setState({[name]: value});
 		}
 		readyToNext(result){
-			if(result === 'false') {
-				alert('Username or password Invalid');
-				this.setState({username:'',password:''});
+			if(result.status === 'success') {
+				
+				localStorage.setItem('Auth',result.Authorization);
+				window.location.href="/profile";
 			}
 			else {
-				localStorage.setItem('account',result);
-				window.location.href="/profile";
+				alert('Username or password Invalid');
+				this.setState({username:'',password:''});
 			}
 		}
 		handleSubmit(){
@@ -49,21 +50,24 @@ class Start extends PureComponent {
 				{this.setState({tooltipusername:true,check:false});}
 			else {
 				if(this.state.check) {
-					let root = "http://localhost:5000/";
-					let url= root + 'api/login'
-					let formdata = new FormData();
-					formdata.append('user', this.state.username);
-					formdata.append('pass', this.state.password);
+					let root = "/";
+					let url= root + 'auth/login'
+					let formdata = "{\"username\":\""+
+					this.state.username+
+					"\",\"password\":\""+
+					this.state.password+"\"}";
+					let headers = new Headers();
+					headers.append('Content-Type', 'application/json',
+						'Accept': 'application/json');
 					let options = {
 						method: 'POST',
+						headers: headers, 
 						body: formdata
 					}
 					let req = new Request(url,options);
-					fetch(req)
-					.then(res => res.json())
+					fetch(req).then(res => res.json())
 					.then(response => {
-						let result = JSON.stringify(response);
-						this.readyToNext(result);
+						this.readyToNext(response);
 					})
 					.catch(error => console.error('Error:', error));
 				}

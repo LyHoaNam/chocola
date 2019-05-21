@@ -5,8 +5,26 @@ from app.main import db
 from app.main.model.data import Data
 
 
-def save_new_data(data):
-    pass
+def save_new_data(id_u,data_name):
+    userid = Data.query.filter_by(id_user=id_u).first()
+    if not userid:
+        response_object = {
+            'status': 'fail',
+            'message': 'User already exists. Please Log in.'
+        }
+        return response_object, 409
+    else:
+        new_data = Data(
+            data_name=data_name,
+            id_user=id_u,
+            selected=True
+        )
+        save_changes(new_data)
+        response_object = {
+            'status': 'success',
+            'message': 'Successfully registered.'
+        }
+        return response_object, 201
 
 def get_all_data(u_id):
     return Data.query.filter_by(id_user=u_id).all()
@@ -70,6 +88,7 @@ def read_data_csv(u_id,page):
         if page == 0:
             store_data = pd.read_csv(DataFileName, 
             keep_default_na = False,
+            header=None,
             nrows=50)
             result = convert_to_json(store_data)
             return result
@@ -81,6 +100,22 @@ def read_data_csv(u_id,page):
             result = convert_to_json(store_data)
             return result
             
+
+    except Exception as e:
+        response_object = {
+            'status': 'fail',
+            'message': 'Some error occurred. Please try again.'
+        }
+        return response_object, 401
+
+def read_all_data_csv(u_id):
+    file_name = get_a_data(u_id)
+    DataFileName= "./container/"+str(file_name)
+    try:
+        store_data = pd.read_csv(DataFileName, 
+        keep_default_na = False)
+        result = convert_to_json(store_data)
+        return result    
 
     except Exception as e:
         response_object = {
