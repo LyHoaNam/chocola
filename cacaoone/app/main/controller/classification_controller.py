@@ -1,11 +1,11 @@
-from ..util.dto import NaiveBayesDto
+from ..util.dto import ClassificationDto
 from flask_restplus import Resource
 from ..service.data_service import read_all_data_csv
 from flask import request,json
 from app.main.service.auth_helper import Auth
 from ..service.NaiveBayes_service import _GaussianNB
 from ..service.NaiveBayes_service import _MultinomialNB
-api=NaiveBayesDto.api
+api=ClassificationDto.api
 
 @api.route('/GaussianNB')
 class GaussianNB(Resource):

@@ -30,4 +30,5 @@ class PreditDto:
     api = Namespace('preidt' , description='algorthm preidt operations')
 class ClusterDto:
     api = Namespace('cluster', description='algorthm cluster operation')
-    
+class ClassificationDto:
+    api = Namespace('classification', description='classification related operations' )
