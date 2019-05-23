@@ -9,7 +9,7 @@ class Predit:
         DataFileName= UPLOAD_FOLDER+namefile
         dt = pd.read_csv(DataFileName)
         return dt
-    def alknnbasic(namefile,uid,iid,rati,value_uid,value_iid):
+    def alknnbasic(self,namefile,uid,iid,rati,value_uid,value_iid):
         test_data=pd.read_csv('./container/'+namefile)
         dt=pd.DataFrame(test_data)
         # Retrieve the trainset.
@@ -24,12 +24,12 @@ class Predit:
         tempdata={}
         tempdata["uid"]=pred.uid
         tempdata["idd"]=pred.iid
-        tempdata["rati"]=pred.est
+        tempdata["rati"]=round(pred.est,2)
         jsondata["KNNBasic"]=tempdata
         return jsondata
 
-    def unique_column(self):
-        UPLOAD_FOLDER ='../../../container/'
-        DataFileName= UPLOAD_FOLDER+'test_pd.csv' #namefile
+    def unique_column(self,col,name_dt):
+        UPLOAD_FOLDER ='./container/'
+        DataFileName= UPLOAD_FOLDER+name_dt
         dt = pd.read_csv(DataFileName)
-        return dt['userId'].unique().tolist()
+        return dt[col].unique().tolist()

@@ -32,6 +32,7 @@ class Predit extends PureComponent {
 
     <ItemsList data={this.props.item}
     callbackFromItem={this.callbackItem}/>
+    
     <Rating colUser={this.props.user}
     colItem={this.props.item}
     colRating={this.props.rating}

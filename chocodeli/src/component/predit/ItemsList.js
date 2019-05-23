@@ -17,7 +17,9 @@ class ItemsList extends PureComponent {
       this.setDataToState();  
     }
     else{
-      this.getData();
+      let author=localStorage.getItem('Auth');
+      this.setState({authorization:author});
+      this.getData(author);
     }
   }
   
@@ -26,43 +28,45 @@ class ItemsList extends PureComponent {
       tempdata=JSON.parse(tempdata);
       this.setState({item:tempdata});
   }
- getData() {
-  if(sessionStorage.getItem('name_data')) {
-    let nameData = sessionStorage.getItem('name_data');
-    let url=`http://localhost:5000/api/uniqueitem?`+
-      `item=${this.state.itemcol}`+
-      `&filename=${nameData}`;
-    fetch(url)
-    .then(res=>res.json())
-    .then(result=>
-    {
-      localStorage.setItem("itemcol",JSON.stringify(result));
-      this.setDataToState();
-    }
-    )
-    .catch(e=>e);   
-    console.log("err in fetch at ItemList (Predit)");
+getData(bearer) {
+    let column = '?col='+this.state.itemcol;
+    let url= '/predit/knnbasic/unique'+column;
+    console.log(url);
+      let options = {
+        method: 'GET',
+        headers: {
+          'Authorization': bearer
+        }
+      }
+      fetch(url,options)
+      .then(res=>res.json(  ))
+      .then(res=>
+      {
+        if(res){
+          localStorage.setItem("itemcol",JSON.stringify(res));
+          this.setDataToState();}
+      }
+      )
+      .catch(e=>{
+        console.log(e);
+      });  
   }
-}
     selectValue(value){
     this.props.callbackFromItem(value);
   }
 
 	render(){
-    if(this.state.item)
-    {
 		return(
 		<div className="col-lg-3">
      	
-    <List 
-    data={this.state.item}
-    colName="item"
-    callbackValue={this.selectValue}/>
+    {
+      this.state.item ?
+      <List 
+        data={this.state.item}
+        colName="item"
+        callbackValue={this.selectValue}/>:""}
       </div>
 			)
-    }
-     else
-     { return <Problem />}
 	}
 }
 export default ItemsList;

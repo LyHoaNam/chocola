@@ -16,64 +16,68 @@ class Rating extends PureComponent {
 	}
 
 	getData() {
-		if(sessionStorage.getItem('name_data')) {
-			let nameData = sessionStorage.getItem('name_data');
-			let url = `http://localhost:5000/api/knnbasic?`+
-			`filename=${nameData}&`+
-			`user=${this.state.coluser}&item=${this.state.colitem}&`+
-			`rati=${this.state.colrating}&idd=${this.props.selectUser}&iid=${this.props.selectItem}`;
-			let selectUser= this.props.selectUser;
-			if(selectUser !== '' && selectUser !== '')
-			{
-
-				fetch(url)
-				.then(res=>res.json())
-				.then(result=>
-				{
-					this.setState({rating:result.KNNBasic,
-					selectuser:this.props.selectUser,
-					selectitem:this.props.selectItem,});
-				}
-				)
-				.catch(e=>e);   
-				console.log("err in fetch at Rating (Predit)");
+		let bearer=localStorage.getItem('Auth');
+		let col_uid = '?uid='+this.state.coluser;
+		let col_iid = '&iid='+this.state.colitem;
+		let col_rati = '&rati='+this.state.colrating;
+		let value_uid = '&value_uid='+this.props.selectUser;
+		let value_iid = '&value_iid='+this.props.selectItem;
+		let url= '/predit/knnbasic/result'+col_uid
+		+ col_iid + col_rati + value_uid + value_iid;
+		let options = {
+			method: 'GET',
+			headers: {
+				'Authorization': bearer
 			}
 		}
-    /*
-    */
-}
-render(){
-	return(
-		<div className="col-lg-6">
-		<div className="containRating">
-		<span className ="btnPredit"
-		onClick={this.getData}>
-		Result
-		</span>
-		<div className="tableResult">
-		<Table responsive>
-		<thead>
-		<tr>
-		<th>User</th>
-		<th>Item</th>
-		<th>Rating</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-		<td>
-		{this.state.selectuser}</td>
-		<td>{this.state.selectitem}</td>
-		<td>{this.state.rating ? 
-			this.state.rating.predit: ''}
-		</td>
-		</tr>
-		</tbody>
-		</Table>
-		</div>
-			</div>
-			</div>
-			)
-}
-}
-export default Rating;
+		fetch(url,options)
+		.then(res=>res.json(  ))
+		.then(res=>
+		{
+			if(res.KNNBasic){
+				this.setState({rating:res.KNNBasic.rati,
+					selectuser:this.props.selectUser,
+					selectitem:this.props.selectItem});
+			}
+		}
+		)
+		.catch(e=>{
+			console.log(e);
+		});  
+
+	}
+	render(){
+		return(
+			<div className="col-lg-6">
+			<div className="containRating">
+			<span className ="btnPredit"
+			onClick={this.getData}>
+			Result
+			</span>
+			<div className="tableResult">
+			<Table responsive>
+			<thead>
+			<tr>
+			<th>User</th>
+			<th>Item</th>
+			<th>Rating</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+			<td>
+			{this.state.selectuser}</td>
+			<td>{this.state.selectitem}</td>
+			<td>{this.state.rating ? 
+				this.state.rating: ''}
+				</td>
+				</tr>
+				</tbody>
+				</Table>
+				</div>
+				</div>
+				</div>
+				)
+			}
+		}
+		export default Rating;

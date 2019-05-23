@@ -8,6 +8,7 @@ class UserList extends PureComponent {
 			this.state = {
 				usercol:this.props.data,
         user:false,
+        authorization:"",
         selectuser:'' 
 			
 		}
@@ -18,7 +19,9 @@ class UserList extends PureComponent {
       this.setDataToState();  
     }
     else{
-      this.getData();
+      let author=localStorage.getItem('Auth');
+      this.setState({authorization:author});
+      this.getData(author);
     }
   }
   //componentWillUpdate(){
@@ -33,42 +36,45 @@ class UserList extends PureComponent {
       this.setState({user:tempdata});
   }
 
- getData() {
-   if(sessionStorage.getItem('name_data')) {
-      let nameData = sessionStorage.getItem('name_data');
-    fetch(`http://localhost:5000/api/`+
-      `uniqueuser?user=${this.state.usercol}`+
-      `&filename=${nameData}`)
-    .then(res=>res.json())
-    .then(result=>
-    {
-      localStorage.setItem("usercol",JSON.stringify(result));
-      this.setDataToState();
-    }
-    )
-    .catch(e=>e);   
-    console.log("err in fetch at UserList (Predit)");
-  }
+ getData(bearer) {
+    let column = '?col='+this.state.usercol;
+    let url= '/predit/knnbasic/unique'+column;
+      let options = {
+        method: 'GET',
+        headers: {
+          'Authorization': bearer
+        }
+      }
+      fetch(url,options)
+      .then(res=>res.json(  ))
+      .then(res=>
+      {
+        if(res){
+          localStorage.setItem("usercol",JSON.stringify(res));
+          this.setDataToState();}
+      }
+      )
+      .catch(e=>{
+        console.log(e);
+      });  
   }
   selectValue(value){
     this.props.callbackFromUser(value);
   }
 	render(){
-    if(this.state.user)
-    {
 		return(
 		<div className="col-lg-3">
      	
-    <List 
-    data={this.state.user}
-    colName="user"
-    callbackValue={this.selectValue}/>
-
+    {
+      this.state.user ?
+      <List 
+        data={this.state.user}
+        colName="user"
+        callbackValue={this.selectValue}/>: ""
+    }
       </div>
 			)
-    }
-     else
-      {return <Problem />}
+    
 	}
 }
 export default UserList;

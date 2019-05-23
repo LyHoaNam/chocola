@@ -10,9 +10,7 @@ class NumberOfClusters extends PureComponent {
 		}
 		this.handleNumber = this.handleNumber.bind(this);
 	}
-	componentDidMount(){
 
-	}
 	handleNumber(event){
 		let number=event.target.value; //this is typeof string
 		let interger=parseInt(number,10); //convert string to number
@@ -23,8 +21,11 @@ class NumberOfClusters extends PureComponent {
 			this.setState({tooltipnumber:true})
 		}
 	}
+	
 	render(){
-		return(
+		let arrData = [];
+		arrData.push(this.props.DataLineChart);
+			return(
 			<div className="col-lg-6">
 			<div id="containchart">
 			<div className="titlechart">
@@ -38,13 +39,9 @@ class NumberOfClusters extends PureComponent {
 			margin={{top: 30, right: 60, bottom: 30, left: 60}}
 			width={500}
 			height={300}
-			data={[
-				[
-				{ x: 1, y: 20 },
-				{ x: 2, y: 10 },
-				{ x: 3, y: 25 }
-				]
-				]}
+			data={
+				arrData
+				}
 				/>
 				<div className="choseNumber">
 				<input type="number"
@@ -69,7 +66,7 @@ class NumberOfClusters extends PureComponent {
 
 					</div>
 					)
+		}
 	}
-}
 
-export default NumberOfClusters;
+	export default NumberOfClusters;

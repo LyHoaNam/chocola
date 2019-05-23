@@ -49,8 +49,8 @@ class Result extends PureComponent {
     if(nameAlgorthm === 'kmeans') {
       this.setState ({
       listAl:tempdata.ChooseAl,
-      col1: tempdata.item,
-      col2: tempdata.rating})
+      col1: tempdata.yaxits,
+      col2: tempdata.xaxits})
     }
         if(nameAlgorthm === 'knn') {
       this.setState ({user: tempdata.user,
@@ -79,7 +79,9 @@ class Result extends PureComponent {
       item = {this.state.item}
       rating= {this.state.rating} />;
       case 'kmeans':
-      return <Clustering 
+      return <Clustering
+      col1 = {this.state.col1}
+      col2 = {this.state.col2}
       />
       default:
        return 'err some thing';

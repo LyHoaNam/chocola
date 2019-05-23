@@ -26,4 +26,8 @@ class DataDto:
     })
 class AssoRuleDto:
     api = Namespace('rule' , description='algorthm assosition rule operations')
+class PreditDto:
+    api = Namespace('preidt' , description='algorthm preidt operations')
+class ClusterDto:
+    api = Namespace('cluster', description='algorthm cluster operation')
     
