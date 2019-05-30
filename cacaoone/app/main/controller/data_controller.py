@@ -1,11 +1,13 @@
-from flask import request,json
+from flask import request,json, jsonify
 from flask_restplus import Resource
 from time import gmtime, strftime
 from ..util.dto import DataDto
 from ..service.data_service import (get_a_data
 , get_all_data, update_unselected
 , update_selected_iddata
-, read_data_csv, save_new_data)
+, read_data_csv, save_new_data
+, info_data_csv,  describe_data_csv,
+type_data_csv)
 from app.main.service.auth_helper import Auth
 api = DataDto.api
 _data = DataDto.data
@@ -89,3 +91,39 @@ class ReadCSV(Resource):
         id_user = user_profile.get('user_id')
         int_page = int(getpage)
         return read_data_csv(id_user,int_page)
+
+@api.route('/info')
+@api.response(404, 'Page not found.')
+class InfoCSV(Resource):
+    @api.doc('info csv file selected')
+    def get(self):
+        """ response info file csv was selected"""
+        response = Auth.get_logged_in_user(new_request=request)
+        user_profile = response[0].get('data')
+        id_user = user_profile.get('user_id')
+
+        return jsonify(info_data_csv(id_user))
+
+@api.route('/describe')
+@api.response(404, 'Page not found.')
+class InfoCSV(Resource):
+    @api.doc('info csv file selected')
+    def get(self):
+        """ response info file csv was selected"""
+        response = Auth.get_logged_in_user(new_request=request)
+        user_profile = response[0].get('data')
+        id_user = user_profile.get('user_id')
+
+        return jsonify(describe_data_csv(id_user))
+
+@api.route('/types')
+@api.response(404, 'Page not found.')
+class InfoCSV(Resource):
+    @api.doc('info csv file selected')
+    def get(self):
+        """ response info file csv was selected"""
+        response = Auth.get_logged_in_user(new_request=request)
+        user_profile = response[0].get('data')
+        id_user = user_profile.get('user_id')
+
+        return jsonify(type_data_csv(id_user))

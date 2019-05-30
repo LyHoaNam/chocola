@@ -3,25 +3,13 @@ import App from './component/App';
 import Login from "./component/account/Login";
 
 class Start extends PureComponent {
-  constructor(props){
-    super(props);
-    this.state = {
-      auth:""
-    }
-  }
-  componentDidMount(){
-    if(localStorage.getItem('Auth')){
-      let tempdata=localStorage.getItem('Auth');
-      this.setState({Auth:tempdata});
-    }
-  }
-
   render() {
-
+    let Auth = localStorage.getItem('Auth') !== null ?
+    localStorage.getItem('Auth'): false
     return (
       <div>
       {
-          this.state.profile==='' ?
+          Auth === false ?
           <Login />:
           <App/>
          

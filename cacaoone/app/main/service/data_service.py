@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 from app.main import db
 from app.main.model.data import Data
-
+import json
 
 def save_new_data(id_u,data_name):
     userid = Data.query.filter_by(id_user=id_u).first()
@@ -123,3 +123,41 @@ def read_all_data_csv(u_id):
             'message': 'Some error occurred. Please try again.'
         }
         return response_object, 401
+
+def describe_data_csv(u_id):
+    file_name = get_a_data(u_id)
+    DataFileName = "./container/" + str(file_name)
+    #DataFileName = "../../../container/2019_05_24_08_05_3077.csv" #+ str(file_name)
+    store_data = pd.read_csv(DataFileName)
+    data_describe = store_data.describe().T
+    return data_describe.to_json(orient='index')
+
+#print(describe_data_csv())
+
+
+def info_data_csv(u_id):
+    file_name = get_a_data(u_id)
+    #DataFileName = "../../../container/2019_05_24_08_05_3077.csv" #+ str(file_name)
+    DataFileName = "./container/" + str(file_name)
+    store_data = pd.read_csv(DataFileName)
+    data_info = {}
+    data_info['filename'] = str(file_name)
+    data_info['unique'] = store_data.nunique().to_json(orient='index')
+    data_info['type'] = store_data.get_dtype_counts().to_json(orient='index')
+    data_info['shape'] = store_data.shape
+    return data_info
+
+def type_data_csv(u_id):
+    file_name = get_a_data(u_id)
+    #DataFileName = "../../../container/2019_05_24_08_05_3077.csv" #+ str(file_name)
+    DataFileName = "./container/" + str(file_name)
+    store_data = pd.read_csv(DataFileName)
+    data_info = store_data.dtypes.to_frame()
+    row = data_info.shape[0]
+    records = []
+    for i in range(0,row):
+        records.append(str(data_info.values[i,0]))
+    result = {}
+    result['types'] = records
+    return result
+

@@ -1,6 +1,9 @@
 from sklearn.cluster import KMeans
 import pandas as pd
+import numpy as np
+from numpy import array
 import sys
+import imp
 import json
 from random import randint
 
@@ -13,7 +16,7 @@ class Cluster:
         self.col1 = col1
         self.col2 = col2
     def input_data(self):
-        UPLOAD_FOLDER = '../../../container/'
+        UPLOAD_FOLDER = './container/'
         url = UPLOAD_FOLDER + self.data_file_name
 
         dt = pd.read_csv(url
@@ -39,20 +42,41 @@ class Cluster:
             if i+1 != len(records):
                 between_ss = abs(records[i+1] - records[i])
                 between.append(between_ss)
-                print('k: ',between_ss/sums)
-        print('sum: ',sum)
+                print('between: ',between_ss)
+        arr_tr = []
+        for i in range(len(between)):
+            valuex = between[i]/sums
+            arr_tr.append(valuex)
+        
+        print('sum: ',sums)
         print(between)
 
-    def convert_to_json(self):
+    def convert_optimum_to_json(self):
         data = {}
         arr = []
         records = self.define_optimum_cluster()
-        for i in records:
+        for i in range(len(records)):
             obj = {}
             obj['x'] = i
             obj['y'] = records[i]
             arr.append(obj)
         data["line"]=arr
         return data
-test = Cluster('test_cl.csv','Channel','Region')
-print (test.finds_optimum())
+    def define_cluster(self, k_cluster):
+        data = self.input_data()
+        kmeans = KMeans(n_clusters = k_cluster, init = 'k-means++', 
+        max_iter = 300, n_init = 10, random_state = 0)
+        result_kmeans = kmeans.fit(data)
+        label_k = result_kmeans.labels_
+        arr = []
+        result = {}
+        for i in range(len(data)):
+            obj = {}
+            obj['type'] = str(label_k[i])
+            obj['x'] = data.iloc[i,0]
+            obj['y'] = data.iloc[i,1]
+            arr.append(obj)
+        result['ScatterPlot']=arr
+        return result
+#test = Cluster('Iris.csv','SepalLengthCm','SepalWidthCm')
+#print (test.define_cluster(3))

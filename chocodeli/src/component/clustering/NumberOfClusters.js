@@ -6,9 +6,10 @@ class NumberOfClusters extends PureComponent {
 		super(props);
 		this.state ={
 			tooltipnumber:false,
-			valueNumber:null
+			valueNumber:3
 		}
 		this.handleNumber = this.handleNumber.bind(this);
+		this.selectValue = this.selectValue.bind(this);
 	}
 
 	handleNumber(event){
@@ -21,7 +22,10 @@ class NumberOfClusters extends PureComponent {
 			this.setState({tooltipnumber:true})
 		}
 	}
-	
+	selectValue(event){
+		let valueSend = this.state.valueNumber;
+		this.props.callbackValue(valueSend);
+	}
 	render(){
 		let arrData = [];
 		arrData.push(this.props.DataLineChart);
@@ -39,16 +43,15 @@ class NumberOfClusters extends PureComponent {
 			margin={{top: 30, right: 60, bottom: 30, left: 60}}
 			width={500}
 			height={300}
-			data={
-				arrData
-				}
+			data={arrData}
 				/>
 				<div className="choseNumber">
 				<input type="number"
 				min="1"
 				max="10"
 				name="NumberOfClusters"
-				className="inputNumber" 
+				className="inputNumber"
+				value = {this.state.valueNumber} 
 				onChange={this.handleNumber}/>
 				<div className="tooltipNoti">
 				<span className={!this.state.tooltipnumber? 
@@ -57,7 +60,8 @@ class NumberOfClusters extends PureComponent {
 					{'This number should be ~will update late~ :v!'}
 					</span>
 					</div>
-					<span className="SetNumber">
+					<span className="SetNumber"
+					onClick = {this.selectValue}>
 					Set Number of Clusters
 					</span>
 					</div>

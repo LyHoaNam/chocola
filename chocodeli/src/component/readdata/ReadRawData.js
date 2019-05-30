@@ -4,22 +4,29 @@ import Infomation from "./Infomation";
 import '../../style/chill.css';
 import Title from "./Title";
 import Tables from "./Tables";
+import PieChart from "./PieChart";
+import Unique from "./Unique";
+import Describe from "./Describe";
 class ReadRawData extends PureComponent {
 	constructor(props) {
 		super(props);
-
 		this.state ={
 			result: [],
 			authorization:"",
 			seShow: false,
-			page:0
+			page:0,
+			filename:'',
+			shape:[],
+			type:null,
+			unique: null
 		}
 	}
 	componentDidMount () {
 		if(localStorage.getItem('Auth')){
 			let author=localStorage.getItem('Auth');
 			this.setState({authorization:author});
-			this.getData(author,this.state.page);	
+			this.getData(author,this.state.page);
+			this.getInfoData(author);	
 		}
 		else{
 		}
@@ -45,8 +52,36 @@ class ReadRawData extends PureComponent {
 			});   
 
 		}
+		getInfoData(bearer){
+			let url= '/data/info';
+			let options = {
+				method: 'GET',
+				headers: {
+					'Authorization': bearer
+				}
+			}
+			fetch(url,options)
+			.then(res=>res.json())
+			.then(res=>
+			{
+				if(res.filename){
+					this.setState({
+						filename:res.filename,
+						shape:res.shape,
+						unique:res.unique,
+						type:res.type
+					})
+				}
+			}
+			)
+			.catch(e=>{
+				//window.location.href="/login";
+			});   
+
+		}
 
 		render(){ 
+			
 			if(this.state.result.status === 'success'){
 				return (   
 					<div className='containRRD'>
@@ -56,12 +91,24 @@ class ReadRawData extends PureComponent {
 					Column={this.state.result.data[0]}
 					/>
 					<div className="row">
-					<Infomation Content1={"Size file: "}
-					Content2={"Column: "}
-					Content3={"Row: "}
-				 	/>
-
-					<Tables data={this.state.result}/>
+					<div className="col-lg-8">
+					<div className="row">
+						<div className="col-lg-4">
+						<Infomation Content1={this.state.filename}
+						Shape = {this.state.shape}
+						/>
+						<PieChart 
+						Data = {this.state.type}
+						/>
+						</div>
+						<Unique
+						Data = {this.state.unique}/>
+						<Tables data={this.state.result}/>
+					</div>
+					</div>
+					
+					<Describe/>
+					
 					</div>
 					</div>
 					</div>
