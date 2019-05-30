@@ -8,6 +8,7 @@ from .main.controller.data_controller import api as data_ns
 from .main.controller.associationrule_controller import api as algorthm_ns
 from .main.controller.predit_controller import api as predit_ns
 from .main.controller.cluster_controller import api as clusterss_ns
+from .main.controller.classification_controller import api as classifcation_ns
 blueprint = Blueprint('api', __name__)
 
 api = Api(blueprint,
