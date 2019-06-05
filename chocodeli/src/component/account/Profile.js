@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import './login.css';
+import {Table} from "react-bootstrap";
+import Info from './Info';
 class Profile extends PureComponent {
 	constructor(props){
 		super(props);
@@ -10,6 +12,7 @@ class Profile extends PureComponent {
 			user:""
 		}
 		this.SelectData=this.SelectData.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 	componentDidMount(){
 		if(localStorage.getItem('Auth')){
@@ -77,55 +80,63 @@ class Profile extends PureComponent {
 				"fas fa-angle-double-right icCheced":""
 				
 				resultDiv.push(
-					<div className="detailData" 
+					<tr className="detailData" 
 					key={'detailData'+index}>
-					<i className={checkedBox} />
-					<span className="titleData" 
-					key={'titleData'+index}>
-					
-					</span>
-					<span className="nameData" 
+					<td className="nameData" 
 					key={'nameData'+index}>
+					<i className={checkedBox} />
 					{record.data_name}
-					</span>
-					</div>
+					</td>
+					</tr>
 					)})
 		}	
 		return resultDiv;
 
 	}
-	writeListDropDown(listData){
-		let resultLi=[];
-		if(listData)
-		{	
-			listData.map((record,index)=>{
-				let classLi = record.selected==="True" ? 
-				"selectedLi": "";
-				resultLi.push(
-					<li key={index}
-					className = {classLi}>
-					{record.data_name}</li>
-					)})
-		}	
-		return resultLi;
+	postData(valueChange){
+		let bearer = this.state.authorization;
+		let url= '/data/selected';
+		let formdata = "{\"id_data\":\""+
+		valueChange+"\"}";
+
+		let options = {
+			method: 'POST',
+			headers: {
+				'Authorization': bearer,
+				'Content-Type' : 'application/json',
+				'Accept': 'application/json'
+			},
+			body: formdata
+		}
+		let req = new Request(url,options);
+		fetch(req)
+		.then(res => res.json())
+		.then(response => {
+			let result = response.status;
+			if(result!=='success'){
+				console.log('success');
+			}
+		})
+		.catch(error => console.error('Error:', error));
 	}
-	
+	handleChange(event) {
+		let valueChange = event.target.value
+		if(valueChange !== ''){
+			console.log('value',valueChange);
+			this.postData(valueChange);
+			this.setState({value:valueChange});
+		}
+	}
 	render(){
 		if(this.state.listData !=='') {
 			let writelist = this.writeDataFile(
-				this.state.listData);
-			let writeLi = this.writeListDropDown(
 				this.state.listData);
 			return(
 				<div className='containRRD'>
 				<div id="content">
 				<div className="row">
 				<div className="col-lg-8">
-				<div className="ContainProfile">
-				<span className="Avatar">
-				<img src={require('../../img/avatarraw.jpeg')} className="avatarraw" alt="logo" /></span>
-				<span className="ProfileUser">{this.state.user}</span>
-				</div>
+				<Info length={this.state.listData.length}/>
 				</div>
 				<div className="col-lg-4 pad100">
 				<div className="ContaintData">
@@ -135,25 +146,36 @@ class Profile extends PureComponent {
 				onChange= {this.SelectData} />
 				<div className="listData">
 				<div className="titlelistData">List data</div>
+				<div className="OverListData">
+				<Table responsive>
+				<tbody striped="true">	
 				{
 					writelist
 				}
+				</tbody>
+				</Table>
 				</div>
-
-				<label className="dropdown">
-
-				<div className="dd-button">
-				Change Selected
 				</div>
+				<div className="selectData">
+				<select value={this.state.value}
+				onChange={this.handleChange}
+				className="select-css">
+				{
+					this.state.listData ?
+					this.state.listData.map((record,index)=>{
+						return record.selected==="True" ? 
+						(<option key={index}
+							className = "selectedLi"
+							value = {record.id_data}>
+							{record.data_name}</option>):
+						(<option key={index}
+							value = {""+record.id_data}>
+							{record.data_name}</option>)
+					}) : ""
 
-				<input type="checkbox" className="dd-input" id="test"/>
-
-				<ul className="dd-menu">
-				{writeLi}
-				</ul>
-
-				</label>
-
+				}
+				</select>
+				</div>
 				</div>
 				</div>
 				</div>

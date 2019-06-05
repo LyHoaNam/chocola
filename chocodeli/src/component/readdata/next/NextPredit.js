@@ -62,11 +62,13 @@ class NextPredit extends PureComponent {
 			Choose Items:
 			</span>
 			<div className="SelectCol">
-			<select name="item" onChange={this.handleChange}
+			<select name="item"
+			onChange={this.handleChange}
 			value={this.state.item}>
 			{
 				this.state.arr.map((item,index)=>
-					<option value={item} key={index}>{item}</option>)
+					<option value={item}
+					 key={index}>{item}</option>)
 			}
 			</select>
 			</div>

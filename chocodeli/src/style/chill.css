@@ -342,3 +342,7 @@ a:hover {
   cursor: pointer;
 
 }
+.PointerEventNone {
+  pointer-events: none;
+  color: #333333;
+}

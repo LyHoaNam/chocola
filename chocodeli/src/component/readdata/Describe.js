@@ -17,7 +17,7 @@ class Describe extends PureComponent {
       this.getData(author);
     }
   }
-    getData(bearer,page) {
+    getData(bearer) {
       //ready to fetch data
       let url= '/data/describe'
       let options = {
@@ -78,6 +78,7 @@ class Describe extends PureComponent {
     }
     writeTable(){
       if(this.state.data !== null){
+      try {
         let result = [];
         let DataTable = this.state.data;
         Object.keys(DataTable).map((keyName,i)=>{
@@ -97,6 +98,9 @@ class Describe extends PureComponent {
         })
         return result;
       }
+      catch(err){
+        console.log(err);
+      }}
       return <tr></tr>;
     }
 	render(){

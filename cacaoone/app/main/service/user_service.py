@@ -27,7 +27,14 @@ def save_new_user(data):
             'message': 'User already exists. Please Log in.',
         }
         return response_object, 409
-
+def save_new_img(id_u,img_name):
+    userid = User.query.filter_by(id=id_u).first()
+    if not userid:
+        return False
+    else:
+        User.query.filter_by(id=id_u).update({User.img_url:img_name})
+        db.session.commit()
+        return True
 
 def get_all_users():
     return User.query.all()

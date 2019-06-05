@@ -41,6 +41,7 @@ class Title extends PureComponent {
             <SetAlgorthm show={this.state.seShow} 
             onHide={modalClose}
             column={this.props.Column}
+            type={this.props.Type}
             />
             {btnAlgorthm}
             </ButtonToolbar>

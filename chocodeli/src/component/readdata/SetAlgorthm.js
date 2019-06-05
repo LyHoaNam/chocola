@@ -16,11 +16,46 @@ class SetAlgorthm extends PureComponent {
 			knn:false,
 			showPredic: 'displayNone',
 			kmeans:false,
-			showClustering:'displayNone'
+			showClustering:'displayNone',
+			types: this.props.type,
+			authorization: null,
+			clusterPoint: '',
+			preditPoint: '',
+			arrType: []
 		}
 		this.ReadyToNext = this.ReadyToNext.bind(this);
 		this.modalNeClose = this.modalNeClose.bind(this);
+	} 
+	componentDidMount () {
+		if(localStorage.getItem('Auth')){
+			let author=localStorage.getItem('Auth');
+			this.setState({authorization:author});
+			this.getData(author);
+		}
+		else{
+		}
 	}
+	getData(bearer,page) {
+			//ready to fetch data
+			let url= '/data/types';
+			let options = {
+				method: 'GET',
+				headers: {
+					'Authorization': bearer
+				}
+			}
+			fetch(url,options)
+			.then(res=>res.json())
+			.then(res=>
+			{
+				this.setState({arrType:res['types']})
+			}
+			)
+			.catch(e=>{
+				//window.location.href="/login";
+			});   
+
+		}
 	ReadyToNext() {
 		let Datatonext = [];	
 		let Count =0;
@@ -61,14 +96,33 @@ class SetAlgorthm extends PureComponent {
 			return <NextPredit 
 				listdata={this.state.Datatonext}
 				onNeHide={this.modalNeClose}
-				column={this.props.column}/>;
+				column={this.props.column}
+				type={this.state.arrType}/>;
 			case 'Clustering':
 			return <NextClustering 
 				listdata={this.state.Datatonext}
 				onNeHide={this.modalNeClose}
-				column={this.props.column}/>;
+				column={this.props.column}
+				type={this.state.arrType}/>;
 			default:
 				return false;
+		}
+	}
+	componentDidMount(){
+		if(this.props.type){
+			let checkType = JSON.parse(this.props.type);
+			let countT = 0;
+			if (checkType['float64'])
+				countT += checkType['float64'];
+			if(checkType['int64'])
+				 countT += checkType['int64'];
+			
+			if(countT <2)
+				this.setState({clusterPoint:'PointerEventNone'});
+
+			if(countT <3)
+				this.setState({preditPoint:'PointerEventNone'});
+			console.log('countT',countT);
 		}
 	}
 	modalNeClose(){
@@ -128,7 +182,7 @@ class SetAlgorthm extends PureComponent {
 				</label>
 			</div>
 
-			<label className="containerRadio"
+			<label className={"containerRadio "+this.state.clusterPoint}
 			onChange={ShowClustering}>
 			Clustering algorithms
 			<input type="radio"  name="radio"/>
@@ -145,7 +199,7 @@ class SetAlgorthm extends PureComponent {
 				</label>
 			</div>
 
-			<label className="containerRadio"
+			<label className={"containerRadio "+this.state.preditPoint}
 			onChange={ShowPredic}>
 			Prediction algorithms
 			<input type="radio"  name="radio"/>

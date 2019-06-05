@@ -1,12 +1,12 @@
-import React, {PureComponent} from "react";
+import React, {PureComponent,lazy} from "react";
 import Loading from "../Loading";
 import Infomation from "./Infomation";
 import '../../style/chill.css';
-import Title from "./Title";
 import Tables from "./Tables";
 import PieChart from "./PieChart";
 import Unique from "./Unique";
 import Describe from "./Describe";
+const Title = lazy(()=> import('./Title'));
 class ReadRawData extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -89,6 +89,7 @@ class ReadRawData extends PureComponent {
 
 					<Title
 					Column={this.state.result.data[0]}
+					Type={this.state.type}
 					/>
 					<div className="row">
 					<div className="col-lg-8">
