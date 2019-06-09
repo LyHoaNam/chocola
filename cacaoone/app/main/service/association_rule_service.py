@@ -40,9 +40,14 @@ class Fpgrowth:
         return data
     def sort_patteerns(self):
         data = self.requent_patterns()
-        sorted_data = sorted(data.items(), key=lambda kv: kv[1])
-        return json.dumps(sorted_data)
-
+        sorted_data = sorted(data.items(), key=lambda kv: kv[1]
+        , reverse=True)
+        result = []
+        if (len(sorted_data)>10):
+            result = sorted_data[0:10]
+        else:
+            result = sorted_data
+        return json.dumps(result)
 class Apiori:
     def __init__(self, records, min_len, min_sup, min_conf):
         """

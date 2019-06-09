@@ -200,7 +200,19 @@
 	margin-right: 5px;
 	color: #666666;
 }
-input[type=file] {
+.importNewImg{
+	cursor: pointer;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: absolute;
+  margin-top: 12px;
+  opacity: 0;
+}
+.importNewImg:befor{
+
+}
+.importNewData{
   cursor: pointer;
   width: 170px;
   height: 40px;
@@ -208,7 +220,7 @@ input[type=file] {
   border-radius: 15px;
 }
 
-input[type=file]:before {
+.importNewData:before {
   width: 170px;
   height: 60px;
   font-size: 16px;
@@ -221,14 +233,14 @@ input[type=file]:before {
   text-align: center;
 
 }
-input[type=file]:hover {
+.importNewData:hover {
   opacity: 0.5;
 }
 .ButtonChoosefile{
   padding: 30px;
 }
 
-input[type=file]::-webkit-file-upload-button {
+.importNewData::-webkit-file-upload-button {
   visibility: hidden;
 }
 .dropdown {

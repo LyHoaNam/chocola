@@ -143,6 +143,7 @@ class Profile extends PureComponent {
 				<input id="choseFile" 
 				name='fileName' 
 				type="file"
+				className="importNewData"
 				onChange= {this.SelectData} />
 				<div className="listData">
 				<div className="titlelistData">List data</div>

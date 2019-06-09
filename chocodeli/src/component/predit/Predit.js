@@ -4,6 +4,8 @@ import "./predit.css";
 import Userlist from "./Userlist";
 import ItemsList from "./ItemsList";
 import Rating from "./Rating";
+import RawData from "./RawData";
+import FromTo from "./FromTo";
 class Predit extends PureComponent {
   constructor(props){
     super(props)
@@ -38,6 +40,14 @@ class Predit extends PureComponent {
     colRating={this.props.rating}
     selectItem={this.state.selectItem}
     selectUser={this.state.selectUser}/>
+    <RawData 
+    colUser={this.props.user}
+    colItem={this.props.item}
+    colRating={this.props.rating}/>
+    <FromTo 
+    colUser={this.props.user}
+    colItem={this.props.item}
+    colRating={this.props.rating}/>
     </div>
       </div>
 			)

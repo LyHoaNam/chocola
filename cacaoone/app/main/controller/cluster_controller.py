@@ -39,5 +39,22 @@ class Define(Resource):
 
         clusters = Cluster(data_file_name,col1,col2)
         return clusters.define_cluster(k_cluster)
+@api.route('/table')
+class Define(Resource):
+    @api.doc('run algorthm define')
+    @api.response(404, 'Err something')
+    def get(self):
+        response = Auth.get_logged_in_user(new_request=request)
+        user_profile = response[0].get('data')
+        id_user = user_profile.get('user_id')
+
+        data_file_name = str(get_a_data(id_user))
+
+        col1 = request.args.get('col1', type = str)
+        col2 = request.args.get('col2', type = str)
+        k_cluster = request.args.get('k', type = int)
+
+        clusters = Cluster(data_file_name,col1,col2)
+        return clusters.table_cluster(k_cluster)
 
 

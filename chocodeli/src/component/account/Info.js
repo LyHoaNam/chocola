@@ -5,7 +5,8 @@ class Info extends PureComponent {
 		super(props);
 		this.state={
 			authorization:"",
-			user:""
+			user:"",
+			imgUrl:null
 		}
 		this.ImportImg=this.ImportImg.bind(this);
 	}
@@ -30,7 +31,7 @@ class Info extends PureComponent {
 		.then(response => {
 			let result = response;
 			if(result.id){
-				this.setState({user:result});
+				this.setState({user:result,imgUrl:result.img_url});
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -50,7 +51,7 @@ class Info extends PureComponent {
 		
 		fetch(req).then(res => res.json())
 		.then(response => {
-			console.log('response',response);
+			this.setState({imgUrl:response});
 		})
 		.catch(error => console.error('Error:', error));
 	}
@@ -60,10 +61,18 @@ class Info extends PureComponent {
 				<span className="Avatar">
 				<input
 				type="file"
+				className="importNewImg"
 				onChange= {this.ImportImg} />
+				{
+					this.state.imgUrl !== null ?
+					<img src={require('../../img/'+this.state.imgUrl)} 
+				className="avatarraw" 
+				alt="logo" />:
 				<img src={require('../../img/avatarraw.jpeg')} 
 				className="avatarraw" 
-				alt="logo" /></span>
+				alt="logo" />
+				}
+				</span>
 				{this.state.user.id ? 
 					<span className="ProfileUser">
 					<p className="emailUser">

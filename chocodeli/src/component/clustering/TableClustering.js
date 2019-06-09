@@ -1,60 +1,60 @@
 import React, {PureComponent} from "react";
 import "./clustering.css";
 import {Table} from "react-bootstrap";
+import DetailTable from "./DetailTable";
 class TableClustering extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state = {
-			Origin: null,
-			ruler:10
+			Table: ''
 		}
 	}
-	setupTable(items){
-		let GroupType = {};
-		let result = [];
-		if(items.length >0)
-		{GroupType = items.reduce((typeSoFar, { type, x, y }) => {
-					if (!typeSoFar[type]) 
-						typeSoFar[type] = [];
-					else {
-						let tempArr = [];
-						tempArr.push(x);
-						tempArr.push(y);
-						typeSoFar[type].push(tempArr);}
-					return typeSoFar;
-				}, {});
+	componentDidMount(){
+		this.getData();
+	}
+	getData() {
+		let author=localStorage.getItem('Auth');
+		let col1 = '?col1='+this.props.col1;
+		let col2 = '&col2='+this.props.col2;
+		let k_cluster = '&k='+this.props.NumberTable;
+		let url= '/cluster/table'+col1+col2+k_cluster;
+		console.log('cluster k', url);
+		let options = {
+			method: 'GET',
+			headers: {
+				'Authorization': author
+			}
 		}
-		return GroupType;
-	} 
-	writeFunc(Data){
-    let result=[];
-    if(Data.length>0)
-      {Data.slice(0,10).map((record,index)=>
-        {     
-          result.push(  
-          <tr key={index}>
-          <td key={'i'+index}> {record[0]} </td>
-          <td key = {'d'+index}>
-          {record[1]}
-          </td>
-          </tr>
-          )
-    })}
-    return result;
-  }
+		fetch(url,options)
+		.then(res=>res.json(  ))
+		.then(res=>
+		{
+			console.log('res',res);
+			if(res.length >0)
+				this.setState({Table:res});
+		}
+		)
+		.catch(e=>{
+			console.log(e);
+		});  
+	}
 	render(){
-		console.log(this.setupTable(this.props.DataTable));
+		console.log('Table',this.state.Table);
 		return(
 			<div className="col-lg-12">
 			<div className="ContainTableClusteing">
-			<Table responsive>
-			<tbody striped="true">
-			
-			</tbody>
-			</Table>
+			{
+				this.state.Table !== ''?
+				this.state.Table.map((records,index)=>
+					<div key={'div'+index}
+					className="containTableDetail">
+					<DetailTable key={index} 
+					Data={records}/>
+					</div>): ""
+			}
 			</div>
 			</div>
 			)
-		}
 	}
-	export default TableClustering;
+}
+export default TableClustering;

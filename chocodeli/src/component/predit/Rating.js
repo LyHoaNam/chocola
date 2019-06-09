@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "./predit.css";
 import {Table} from "react-bootstrap";
+import ValueChart from "./ValueChart";
 class Rating extends PureComponent {
 	constructor(props){
 		super(props);
@@ -10,7 +11,8 @@ class Rating extends PureComponent {
 			coluser:this.props.colUser,
 			colitem:this.props.colItem,
 			colrating:this.props.colRating,
-			rating:false
+			rating:false,
+			valueChart: null
 		}
 		this.getData=this.getData.bind(this);
 	}
@@ -22,16 +24,22 @@ class Rating extends PureComponent {
 		let col_rati = '&rati='+this.state.colrating;
 		let value_uid = '&value_uid='+this.props.selectUser;
 		let value_iid = '&value_iid='+this.props.selectItem;
-		let url= '/predit/knnbasic/result'+col_uid
+		let urlgetValue= '/predit/knnbasic/result'+col_uid
 		+ col_iid + col_rati + value_uid + value_iid;
+		let urlgetDatChart = '/predit/knnbasic/chartvalue'+col_uid
+		+ col_iid + col_rati + value_uid +value_iid
 		let options = {
 			method: 'GET',
 			headers: {
 				'Authorization': bearer
 			}
 		}
+		this.getPreditValue(urlgetValue,options);
+		this.getDataChart(urlgetDatChart,options);
+	}
+	getPreditValue(url,options) {
 		fetch(url,options)
-		.then(res=>res.json(  ))
+		.then(res=>res.json())
 		.then(res=>
 		{
 			if(res.KNNBasic){
@@ -46,9 +54,23 @@ class Rating extends PureComponent {
 		});  
 
 	}
+	getDataChart(url, options){
+		fetch(url,options)
+		.then(res=>res.json())
+		.then(res=>
+		{
+			if(res){
+				this.setState({valueChart:res});
+			}
+		}
+		)
+		.catch(e=>{
+			console.log(e);
+		});  
+	}
 	render(){
 		return(
-			<div className="col-lg-6">
+			<div className="col-lg-8">
 			<div className="containRating">
 			<span className ="btnPredit"
 			onClick={this.getData}>
@@ -73,11 +95,14 @@ class Rating extends PureComponent {
 				</td>
 				</tr>
 				</tbody>
-				</Table>
-				</div>
-				</div>
-				</div>
-				)
-			}
-		}
-		export default Rating;
+				</Table>{
+					this.state.valueChart !== null ?
+					<ValueChart
+					dataChart={this.state.valueChart}/>: ""}
+					</div>
+					</div>
+					</div>
+					)
+	}
+}
+export default Rating;

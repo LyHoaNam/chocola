@@ -78,5 +78,27 @@ class Cluster:
             arr.append(obj)
         result['ScatterPlot']=arr
         return result
+    def table_cluster(self, k_cluster):
+        data = self.input_data()
+        kmeans = KMeans(n_clusters = k_cluster, init = 'k-means++', 
+        max_iter = 300, n_init = 10, random_state = 0)
+        result_kmeans = kmeans.fit(data)
+        label_k = result_kmeans.labels_
+        arr = []
+        for i in range(k_cluster):
+            new_arr  = []
+            arr.append(new_arr)
+
+        for i in range(len(data)):
+            obj = {}
+            beginPoint = 0
+            while beginPoint != label_k[i] :
+                beginPoint +=1
+            temp_arr = []
+            temp_arr.append(data.iloc[i,0])
+            temp_arr.append(data.iloc[i,1])
+            arr[beginPoint].append(temp_arr)
+       
+        return arr
 #test = Cluster('Iris.csv','SepalLengthCm','SepalWidthCm')
-#print (test.define_cluster(3))
+#print (test.table_cluster(3))

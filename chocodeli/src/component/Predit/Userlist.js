@@ -63,7 +63,7 @@ class UserList extends PureComponent {
   }
 	render(){
 		return(
-		<div className="col-lg-3">
+		<div className="col-lg-2">
      	
     {
       this.state.user ?

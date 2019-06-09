@@ -46,7 +46,7 @@ constructor(props) {
 	getDefineData(bearer,k) {
 		let col1 = '?col1='+this.props.col1;
 		let col2 = '&col2='+this.props.col2;
-		let k_cluster = '&k='+k
+		let k_cluster = '&k='+k;
 		let url= '/cluster/define'+col1+col2+k_cluster;
 		let options = {
 			method: 'GET',
@@ -80,7 +80,9 @@ constructor(props) {
 			<DefineClusters 
 			DataScatterPlot = {this.state.dataScatterPlot}/>
 			<TableClustering 
-			DataTable = {this.state.dataScatterPlot}
+			col1 = {this.props.col1}
+			col2 = {this.props.col2}
+			Baerer = {this.state.authorization}
 			NumberTable = {this.state.k_cluster}/>
 			</div>
 			)

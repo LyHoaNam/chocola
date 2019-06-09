@@ -20,70 +20,86 @@ class NextPredit extends PureComponent {
 			[name]:value
 		})
 	}
-	render(){
-		return(
-			<div className="NextModal">
+	removeCache(){
+  	//remove session datasend (obj = {minsup... min conf...})
+  	if (sessionStorage.getItem('datasend'))
+  		sessionStorage.removeItem('datasend');
+	//remove localStorage fpgrowth
+	if(localStorage.getItem('fpgrowth'))
+		localStorage.removeItem('fpgrowth');
+	//remove localStorage apiori
+	if(localStorage.getItem('apiori'))
+		localStorage.removeItem('apiori');
+}
+render(){
+	return(
+		<div className="NextModal">
 
-			<h3>Setting Algorthm</h3>
-			<div className="FontTitle">
-			Choose Algorthm
-			</div>
+		<h3>Setting Algorthm</h3>
+		<div className="FontTitle">
+		Choose Algorthm
+		</div>
 
-			<div className="NextPreLine">
-			<span className="NextPreTitle">
-			Choose User:
-			</span>
-			<div className="SelectCol">
-			<select name="yaxits" onChange={this.handleChange}
-			value={this.state.yaxits}>
-			{
-				this.state.arr.map((item,index)=>
-					<option value={item} key={index}>{item}</option>)
-			}
-			</select>
-			</div>
-			</div>
+		<div className="NextPreLine">
+		<span className="NextPreTitle">
+		Choose User:
+		</span>
+		<div className="SelectCol">
+		<select name="yaxits" onChange={this.handleChange}
+		value={this.state.yaxits}>
+		{
+			this.state.arr.map((item,index)=>
+				<option value={item} key={index}>{item}</option>)
+		}
+		</select>
+		</div>
+		</div>
 
-			<div className="NextPreLine">
-			<span className="NextPreTitle">
-			Choose Ratings:
-			</span>
-			<div className="SelectCol">
-			<select name="xaxits" onChange={this.handleChange}
-			value={this.state.xaxits}>
-			{
-				this.state.arr.map((item,index)=>
-					<option value={item} key={index}>{item}</option>)
-			}
-			</select>
-			</div>
-			</div>
+		<div className="NextPreLine">
+		<span className="NextPreTitle">
+		Choose Ratings:
+		</span>
+		<div className="SelectCol">
+		<select name="xaxits" onChange={this.handleChange}
+		value={this.state.xaxits}>
+		{
+			this.state.arr.map((item,index)=>
+				<option value={item} key={index}>{item}</option>)
+		}
+		</select>
+		</div>
+		</div>
 
-			<div className="ModalFooter">
-			<div className="ContainBtnBox">
-			<span className="paddingRight15">
-			<Button 
-			onClick={this.props.onNeHide}
-			className="Close">Back</Button>
-			 </span>
-			<Button className="Next">
+		<div className="ModalFooter">
+		<div className="ContainBtnBox">
+		<span className="paddingRight15">
+		<Button 
+		onClick={this.props.onNeHide}
+		className="Close">Back</Button>
+		</span>
+		<Button className="Next">
+		{
+			this.state.check ? ( 
 				<Link to={{
-				pathname:'/algorthm/kmeans',
-				datasend: {
-					ChooseAl:this.props.listdata,
-					yaxits:this.state.yaxits,
-					xaxits:this.state.xaxits }
-			}}>
-			Finish
+					pathname:'/algorthm/kmeans',
+					datasend: {
+						ChooseAl:this.props.listdata,
+						yaxits:this.state.yaxits,
+						xaxits:this.state.xaxits }
+					}}>
+					Finish
+					{
+						this.removeCache()
+					}
+					</Link> ): 'Finish'
+		}
+		</Button>
+		</div>
+		</div>
 
-			</Link>
-			</Button>
-			</div>
-			</div>
-
-			</div>
-			)
-	}
+		</div>
+		)
+}
 
 }
 export default NextPredit;
