@@ -17,16 +17,17 @@ class List extends PureComponent {
     this.loadFunc = this.loadFunc.bind(this);
     this.filterFunc=this.filterFunc.bind(this);
     this.choseValue=this.choseValue.bind(this);
+    this.handleChange=this.handleChange.bind(this);
   }
 
   loadFunc(){
     //get a next of check point
     if(this.state.hasMoreItem){
-   let limit = this.props.data.length;
-    let startpoint = this.state.ruler;
-    let endpoint=0;
-    if(startpoint+10>limit)
-    {
+     let limit = this.props.data.length;
+     let startpoint = this.state.ruler;
+     let endpoint=0;
+     if(startpoint+10>limit)
+     {
       endpoint=limit;
       this.setState({hasMoreItem:false});
     }
@@ -35,10 +36,10 @@ class List extends PureComponent {
     let tables = this.state.original.slice(0,endpoint);
     this.setState({table:tables,
       ruler:endpoint});
-    }
-
   }
-  filterFunc(e){
+
+}
+filterFunc(e){
     //search value of input search
     let masterData = this.props.data;
     let toSearch= e.target.value;
@@ -47,92 +48,100 @@ class List extends PureComponent {
       {masterData.filter(item =>
         { 
           if(item.includes(toSearch)===true)
-          searchData.push(item);
+            searchData.push(item);
         })
-      }   
-      else {
-        searchData=masterData;
-      }
-      this.setState({inputValue:toSearch,original:searchData,
-       hasMoreItem:false});
+  }   
+  else {
+    searchData=masterData;
+  }
+  this.setState({inputValue:toSearch,original:searchData,
+   hasMoreItem:false});
+}
+choseValue(event){
+  let value=event.target.innerHTML;
+  this.setState({chosevalue:value});
+      // call back value from parent
+      this.props.callbackValue(value);
     }
-    choseValue(event){
-      let value=event.target.innerHTML;
+    handleChange(event){
+      let value = event.target.value;
       this.setState({chosevalue:value});
       // call back value from parent
       this.props.callbackValue(value);
     }
-  writeFunc(){
-    let result=[];
-    if(this.state.table.length>0)
-      {this.state.table.map((record,index)=>
-        {     
-          result.push(  
-          <tr key={index} className="ChoseItem">
-          <td key={'i'+index}> {index+1} </td>
-          <td key = {'d'+index}
-          onClick={this.choseValue}
-          >
-          {record}
-          </td>
-          </tr>
-          )
-    })}
-    return result;
-  }
-  render(){
-    let items=this.writeFunc();
-    return (
-     <div className="ListPredit">
-     <div className="">
-     <div className="DetailContent">
-     <div className="ContainChose">
-     <span className="LeftTitle">
-     Chose Value
-     </span>
-     <span className="rightTitle">
-     { this.state.chosevalue }
-     </span>
-     </div>
-     <span className="SerachButton">
-     <input type="text" className="formControl"  
-     placeholder="Search" 
-     value={this.state.textChange} 
-     onChange={this.handleChange} />
-     <span className="searchIcon">
-     <img src={require('../../img/search.png')}
-     alt=""
-     className=""/>
-     </span>
-     </span>
-     </div>
-     <div className="OverFlow">
-      <InfiniteScroll
-     pageStart={0}
-     loadMore={()=>this.loadFunc()}
-     hasMore={this.state.hasMoreItem}
-     loader={<div className="loader" key={0}>Loading ...</div>}
-     useWindow={false}
-     >
-     <Table responsive>
-     <thead>
-     <tr>
-     <th>No</th>
-     <th>{this.props.colName}</th>
-     </tr>
-     </thead>
-     <tbody>
-     {items}
-     </tbody>
-     
-     </Table>
-     </InfiniteScroll>
-     </div>
-     </div>
-     </div>
+    writeFunc(){
+      let result=[];
+      if(this.state.table.length>0)
+        {this.state.table.map((record,index)=>
+          {     
+            result.push(  
+              <tr key={index} className="ChoseItem">
+              <td key={'i'+index}> {index+1} </td>
+              <td key = {'d'+index}
+              onClick={this.choseValue}
+              >
+              {record}
+              </td>
+              </tr>
+              )
+          })}
+      return result;
+    }
+    render(){
+      let items=this.writeFunc();
+      return (
+       <div className="ListPredit">
+       <div className="">
+       <div className="DetailContent">
+       <div className="ContainChose">      
+       <span className="rightTitle">
+        <input type="number"
+       placeholder="choose value"
+       className="formChoseValue"
+       value={this.state.chosevalue}
+       onChange={this.handleChange}
+       />
+       </span>
+       </div>
+       <span className="SerachButton">
+       <input type="text" className="formControl"  
+       placeholder="Search" 
+       value={this.state.textChange} 
+       />
+       <span className="searchIcon">
+       <img src={require('../../img/search.png')}
+       alt=""
+       className=""/>
+       </span>
+       </span>
+       </div>
+       <div className="OverFlow">
+       <InfiniteScroll
+       pageStart={0}
+       loadMore={()=>this.loadFunc()}
+       hasMore={this.state.hasMoreItem}
+       loader={<div className="loader" key={0}>Loading ...</div>}
+       useWindow={false}
+       >
+       <Table responsive>
+       <thead>
+       <tr>
+       <th>No</th>
+       <th>{this.props.colName}</th>
+       </tr>
+       </thead>
+       <tbody>
+       {items}
+       </tbody>
 
-     )
-  }
-};
+       </Table>
+       </InfiniteScroll>
+       </div>
+       </div>
+       </div>
 
-export default List;
+       )
+    }
+  };
+
+  export default List;

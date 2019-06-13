@@ -346,3 +346,14 @@ a:hover {
   pointer-events: none;
   color: #333333;
 }
+.textInfo{
+  line-height: 1.5;
+   color: #212529;
+   font-weight: 700;
+   font-size: 1rem;
+}
+.explainInfo{
+  color: #333333;
+  padding-left: 15px;
+  font-size: 0.9rem;
+}

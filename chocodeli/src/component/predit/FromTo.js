@@ -13,7 +13,8 @@ class FromTo extends PureComponent {
 			to_uid:'',
 			from_iid:'',
 			to_iid:'',
-			authorization: ''
+			authorization: '',
+			time:''
 		}
 		this.loadFunc = this.loadFunc.bind(this);
 		this.filterFunc = this.filterFunc.bind(this);
@@ -54,9 +55,9 @@ loadFunc(){
 }
 getResultFromTo(){
 	let from_uid = this.state.from_uid;
-	let to_uid = this.state.to_uid;
+	let to_uid = Number(this.state.to_uid)+1;
 	let from_iid = this.state.from_iid;
-	let to_iid = this.state.to_iid;
+	let to_iid = Number(this.state.to_iid)+1;
 	let author=localStorage.getItem('Auth');
 	if(from_iid !== '' & to_uid !== '' 
 		& from_iid !=='' & to_iid !=='') {
@@ -66,8 +67,8 @@ getResultFromTo(){
 			let fromto = '&from_uid='+ from_uid +'&to_uid=' + to_uid
 			+ '&from_iid=' + from_iid + '&to_iid=' +to_iid;
 
-			let url= '/predit/knnbasic/fromto'+col_uid
-			+col_iid+col_rati+fromto;
+			let url= '/predit/'+this.props.algorithm+'/fromto'
+			+col_uid+col_iid+col_rati+fromto;
 			let options = {
 				method: 'GET',
 				headers: {
@@ -78,9 +79,10 @@ getResultFromTo(){
 			.then(res=>res.json())
 			.then(res=>
 			{
-				if(res.KNNBasic)
+				if(res.result)
 				{
-					this.setState({table:res.KNNBasic});
+					this.setState({table:res.result,
+						time:res.time});
 				}
 			}
 			)
@@ -124,6 +126,14 @@ render() {
 		</div>
 		<span className="btnPredit"
 		onClick={this.getResultFromTo}>Get Result</span>
+		</div>
+		<div className="selectFromTo">
+		<span className="DetailInfo">
+		Time to run: 
+		</span>
+		<span>
+		{this.state.time}
+		</span>
 		</div>
 		<div className="DetailContent">
 		<span className="DetailInfo">

@@ -82,6 +82,16 @@ class SetAlgorthm extends PureComponent {
 			this.setState({neAsShow:'Clustering'});
 			Count++;
 		}
+		if(this.state.nmf){
+			Datatonext.push("nmf");
+			this.setState({neAsShow:'Prediction'});
+			Count++;
+		}
+		if(this.state.slopeone){
+			Datatonext.push("slopeone");
+			this.setState({neAsShow:'Prediction'});
+			Count++;
+		}
 		if(Count>0){
 		this.setState({Datatonext:Datatonext});
 		}

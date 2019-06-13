@@ -9,7 +9,7 @@ class Content extends PureComponent {
       inputValue: '',
       ruler:30,
       hasMoreItem:false,
-      table: this.props.data.slice(0,30),
+      table: this.props.data,
       original: this.props.data
     }
     this.writeFunc = this.writeFunc.bind(this);
@@ -61,14 +61,17 @@ class Content extends PureComponent {
           <tr key={index}>
           <td key={'i'+index}> {index+1} </td>
           <td key={"tdf"+index}>
-          {record.fist.map((item,i) => (
+          {record.left.map((item,i) => (
             <div key={i}>{item}</div>
             ))}
           </td>
           <td key={"tdn"+index}>
-          {record.next.map((item,i) => (
+          {record.right.map((item,i) => (
             <div key={i}>{item}</div>
             ))}
+          </td>
+          <td>
+          {record.conf}
           </td>
           </tr>
           )
@@ -77,13 +80,11 @@ class Content extends PureComponent {
   }
   render(){
     let items = [];
-    if(this.state.table.length > 0){
-        console.log('table',this.state.table);
-        items = this.writeFunc(this.state.table);
-      }
+        //console.log('table',this.state.table);
+        items = this.writeFunc(this.props.data);
         return (
-         <div className="col-lg-12">
-         <div className="Infomation martop10">
+         <div className="col-lg-8">
+         <div className="Infomation">
          <div className="DetailContent">
          <span className="DetailInfo">
          Result

@@ -23,7 +23,7 @@
 	background-color: #005b97;
 }
 .ContainChose{
-	
+	padding: 15px 0;
 
 }
 .LeftTitle{
@@ -32,10 +32,7 @@
 	color:#999999;
 }
 .rightTitle{
-	font-weight: 700;
-	font-size: 14px;
-	color:#333333;
-	float: right;
+
 }
 .btnPredit{
 	background-color: #65C7F7;
@@ -96,4 +93,17 @@ th {
 	padding: 6px 12px;
 	border: 1px solid #ced4da;
 	border-radius: 15px;
+}
+.formChoseValue{
+	height: 30px;
+	border-radius: 15px !important;
+	border: 1px solid #dddddd;
+	padding: 15px;
+	width: -webkit-fill-available;
+	font-weight: 700;
+	float: right;
+	background-color: #65C7F7;
+	opacity: 0.5;
+	margin-bottom: 15px;
+	font-size: 14px;
 }

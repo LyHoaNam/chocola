@@ -30,7 +30,12 @@ class Describe extends PureComponent {
       .then(res=>res.json())
       .then(res=>
       {
-        this.setState({data:JSON.parse(res)})
+        let data = JSON.parse(res)
+        var size = Object.keys(data).length;
+        if(size>1)
+          this.setState({data:data});
+        else
+          this.getRuleData()
       }
       )
       .catch(e=>{
@@ -38,6 +43,29 @@ class Describe extends PureComponent {
       });   
 
     }
+    getRuleData(bearer) {
+      //ready to fetch data
+      let url= '/rule/describe'
+      let options = {
+        method: 'GET',
+        headers: {
+          'Authorization': this.state.authorization
+        }
+      }
+      fetch(url,options)
+      .then(res=>res.json())
+      .then(res=>
+      {
+        sessionStorage.setItem("des",res);
+        this.setState({data:JSON.parse(res)});
+      }
+      )
+      .catch(e=>{
+        //window.location.href="/login";
+      });   
+
+    }
+    
     DefineDataLineChart(){
       if(this.state.data !== null){
         let result = [];

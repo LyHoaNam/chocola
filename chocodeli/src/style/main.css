@@ -285,16 +285,10 @@ p {
 }
 .Listmenu{
 	height: 100%;
-	padding: 50px 0px 15px 15px;
+	padding: 50px 15px 15px 15px;
 }
 .marginright0 {
 	margin-right: 0;
-}
-.paddingLeft0 {
-	padding-right: 0px !important;
-}
-.pading0{
-	padding: 0px !important;
 }
 .dd-inputAc {
 	display: none;

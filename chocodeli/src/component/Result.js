@@ -4,7 +4,9 @@ import Menulist from "./Menulist";
 import Loading from "./Loading";
 import Apiori from "./associationrule/Apiori";
 import Fpgrowth from "./associationrule/Fpgrowth";
-import Predit from "./predit/Predit";
+import KnnPredit from "./predit/KnnPredit";
+import NmfPredit from "./predit/NmfPredit";
+import SlopOnePredit from "./predit/SlopOnePredit";
 import Clustering from "./clustering/Clustering";
 class Result extends PureComponent {
   constructor(props) {
@@ -52,12 +54,14 @@ class Result extends PureComponent {
       col1: tempdata.yaxits,
       col2: tempdata.xaxits})
     }
-        if(nameAlgorthm === 'knn') {
+        if(nameAlgorthm === 'knn'||nameAlgorthm === 'nmf'
+          || nameAlgorthm === 'slopeone') {
       this.setState ({user: tempdata.user,
       listAl:tempdata.ChooseAl,
       item: tempdata.item,
       rating: tempdata.rating})
     }
+
   }
   writeContent(){
     //write result of algorthm
@@ -74,7 +78,17 @@ class Result extends PureComponent {
       min_supf = {this.state.min_sup}
       min_len={this.state.min_len}/>;
       case 'knn':
-      return <Predit 
+      return <KnnPredit 
+      user = {this.state.user}
+      item = {this.state.item}
+      rating= {this.state.rating} />;
+      case 'nmf':
+      return <NmfPredit 
+      user = {this.state.user}
+      item = {this.state.item}
+      rating= {this.state.rating} />;
+      case 'slopeone':
+      return <SlopOnePredit 
       user = {this.state.user}
       item = {this.state.item}
       rating= {this.state.rating} />;

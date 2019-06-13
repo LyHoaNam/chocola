@@ -132,6 +132,20 @@ def describe_data_csv(u_id):
     data_describe = store_data.describe().T
     return data_describe.to_json(orient='index')
 
+def describe_count_value_csv(u_id):
+    file_name = get_a_data(u_id)
+    DataFileName = "./container/" + str(file_name)
+    store_data = pd.read_csv(DataFileName,keep_default_na=False)
+        
+    list_of_list = store_data.values.tolist()
+    flatten = [item for sublist in list_of_list for item in sublist]
+    temp_va = pd.Series(flatten)
+    ser_cout = temp_va.value_counts()
+    arr_count = ser_cout.to_frame()
+
+    data_describe = arr_count.describe().T
+    return data_describe.to_json(orient='index')
+
 #print(describe_data_csv())
 
 

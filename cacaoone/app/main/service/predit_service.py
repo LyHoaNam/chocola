@@ -20,11 +20,10 @@ class Predit:
         pred = algo.predict(int(value_uid), int(value_iid), r_ui=1, verbose=True)
         #return result to json
         jsondata={}
-        tempdata={}
-        tempdata["uid"]=pred.uid
-        tempdata["idd"]=pred.iid
-        tempdata["rati"]=round(pred.est,2)
-        jsondata["KNNBasic"]=tempdata
+        jsondata={}
+        jsondata["uid"]=pred.uid
+        jsondata["idd"]=pred.iid
+        jsondata["rati"]=round(pred.est,2)
         return jsondata
     def from_to(self,namefile,uid,iid,rati,from_uid,to_uid,from_iid,to_iid):
         test_data=pd.read_csv('./container/'+namefile)
@@ -36,7 +35,6 @@ class Predit:
         algo = KNNBasic()
         algo.fit(trainset)
 
-        jsondata = {}
         arr = []
         for value_uid in range(from_uid,to_uid):
             for value_iid in range(from_iid,to_iid):
@@ -46,9 +44,8 @@ class Predit:
                 tempdata.append(pred.iid)
                 tempdata.append(round(pred.est,2))
                 arr.append(tempdata)
-        jsondata["KNNBasic"]=arr
         #return result to json
-        return jsondata
+        return arr
 
     def unique_column(self,col,name_dt):
         UPLOAD_FOLDER ='./container/'
@@ -98,11 +95,10 @@ class Predit:
         #var_rmse = accuracy.rmse(pred)
         #return result to json
         jsondata={}
-        tempdata={}
-        tempdata["uid"]=pred.uid
-        tempdata["idd"]=pred.iid
-        tempdata["rati"]=round(pred.est,2)
-        jsondata["NMF"]=tempdata
+        jsondata={}
+        jsondata["uid"]=pred.uid
+        jsondata["idd"]=pred.iid
+        jsondata["rati"]=round(pred.est,2)
         return jsondata
     
     def nmf_from_to(self,namefile,uid,iid,rati,from_uid,to_uid,from_iid,to_iid):
@@ -115,7 +111,6 @@ class Predit:
         algo = NMF()
         algo.fit(trainset)
 
-        jsondata = {}
         arr = []
         for value_uid in range(from_uid,to_uid):
             for value_iid in range(from_iid,to_iid):
@@ -125,9 +120,8 @@ class Predit:
                 tempdata.append(pred.iid)
                 tempdata.append(round(pred.est,2))
                 arr.append(tempdata)
-        jsondata["NMF"]=arr
         #return result to json
-        return jsondata
+        return arr
     def SlopeOne(self,namefile,uid,iid,rati,value_uid,value_iid):
         test_data=pd.read_csv('./container/'+namefile)
         dt=pd.DataFrame(test_data)
@@ -141,11 +135,9 @@ class Predit:
         #var_rmse = accuracy.rmse(pred)
         #return result to json
         jsondata={}
-        tempdata={}
-        tempdata["uid"]=pred.uid
-        tempdata["idd"]=pred.iid
-        tempdata["rati"]=round(pred.est,2)
-        jsondata["SlopeOne"]=tempdata
+        jsondata["uid"]=pred.uid
+        jsondata["idd"]=pred.iid
+        jsondata["rati"]=round(pred.est,2)
         return jsondata
     
     def SlopeOne_from_to(self,namefile,uid,iid,rati,from_uid,to_uid,from_iid,to_iid):
@@ -158,7 +150,6 @@ class Predit:
         algo = SlopeOne()
         algo.fit(trainset)
 
-        jsondata = {}
         arr = []
         for value_uid in range(from_uid,to_uid):
             for value_iid in range(from_iid,to_iid):
@@ -168,6 +159,5 @@ class Predit:
                 tempdata.append(pred.iid)
                 tempdata.append(round(pred.est,2))
                 arr.append(tempdata)
-        jsondata["SlopeOne"]=arr
         #return result to json
-        return jsondata
+        return arr

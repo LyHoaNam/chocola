@@ -6,16 +6,13 @@ class NextAssoRule extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state ={
-			min_conf: '',
-			min_supf: '',
-			min_len:'',
+			min_conf: 0.5,
+			min_supf: 0.5,
 			tooltipmin_conf: false,
 			tooltipmin_supf:false,
-			tooltipmin_len:false,
 			check:false
 		}
 		this.handleChange=this.handleChange.bind(this);
-		this.handleChangelen=this.handleChangelen.bind(this);
 	}
 	handleChange(event) {
 		const value= event.target.value;
@@ -31,16 +28,20 @@ class NextAssoRule extends PureComponent {
 					check:false});
 		this.setState({[name]: value});
 	}
-	handleChangelen(event){
-		const value= event.target.value;
-		if( value >= 1){
-			this.setState({tooltipmin_len:false,
-				check:true});
-		}
-		else
-			this.setState({tooltipmin_len:true,
-					check:false});
-		this.setState({min_len: value});
+	componentDidMount () {
+    if(sessionStorage.getItem('des')){
+      let tempdata= sessionStorage.getItem('des');
+      tempdata = JSON.parse(tempdata);
+      let row = parseFloat(sessionStorage.getItem('row'))
+      let half = parseFloat(tempdata['0']['50%'])
+      let tu25 = parseFloat(tempdata['0']['25%'])
+      let tu75 = parseFloat(tempdata['0']['75%'])
+      let setMinSup = (half/row).toFixed(4)
+      let setMinConf = (tu25/tu75).toFixed(4)
+      this.setState({min_supf:setMinSup, 
+      min_conf:setMinConf,check:true})
+    	}
+
 	}
 	removeCache(){
   	//remove session datasend (obj = {minsup... min conf...})
@@ -107,22 +108,6 @@ class NextAssoRule extends PureComponent {
 			</div>
 			</div>
 
-			<div className="InputGroup">
-			<input type="text" 
-			value={this.state.min_len}
-			name='min_len' 
-			placeholder="Enter min len"
-			className="Inputfields"
-			onChange={this.handleChangelen} />
-			<div className="tooltipNoti">
-			<span className={!this.state.tooltipmin_len ? 
-				"tooltiptext":
-				"tooltipActive"}>
-				{'min len>1'}
-			</span>
-			</div>
-			</div>
-
 			<div className="ModalFooter">
 			<div className="ContainBtnBox">
 			<span className="paddingRight15">
@@ -139,7 +124,7 @@ class NextAssoRule extends PureComponent {
 							ChooseAl:this.props.listdata,
 							min_supf:this.state.min_supf,
 							min_conf:this.state.min_conf,
-							min_len:this.state.min_len }
+							}
 						}}>
 					Finish
 					{

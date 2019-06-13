@@ -12,7 +12,6 @@ class ValueChart extends PureComponent {
 		let arrData = [];
 		arrData.push(this.props.dataChart.line1);
 		arrData.push(this.props.dataChart.line2);
-		console.log(arrData);
 		return(
 			<div className="">
 			<div className="titlechart">

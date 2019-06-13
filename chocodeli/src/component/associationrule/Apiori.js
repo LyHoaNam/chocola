@@ -11,7 +11,8 @@ class Apiori extends PureComponent {
       authorization:"",
       min_conf: this.props.min_conf,
       min_sup:this.props.min_supf,
-      min_len:this.props.min_len
+      time: 0,
+      len: 0
     }
     
   }
@@ -23,18 +24,19 @@ class Apiori extends PureComponent {
       let author=localStorage.getItem('Auth');
       this.setState({authorization:author});
       this.getData(author);
-    }
   }
+}
   setDataToState(){
     let tempdata= localStorage.getItem('apiori');
       tempdata=JSON.parse(tempdata);
-      this.setState({result:tempdata});
+      let arrRule = tempdata['rules'];
+      this.setState({result:arrRule,
+            time:tempdata.time,len:tempdata.len});
   }
   getData(bearer) {
-    let minlen = '?minlen='+this.state.min_len;
-    let minsup = '&minsup='+this.state.min_sup;
+    let minsup = '?minsup='+this.state.min_sup;
     let minconf = '&minconf='+this.state.min_conf;
-    let url= '/rule/apiori/result'+minlen+minsup+minconf;
+    let url= '/rule/apiori/result'+minsup+minconf;
       let options = {
         method: 'GET',
         headers: {
@@ -46,8 +48,10 @@ class Apiori extends PureComponent {
       .then(res=>
       {
         if(res.rules)
-          {localStorage.setItem("apiori",JSON.stringify(res.rules));
-          this.setDataToState();}
+          {
+            localStorage.setItem("apiori",JSON.stringify(res));
+          this.setDataToState();
+        }
       }
       )
       .catch(e=>{
@@ -59,9 +63,28 @@ class Apiori extends PureComponent {
     if(this.state.result){
     return (   
 
-      <div id="content">
+      <div id="content" className="row">
       <Content data={this.state.result}/>
-    
+      <div className="col-lg-4">
+      <div className="Infomation">
+      <div>
+      <span className="textInfo">
+      time to run: 
+      </span>
+      <span className="explainInfo">
+      {this.state.time}
+      </span>
+      </div>
+      <div>
+      <span className="textInfo">
+      result length: 
+      </span>
+      <span className="explainInfo">
+      {this.state.len}
+      </span>
+      </div>
+      </div>
+      </div>
       </div>
       )
     }

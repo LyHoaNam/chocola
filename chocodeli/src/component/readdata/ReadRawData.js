@@ -71,6 +71,7 @@ class ReadRawData extends PureComponent {
 						unique:res.unique,
 						type:res.type
 					})
+					sessionStorage.setItem("row",res.shape[0]);
 				}
 			}
 			)

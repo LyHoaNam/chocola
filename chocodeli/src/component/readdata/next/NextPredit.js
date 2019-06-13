@@ -98,7 +98,7 @@ class NextPredit extends PureComponent {
 			 </span>
 			<Button className="Next">
 				<Link to={{
-				pathname:'/algorthm/knn',
+				pathname:'/algorthm/'+this.props.listdata[0],
 				datasend: {
 					ChooseAl:this.props.listdata,
 					user:this.state.user,

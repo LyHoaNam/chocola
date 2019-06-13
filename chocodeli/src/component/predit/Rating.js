@@ -12,7 +12,8 @@ class Rating extends PureComponent {
 			colitem:this.props.colItem,
 			colrating:this.props.colRating,
 			rating:false,
-			valueChart: null
+			valueChart: null,
+			time:null
 		}
 		this.getData=this.getData.bind(this);
 	}
@@ -24,8 +25,8 @@ class Rating extends PureComponent {
 		let col_rati = '&rati='+this.state.colrating;
 		let value_uid = '&value_uid='+this.props.selectUser;
 		let value_iid = '&value_iid='+this.props.selectItem;
-		let urlgetValue= '/predit/knnbasic/result'+col_uid
-		+ col_iid + col_rati + value_uid + value_iid;
+		let urlgetValue= '/predit/'+this.props.algorithm+'/result'
+		+col_uid + col_iid + col_rati + value_uid + value_iid;
 		let urlgetDatChart = '/predit/knnbasic/chartvalue'+col_uid
 		+ col_iid + col_rati + value_uid +value_iid
 		let options = {
@@ -42,10 +43,11 @@ class Rating extends PureComponent {
 		.then(res=>res.json())
 		.then(res=>
 		{
-			if(res.KNNBasic){
-				this.setState({rating:res.KNNBasic.rati,
+			if(res.result){
+				this.setState({rating:res.result.rati,
 					selectuser:this.props.selectUser,
-					selectitem:this.props.selectItem});
+					selectitem:this.props.selectItem,
+					time:res.time});
 			}
 		}
 		)
@@ -83,6 +85,7 @@ class Rating extends PureComponent {
 			<th>User</th>
 			<th>Item</th>
 			<th>Rating</th>
+			<th>Time</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -92,6 +95,9 @@ class Rating extends PureComponent {
 			<td>{this.state.selectitem}</td>
 			<td>{this.state.rating ? 
 				this.state.rating: ''}
+				</td>
+			<td>{this.state.time ? 
+				this.state.time: ''}
 				</td>
 				</tr>
 				</tbody>
