@@ -56,7 +56,6 @@ class Describe extends PureComponent {
       .then(res=>res.json())
       .then(res=>
       {
-        sessionStorage.setItem("des",res);
         this.setState({data:JSON.parse(res)});
       }
       )

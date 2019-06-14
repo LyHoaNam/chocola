@@ -31,7 +31,6 @@ class ItemsList extends PureComponent {
 getData(bearer) {
     let column = '?col='+this.state.itemcol;
     let url= '/predit/knnbasic/unique'+column;
-    console.log(url);
       let options = {
         method: 'GET',
         headers: {
@@ -43,6 +42,7 @@ getData(bearer) {
       .then(res=>
       {
         if(res){
+          console.log('res1',res);
           localStorage.setItem("itemcol",JSON.stringify(res));
           this.setDataToState();}
       }

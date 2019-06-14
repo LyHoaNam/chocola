@@ -95,8 +95,8 @@ class ChartValue(Resource):
         col_uid = request.args.get('uid', type = str)
         col_iid = request.args.get('iid', type = str)
         col_rati = request.args.get('rati', type = str)
-        uid_value = request.args.get('value_uid', type = int)
-        iid_value = request.args.get('value_iid', type = int)
+        uid_value = request.args.get('value_uid', type = float)
+        iid_value = request.args.get('value_iid', type = float)
         Algorthm = Predit()
         result = {}
         result['line1'] = Algorthm.chart_of_value(data_file_name,

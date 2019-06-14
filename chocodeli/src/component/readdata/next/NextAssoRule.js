@@ -10,7 +10,8 @@ class NextAssoRule extends PureComponent {
 			min_supf: 0.5,
 			tooltipmin_conf: false,
 			tooltipmin_supf:false,
-			check:false
+			check:true,
+			arrIndex:[]
 		}
 		this.handleChange=this.handleChange.bind(this);
 	}
@@ -28,20 +29,45 @@ class NextAssoRule extends PureComponent {
 					check:false});
 		this.setState({[name]: value});
 	}
-	componentDidMount () {
-    if(sessionStorage.getItem('des')){
-      let tempdata= sessionStorage.getItem('des');
-      tempdata = JSON.parse(tempdata);
-      let row = parseFloat(sessionStorage.getItem('row'))
-      let half = parseFloat(tempdata['0']['50%'])
-      let tu25 = parseFloat(tempdata['0']['25%'])
-      let tu75 = parseFloat(tempdata['0']['75%'])
-      let setMinSup = (half/row).toFixed(4)
-      let setMinConf = (tu25/tu75).toFixed(4)
-      this.setState({min_supf:setMinSup, 
-      min_conf:setMinConf,check:true})
-    	}
+	getRuleData(bearer) {
+      //ready to fetch data
+      let url= '/rule/col_des';
+      
+      let columnSelected = this.props.column;
+      let formdata = "{\"sel_col\":\""+
+      			columnSelected
+					+"\"}";
+      let options = {
+        method: 'POST',
+        headers: {
+          'Authorization': bearer,
+          'Content-Type': 'application/json'
+        },
+        body: formdata
+      }
 
+      fetch(url,options)
+      .then(res=>res.json())
+      .then(res=>
+      {
+      	console.log('res',res);
+      	if(res.des)
+      	{
+      		sessionStorage.setItem('des',res.des);
+      	        this.setState({min_supf:res.minsup,
+      	        	min_conf:res.minconf,
+      	        	strCol:columnSelected});
+      	 }
+      }
+      )
+      .catch(e=>{
+        //window.location.href="/login";
+      });   
+
+    }
+	componentDidMount () {
+	let author=localStorage.getItem('Auth');
+	this.getRuleData(author);
 	}
 	removeCache(){
   	//remove session datasend (obj = {minsup... min conf...})
@@ -124,6 +150,8 @@ class NextAssoRule extends PureComponent {
 							ChooseAl:this.props.listdata,
 							min_supf:this.state.min_supf,
 							min_conf:this.state.min_conf,
+							str_col:this.state.strCol
+
 							}
 						}}>
 					Finish

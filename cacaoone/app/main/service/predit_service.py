@@ -17,7 +17,7 @@ class Predit:
         trainset = data.build_full_trainset()
         algo = KNNBasic()
         algo.fit(trainset)
-        pred = algo.predict(int(value_uid), int(value_iid), r_ui=1, verbose=True)
+        pred = algo.predict(float(value_uid), float(value_iid), r_ui=1, verbose=True)
         #return result to json
         jsondata={}
         jsondata={}

@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import "../../style/chill.css";
 import {Modal, Button} from "react-bootstrap";
-import NextAssoRule from "./next/NextAssoRule";
+import ChooseColRule from "./next/ChooseColRule";
 import NextPredit from "./next/NextPredit";
 import NextClustering from "./next/NextClustering";
 class SetAlgorthm extends PureComponent {
@@ -101,19 +101,17 @@ class SetAlgorthm extends PureComponent {
 		let category = this.state.neAsShow;
 		switch(category){
 			case 'AssociationRule':
-			return <NextAssoRule
+			return <ChooseColRule
 				listdata={this.state.Datatonext}
-				onNeHide={this.modalNeClose}/>;
+				column={this.props.column}/>;
 			case 'Prediction':
 			return <NextPredit 
 				listdata={this.state.Datatonext}
-				onNeHide={this.modalNeClose}
 				column={this.props.column}
 				type={this.state.arrType}/>;
 			case 'Clustering':
 			return <NextClustering 
 				listdata={this.state.Datatonext}
-				onNeHide={this.modalNeClose}
 				column={this.props.column}
 				type={this.state.arrType}/>;
 			default:
@@ -134,7 +132,6 @@ class SetAlgorthm extends PureComponent {
 
 			if(countT <3)
 				this.setState({preditPoint:'PointerEventNone'});
-			console.log('countT',countT);
 		}
 	}
 	modalNeClose(){

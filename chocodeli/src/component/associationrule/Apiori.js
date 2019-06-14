@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import '../../style/chill.css';
 import Content from "./Content";
 import Problem from "../Problem";
+import ChartForRule from "./ChartForRule";
 class Apiori extends PureComponent {
   constructor(props) {
     super(props);
@@ -12,7 +13,8 @@ class Apiori extends PureComponent {
       min_conf: this.props.min_conf,
       min_sup:this.props.min_supf,
       time: 0,
-      len: 0
+      len: 0,
+      str_col:this.props.str_col
     }
     
   }
@@ -36,7 +38,8 @@ class Apiori extends PureComponent {
   getData(bearer) {
     let minsup = '?minsup='+this.state.min_sup;
     let minconf = '&minconf='+this.state.min_conf;
-    let url= '/rule/apiori/result'+minsup+minconf;
+    let strcol = '&sel_col='+this.state.str_col
+    let url= '/rule/apiori/result'+minsup+minconf+strcol;
       let options = {
         method: 'GET',
         headers: {
@@ -47,6 +50,7 @@ class Apiori extends PureComponent {
       .then(res=>res.json(  ))
       .then(res=>
       {
+        console.log('res',res);
         if(res.rules)
           {
             localStorage.setItem("apiori",JSON.stringify(res));
@@ -67,7 +71,7 @@ class Apiori extends PureComponent {
       <Content data={this.state.result}/>
       <div className="col-lg-4">
       <div className="Infomation">
-      <div>
+      <div className="spaceInfo">
       <span className="textInfo">
       time to run: 
       </span>
@@ -75,7 +79,7 @@ class Apiori extends PureComponent {
       {this.state.time}
       </span>
       </div>
-      <div>
+      <div className="spaceInfo">
       <span className="textInfo">
       result length: 
       </span>
@@ -84,6 +88,7 @@ class Apiori extends PureComponent {
       </span>
       </div>
       </div>
+      <ChartForRule />
       </div>
       </div>
       )

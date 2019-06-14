@@ -21,7 +21,8 @@ class Result extends PureComponent {
       rating: null,
       item: null,
       col1:null,
-      col2:null
+      col2:null,
+      str_col: null
     };
 
   }
@@ -47,6 +48,7 @@ class Result extends PureComponent {
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
       min_len:tempdata.min_len,
+      str_col:tempdata.str_col,
       listAl:tempdata.ChooseAl}) }
     if(nameAlgorthm === 'kmeans') {
       this.setState ({
@@ -71,12 +73,14 @@ class Result extends PureComponent {
       return  <Fpgrowth 
       min_conf= {this.state.min_conf} 
        min_supf= {this.state.min_sup}
-       min_len={this.state.min_len}/>;
+       min_len={this.state.min_len}
+       str_col={this.state.str_col}/>;
       case 'apiori':
       return <Apiori 
       min_conf = {this.state.min_conf} 
       min_supf = {this.state.min_sup}
-      min_len={this.state.min_len}/>;
+      min_len={this.state.min_len}
+      str_col={this.state.str_col}/>;
       case 'knn':
       return <KnnPredit 
       user = {this.state.user}

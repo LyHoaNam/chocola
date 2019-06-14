@@ -63,43 +63,27 @@ def save_changes(data):
     db.session.add(data)
     db.session.commit()
 
-def convert_to_json(store_data):
-    count_row = store_data.shape[0]
-    count_col = store_data.shape[1]
-    #convert Dataframe to Array
-    result = {}
-    result['status'] = 'success'
-    records = []
-    for i in range(0,count_row):
-        temps = []
-        for j in range(0,count_col):
-            if (store_data.values[i,j] == ''):
-                break	
-            else:
-                temps.append(str(store_data.values[i,j]))
-        records.append(temps)
-    result['data'] = records
-    return result
-    
 def read_data_csv(u_id,page):
     file_name = get_a_data(u_id)
     DataFileName= "./container/"+str(file_name)
+    result = {}
+    result['status'] = 'success'
     try:
         if page == 0:
             store_data = pd.read_csv(DataFileName, 
             keep_default_na = False,
             header=None,
             nrows=50)
-            result = convert_to_json(store_data)
+            result['data'] = store_data.to_json(orient='values')
             return result
         else:
             store_data = pd.read_csv(DataFileName, 
             keep_default_na = False,
             skiprows=[i for i in range(1,page*50)],
             nrows=50)
-            result = convert_to_json(store_data)
+            result['data'] = store_data.to_json(orient='values')
             return result
-            
+        
 
     except Exception as e:
         response_object = {
@@ -108,21 +92,52 @@ def read_data_csv(u_id,page):
         }
         return response_object, 401
 
-def read_all_data_csv(u_id):
+def read_all_data_csv(u_id,str_te):
     file_name = get_a_data(u_id)
     DataFileName= "./container/"+str(file_name)
-    try:
-        store_data = pd.read_csv(DataFileName, 
-        keep_default_na = False)
-        result = convert_to_json(store_data)
-        return result    
+    store_data = pd.read_csv(DataFileName)
 
-    except Exception as e:
-        response_object = {
-            'status': 'fail',
-            'message': 'Some error occurred. Please try again.'
-        }
-        return response_object, 401
+    arr_sel = str_te.split(',')
+    arr_sel = list(map(int, arr_sel))
+    select_data = store_data.iloc[:,arr_sel]
+
+    count_row=select_data.shape[0]
+    records = []
+    for row_index in range(0,count_row):
+        row_data = select_data.iloc[row_index].dropna()
+        records.append(list(row_data))
+    return records
+
+def describe_col_select_cout_value_csv(u_id,arr_raw):
+    file_name = get_a_data(u_id)
+    DataFileName = "./container/" + str(file_name)
+    store_data = pd.read_csv(DataFileName)
+    
+    arr_sel = arr_raw.get('sel_col').split(',')
+    arr_sel = list(map(int, arr_sel))
+    select_data = store_data.iloc[:,arr_sel]
+
+    list_of_list = select_data.values.tolist()
+    flatten = [item for sublist in list_of_list for item in sublist]
+    temp_va = pd.Series(flatten)
+    ser_cout = temp_va.value_counts()
+    arr_count = ser_cout.to_frame()
+
+    result_des = arr_count.describe()
+
+    value50 = result_des.iloc[5][0]
+    value25 = result_des.iloc[4][0]
+    value75 = result_des.iloc[6][0]
+    count_row=select_data.shape[0]
+
+    minsup = round(value25/count_row,4)
+    minconf = round(value25/value75,4)
+    
+    result = {}
+    result['des'] = result_des.T.to_json(orient='index')
+    result['minsup'] = minsup
+    result['minconf'] = minconf
+    return result
 
 def describe_data_csv(u_id):
     file_name = get_a_data(u_id)

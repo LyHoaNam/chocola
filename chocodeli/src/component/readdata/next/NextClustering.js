@@ -78,21 +78,17 @@ render(){
 		className="Close">Back</Button>
 		</span>
 		<Button className="Next">
-		{
-			this.state.check ? ( 
-				<Link to={{
-					pathname:'/algorthm/kmeans',
-					datasend: {
-						ChooseAl:this.props.listdata,
-						yaxits:this.state.yaxits,
-						xaxits:this.state.xaxits }
-					}}>
-					Finish
-					{
-						this.removeCache()
-					}
-					</Link> ): 'Finish'
-		}
+		<Link to={{
+			pathname:'/algorthm/kmeans',
+			datasend: {
+				ChooseAl:this.props.listdata,
+				yaxits:this.state.yaxits,
+				xaxits:this.state.xaxits }
+			}}>{
+			this.removeCache()
+			}
+			Finish
+			</Link>
 		</Button>
 		</div>
 		</div>

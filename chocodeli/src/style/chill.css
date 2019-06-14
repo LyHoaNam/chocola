@@ -357,3 +357,37 @@ a:hover {
   padding-left: 15px;
   font-size: 0.9rem;
 }
+.spaceInfo{
+  padding: 10px;
+}
+.margin30 {
+  margin-top: 30px;
+}
+.chooseColTable{
+      overflow: auto;
+    width: 200px;
+    height: 200px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #dee2e691;
+}
+.cellCol{
+  font-size: 0.9rem !important;
+  padding: 10px !important;
+  border-radius: 15px !important;
+  cursor: pointer;
+}
+.btnChooseRuleTable{
+  border-radius: 15px;
+    border: 1px solid #dee2e691;
+    width: 200px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.btnChooseRuleTable:hover{
+  background-color: #dddddd;
+}
+.padding15{
+  padding: 15px;
+}

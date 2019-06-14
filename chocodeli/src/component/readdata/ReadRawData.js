@@ -44,7 +44,10 @@ class ReadRawData extends PureComponent {
 			.then(res=>res.json())
 			.then(res=>
 			{
-				this.setState({result:res})
+				if(res.status === 'success'){
+					let tempdata = JSON.parse(res.data)
+					this.setState({result:tempdata})
+				}
 			}
 			)
 			.catch(e=>{
@@ -82,19 +85,18 @@ class ReadRawData extends PureComponent {
 		}
 
 		render(){ 
-			
-			if(this.state.result.status === 'success'){
 				return (   
 					<div className='containRRD'>
 					<div id="content">
-
-					<Title
-					Column={this.state.result.data[0]}
-					Type={this.state.type}
-					/>
-					<div className="row">
-					<div className="col-lg-8">
-					<div className="row">
+					{
+						this.state.result.length >0 ?
+						<Title
+						Column={this.state.result[0]}
+						Type={this.state.type}
+						/>: ""}
+						<div className="row">
+						<div className="col-lg-8">
+						<div className="row">
 						<div className="col-lg-4">
 						<Infomation Content1={this.state.filename}
 						Shape = {this.state.shape}
@@ -105,20 +107,19 @@ class ReadRawData extends PureComponent {
 						</div>
 						<Unique
 						Data = {this.state.unique}/>
-						<Tables data={this.state.result}/>
-					</div>
-					</div>
-					
-					<Describe/>
-					
-					</div>
-					</div>
-					</div>
-					)
-				}
-				else
-					return <Loading />
+						{this.state.result.length >0 ?
+							<Tables data={this.state.result}/>:""
+						}
+						</div>
+						</div>
 
-			}
+						<Describe/>
+
+						</div>
+						</div>
+						</div>
+						)
+
 		}
-		export default ReadRawData;
+	}
+	export default ReadRawData;

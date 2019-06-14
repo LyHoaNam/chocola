@@ -300,7 +300,7 @@ def generate_association_rules(patterns, confidence_threshold):
                         temp_dict = {}
                         temp_dict['left'] = antecedent
                         temp_dict['right'] = consequent
-                        temp_dict['conf'] = round(confidence)
+                        temp_dict['conf'] = round(confidence,4)
                         #rules[antecedent] = (consequent, confidence)
                         rules.append(temp_dict)
 

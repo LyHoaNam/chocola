@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import '../../style/chill.css';
 import Content from "./Content";
 import Problem from "../Problem";
+import ChartForRule from "./ChartForRule";
 class Fpgrowth extends PureComponent {
   constructor(props) {
     super(props);
@@ -10,7 +11,10 @@ class Fpgrowth extends PureComponent {
       result: [],
       authorization:"",
       min_conf: this.props.min_conf,
-      min_len:this.props.min_len
+      min_len:this.props.min_supf,
+      time: 0,
+      len: 0,
+      str_col:this.props.str_col
     }
     
   }
@@ -27,12 +31,17 @@ class Fpgrowth extends PureComponent {
   setDataToState(){
     let tempdata= localStorage.getItem('fpgrowth');
       tempdata=JSON.parse(tempdata);
-      this.setState({result:tempdata});
+      let arrRule = tempdata['rules'];
+      this.setState({result:arrRule,
+            time:tempdata.time,len:tempdata.len});
   }
  getData(bearer) {
-    let minlen = '?minlen='+this.state.min_len;
+    let row = parseFloat(sessionStorage.getItem('row'));
+    let real_len = Math.round(row * this.state.min_len);
+    let minlen = '?minlen='+real_len;
     let minconf = '&minconf='+this.state.min_conf;
-    let url= '/rule/fpgrowth/result'+minlen+minconf;
+    let strcol = '&sel_col='+this.state.str_col
+    let url= '/rule/fpgrowth/result'+minlen+minconf+strcol;
       let options = {
         method: 'GET',
         headers: {
@@ -44,7 +53,7 @@ class Fpgrowth extends PureComponent {
       .then(res=>
       {
         if(res.rules){
-          localStorage.setItem("fpgrowth",JSON.stringify(res.rules));
+          localStorage.setItem("fpgrowth",JSON.stringify(res));
           this.setDataToState();}
       }
       )
@@ -54,18 +63,39 @@ class Fpgrowth extends PureComponent {
   }
 
   render(){ 
-    
-    if(this.state.result.length>0){
+     if(this.state.result){
     return (   
 
-      <div id="content">
+      <div id="content" className="row">
       <Content data={this.state.result}/>
-    
+      <div className="col-lg-4">
+      <div className="Infomation">
+      <div className="spaceInfo">
+      <span className="textInfo">
+      time to run: 
+      </span>
+      <span className="explainInfo">
+      {this.state.time}
+      </span>
+      </div>
+      <div className="spaceInfo">
+      <span className="textInfo">
+      result length: 
+      </span>
+      <span className="explainInfo">
+      {this.state.len}
+      </span>
+      </div>
+      </div>
+      <ChartForRule />
+      </div>
       </div>
       )
     }
     else
-      return <Problem />
+      return (
+      <Problem/>
+    )
 
   }
 }

@@ -79,8 +79,7 @@ writeRow(listValue) {
 	return row;
 }
 render() {
-	if(this.state.table.status === 'success'){
-		let rowvalue = this.writeRow(this.state.table.data);
+		let rowvalue = this.writeRow(this.state.table);
 		return (
 			<div className="col-lg-12">
 			<div className="Infomation martop10">
@@ -117,9 +116,7 @@ render() {
 			</div>
 			</div>
 			</div>
-			);}
-			else
-				return <Loading/>
+			);
 	}
 }
 
