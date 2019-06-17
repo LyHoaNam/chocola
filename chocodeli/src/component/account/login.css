@@ -1,10 +1,11 @@
 .haftBg {
 	background-image: linear-gradient(to bottom, #9CECFB , #65C7F7);
-	height: -webkit-fill-available;
 	padding-top: calc(50% - 100px);
 	padding-left: 50px;
 	padding-right: 50px;
 	text-align: center;
+	height: 100vh;
+    
 }
 .marginRight0 {
 	margin-right: 0px !important;
@@ -28,7 +29,7 @@
 	text-align: center;
 }
 .App-logo{
-	height: 70%;
+	height: 150px;
 }
 .ContainText{
 	padding: 7px;
@@ -46,7 +47,7 @@
 	padding: 7px;
 }
 .ButtonLogin{
-	padding: 3px 30px 3px 30px;
+	padding: 3px 15px 3px 15px;
 	border-radius: 15px;
 	font-size: 1em;
 	border: solid 1px #65C7F7;

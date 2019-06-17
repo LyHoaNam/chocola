@@ -7,7 +7,10 @@ class Header extends PureComponent {
 		this.state = {
 			alg: null,
 			activeYD: 'unactivebtn',
-			activeAc:'unactivebtn'
+			activeAc:'unactivebtn',
+			username:'',
+			email:'',
+			imgurl:''
 		};
 		this.LogOutAccout = this.LogOutAccout.bind(this);
 	}
@@ -16,7 +19,20 @@ class Header extends PureComponent {
 		localStorage.clear();
 		sessionStorage.clear();
 		window.location.href="/login";
-
+	}
+	readProfileUser(){
+		if(localStorage.getItem('profile')){
+			let UserProfile = localStorage.getItem('profile');
+			UserProfile = JSON.parse(UserProfile);
+			this.setState({username:UserProfile.name,
+				email:UserProfile.username,
+				imgurl:UserProfile.img_url});
+		}
+	}
+	componentDidMount(){
+		if(localStorage.getItem('profile')){
+			this.readProfileUser();
+		}
 	}
 	writeButton(){
 		if(sessionStorage.getItem('datasend')) {
@@ -39,8 +55,9 @@ class Header extends PureComponent {
 			<nav id="sidebar">
 			<div className="logoContainer">
 			<Link to={'/'}>
-			<img src={require('../img/headerlogonew.png')} 
-			className="LogoInMenu" alt="logo"/>
+			<img src={
+				require('../img/headerlogonew.png')}
+				className="LogoInMenu" alt="logo"/>
 			</Link>
 			</div>
 
@@ -63,19 +80,24 @@ class Header extends PureComponent {
 			</span>
 			<ul className="dd-menuAc">
 			<li className="containInfoAc">
-			
 				<span className="containImgAc">
-				<img src={require('../img/logonew.png')} 
-				className="imgAc" 
-				alt=""/>
+				{
+				this.state.imgurl === '' ?
+				<img src={
+				require('../img/avatarraw.jpeg')}
+				className="imgAc" alt="avatar"/>:
+				<img src={
+				require('../img/'+this.state.imgurl)}
+				className="imgAc" alt="avatar"/>
+			}
 				</span>
 				<span className="conatinDetailInfo">
 				<span className="infoAcName">
-				Name of Account
+				{this.state.username}
 				</span>
 				<br />
 				<span className="infoAc">
-				InfoAccount@gmail.com
+				{this.state.email}
 				</span>
 				</span>
 

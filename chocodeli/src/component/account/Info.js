@@ -5,36 +5,28 @@ class Info extends PureComponent {
 		super(props);
 		this.state={
 			authorization:"",
-			user:"",
-			imgUrl:null
+			username:"",
+			email:'',
+			imgurl:''
 		}
 		this.ImportImg=this.ImportImg.bind(this);
 	}
 	componentDidMount(){
 		if(localStorage.getItem('Auth')){
 			let author=localStorage.getItem('Auth');
-			this.getInfoUser(author);
 			this.setState({authorization:author})
 		}
+			this.readProfileUser();
 	}
-	getInfoUser(bearer){
-		let url= '/user/info';
-		let options = {
-			method: 'GET',
-			headers: {
-				'Authorization': bearer
-			}
+	readProfileUser(){
+		if(localStorage.getItem('profile')){
+			let UserProfile = localStorage.getItem('profile');
+			
+			UserProfile = JSON.parse(UserProfile);
+			this.setState({username:UserProfile.name,
+				email:UserProfile.username,
+				imgurl:UserProfile.img_url});
 		}
-		let req = new Request(url,options);
-		fetch(req)
-		.then(res => res.json())
-		.then(response => {
-			let result = response;
-			if(result.id){
-				this.setState({user:result,imgUrl:result.img_url});
-			}
-		})
-		.catch(error => console.error('Error:', error));
 	}
 	ImportImg(e){
 		let url = '/user/import_img';
@@ -51,42 +43,47 @@ class Info extends PureComponent {
 		
 		fetch(req).then(res => res.json())
 		.then(response => {
-			this.setState({imgUrl:response});
+			this.setState({imgurl:response});
 		})
 		.catch(error => console.error('Error:', error));
 	}
 	render(){
-			return(
-				<div className="ContainProfile">
-				<span className="Avatar">
-				<input
-				type="file"
-				className="importNewImg"
-				onChange= {this.ImportImg} />
-				{
-					this.state.imgUrl !== null ?
-					<img src={require('../../img/'+this.state.imgUrl)} 
-				className="avatarraw" 
-				alt="logo" />:
-				<img src={require('../../img/avatarraw.jpeg')} 
-				className="avatarraw" 
-				alt="logo" />
-				}
-				</span>
-				{this.state.user.id ? 
-					<span className="ProfileUser">
-					<p className="emailUser">
-					{this.state.user.username}
-					</p>
-					<p className="nameUser">
-					{this.state.user.name}
-					</p>
-					<p className="numberData">Number data: {
-						this.props.length
-					}</p>
-					</span>:""}
-					</div>
-					)
+		console.log('propfile ',this.state.imgurl);
+		console.log('propfile type ',typeof this.state.imgurl);
+		return(
+			<div className="ContainProfile">
+			<span className="Avatar">
+			<input
+			type="file"
+			className="importNewImg"
+			onChange= {this.ImportImg} />
+			{
+				this.state.imgUrl === '' ?
+				<img src={
+					require('../../img/avatarraw.jpeg')} 
+					className="avatarraw" alt="logo" />:
+				<img src={
+					require('../../img/'+ "2019060504531377.jpg")} 
+					className="avatarraw"/>
+				
+			}
+			</span>
+			{
+				this.state.email !=='' ? 
+				<span className="ProfileUser">
+				<p className="emailUser">
+				{this.state.email}
+				</p>
+				<p className="nameUser">
+				{this.state.username}
+				</p>
+				<p className="numberData">Number data: 
+				{this.props.length}
+				</p>
+				</span>:""
+			}
+			</div>
+				)
 		
 	}
 }

@@ -1,10 +1,20 @@
 from app.main.model.user import User
 from ..service.blacklist_service import save_token
+from flask_restful import fields, marshal_with
 
+user_fields = {
+    'id' : fields.Integer,
+    'username' : fields.String,
+    'name' : fields.String,
+    'img_url' : fields.String,
+    'status' : fields.String,
+    'Authorization' : fields.String
+}
 
 class Auth:
 
     @staticmethod
+    @marshal_with(user_fields)
     def login_user(data):
         try:
             # fetch the user data
@@ -14,7 +24,10 @@ class Auth:
                 if auth_token:
                     response_object = {
                         'status': 'success',
-                        'message': 'Successfully logged in.',
+                        'id': user.id,
+                        'username' : user.username,
+                        'name' : user.name,
+                        'img_url' : user.img_url,
                         'Authorization': auth_token.decode()
                     }
                     return response_object, 200

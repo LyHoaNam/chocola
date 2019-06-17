@@ -37,7 +37,8 @@ class Start extends PureComponent {
 			if(result.status === 'success') {
 				
 				localStorage.setItem('Auth',result.Authorization);
-				window.location.href="/profile";
+				localStorage.setItem('profile',JSON.stringify(result));
+				window.location.href="/";
 			}
 			else {
 				alert('Username or password Invalid');
@@ -133,11 +134,15 @@ class Start extends PureComponent {
 						</div>
 						</div>
 						<div className="containBtn">
-						<input className="ButtonLogin" defaultValue="Submit" type="submit"
+
+						<input className="ButtonLogin" 
+						defaultValue="Sign in" 
+						type="button"
 						onClick = {this.handleSubmit}/>
+
 						<input className="ButtonCreateAcc"
 						type = "button"
-						defaultValue="Create Account"
+						defaultValue="Sign Up"
 						onClick={modalCreateAccountShow}/>
 
 						<CreateAccount 

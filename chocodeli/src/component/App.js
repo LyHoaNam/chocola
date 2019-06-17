@@ -22,7 +22,8 @@ class App extends PureComponent {
           <Route exact path='/login' render={()=><Login/>} />
           <Route path='/algorthm/:id' 
           render={(props)=> <Result  {...props}/>} />
-          <Route path='/profile' render={(props)=><Profile  {...props}/>} />
+          <Route path='/profile' 
+          render={(props)=><Profile  {...props}/>} />
           </Switch>
       </div>
       </Suspense>

@@ -26,6 +26,11 @@ class User(db.Model):
         return flask_bcrypt.check_password_hash(self.password_hash, password)
 
     def __repr__(self):
+        obj_return = {}
+        obj_return['id'] = self.id
+        obj_return['username'] = self.username
+        obj_return['name'] = self.name
+        obj_return['img_url'] = self.img_url
         return "<User '{}'>".format(self.username)
     
     def encode_auth_token(self, user_id):
