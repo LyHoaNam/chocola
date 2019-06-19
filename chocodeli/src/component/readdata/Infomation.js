@@ -8,15 +8,30 @@ class Infomation extends PureComponent {
           <div className="DetailInfo">
           Infomation
            </div>
+           <div className="displayGird">
+           <span className="infoAcName">
+           Data file name: 
+           </span>
+           <span>
+            {this.props.Content1}
+            </span>
+            </div>
            <div>
-           {"Data file name: "
-            + this.props.Content1} </div>
-           <div>{
-            "Row: "
-            + this.props.Shape[0]} </div>
-           <div>{
-            "Column: "
-            +this.props.Shape[1]} </div>
+            <span className="infoAcName">
+            Row:
+            </span>
+            <span>
+            {this.props.Shape[0]}
+            </span>
+            </div>
+           <div>
+           <span className="infoAcName">
+           Column: 
+           </span>
+           <span>
+           {this.props.Shape[1]}
+          </span>
+           </div>
       </div>
       </div>
 			)

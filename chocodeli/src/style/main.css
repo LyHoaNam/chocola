@@ -230,6 +230,7 @@ body {
 	color:#133b4f;
 }
 .Infomation {
+	position: relative;
 	border-radius: 10px;
 	background-color: #fff;
 	padding: 10px;
@@ -369,10 +370,27 @@ p {
 .infoAcName{
 	font-weight: 700;
 	color:#333333;
+	margin-right: 15px;
 }
 .imgLogout{
 	margin-right: 15px;
 }
 .MarginTop{
 	margin-top: 20px;
+}
+.displayGird {
+	display: inline-grid;
+}
+.containLegend{
+	padding: 0 15px;
+	text-align: center;
+}
+.containRightLegend{
+	position: absolute;
+	display: inline-block;
+	margin-left: 160px;
+	float: right;
+}
+.containChart{
+	padding: 10px 0px;
 }

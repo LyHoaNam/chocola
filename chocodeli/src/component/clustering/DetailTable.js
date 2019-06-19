@@ -5,6 +5,19 @@ class DetailTable extends PureComponent {
 	render(){
 		return(
 			<Table responsive>
+			<thead>
+			<tr>
+			<th>
+			#
+			</th>
+			<th>
+			X axis
+			</th>
+			<th>
+			Y axis
+			</th>
+			</tr>
+			</thead>
 			<tbody striped="true">
 			{
 				this.props.Data ?

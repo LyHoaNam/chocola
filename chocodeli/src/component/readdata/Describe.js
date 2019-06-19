@@ -1,13 +1,15 @@
 import React, {PureComponent} from "react";
 import "../../style/main.css";
-import { LineChart } from 'react-easy-chart';
+import { LineChart,Legend } from 'react-easy-chart';
 import {Table} from "react-bootstrap";
 class Describe extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
       data : null,
-      authorization:""
+      authorization:"",
+      legend:[],
+      dataChart:[]
     }
   }
   componentDidMount(){
@@ -31,11 +33,14 @@ class Describe extends PureComponent {
       .then(res=>
       {
         let data = JSON.parse(res)
-        var size = Object.keys(data).length;
-        if(size>1)
-          this.setState({data:data});
-        else
-          this.getRuleData()
+        this.setState({data:data})
+        try{
+          this.DefineDataLineChart(data);  
+        }
+        catch(err){
+          this.getRuleData(bearer);
+        }
+        
       }
       )
       .catch(e=>{
@@ -56,7 +61,9 @@ class Describe extends PureComponent {
       .then(res=>res.json())
       .then(res=>
       {
-        this.setState({data:JSON.parse(res)});
+        let data = JSON.parse(res);
+        this.setState({data:data});
+        this.DefineDataLineChart(data);
       }
       )
       .catch(e=>{
@@ -65,12 +72,18 @@ class Describe extends PureComponent {
 
     }
     
-    DefineDataLineChart(){
-      if(this.state.data !== null){
+    DefineDataLineChart(data){
+      if(data !== null){
         let result = [];
+        let arrLengend = [];
         let DataChart = this.state.data;
         Object.keys(DataChart).map((keyName,i)=>{
           let arr = [];
+          let legend = {}
+
+          legend['key'] = keyName;
+          legend['value'] = data[keyName];
+
           let obj1 = {
             'x': 0,
             'y': DataChart[keyName]['min']
@@ -96,12 +109,14 @@ class Describe extends PureComponent {
             'x': 100,
             'y': DataChart[keyName]['max']
           };
+          arrLengend.push(legend);
           arr.push(obj1,obj2,obj3,obj4,obj5);
           result.push(arr);
         })
-        return result;
+        this.setState({dataChart:result,
+        legend:arrLengend});
       }
-      return [[]];
+      
     }
     writeTable(){
       if(this.state.data !== null){
@@ -131,13 +146,12 @@ class Describe extends PureComponent {
       return <tr></tr>;
     }
 	render(){
-    let DataLineChart = this.DefineDataLineChart();
     let DataTable = this.writeTable();
 		return (
       <div className="col-lg-4">
       <div className="Infomation">
       <div className="DetailInfo">
-      Describe
+      Describe the data
       </div>
 
        <LineChart
@@ -148,28 +162,38 @@ class Describe extends PureComponent {
       margin={{top: 30, right: 60, bottom: 30, left: 60}}
       width={400}
       height={300}
-      data={DataLineChart}
+      data={this.state.dataChart}
         />
+      <div className="containLegend">
+      {
+        <Legend 
+        data={this.state.legend} 
+        dataId={'key'} 
+        horizontal
+        />
+
+      }
+      </div>
         <Table responsive>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Count</th>
-      <th>Std</th>
-      <th>Mean</th>
-      <th>Min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    {
-      DataTable
-    }
-  </tbody>
-</Table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Count</th>
+            <th>Std</th>
+            <th>Mean</th>
+            <th>Min</th>
+            <th>25%</th>
+            <th>50%</th>
+            <th>75%</th>
+            <th>Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            DataTable
+          }
+        </tbody>
+        </Table>
         </div>
         </div>
         )

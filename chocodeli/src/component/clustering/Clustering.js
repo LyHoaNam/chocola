@@ -77,8 +77,10 @@ constructor(props) {
 			<NumberOfClusters
 			DataLineChart = {this.state.dataLineChart}
 			callbackValue={this.selectedvalue}/>
-			<DefineClusters 
-			DataScatterPlot = {this.state.dataScatterPlot}/>
+			<DefineClusters
+			K_cluster = {this.state.k_cluster} 
+			DataScatterPlot = {this.state.dataScatterPlot}
+			/>
 			<TableClustering 
 			col1 = {this.props.col1}
 			col2 = {this.props.col2}

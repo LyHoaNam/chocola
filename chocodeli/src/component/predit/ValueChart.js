@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {LineChart} from 'react-easy-chart';
+import {LineChart,Legend} from 'react-easy-chart';
 class ValueChart extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -12,6 +12,12 @@ class ValueChart extends PureComponent {
 		let arrData = [];
 		arrData.push(this.props.dataChart.line1);
 		arrData.push(this.props.dataChart.line2);
+		let dataLegend = [
+		{'key':'Value user at '+this.props.col1,
+		'value': 0},
+		{'key':'Value item at '+this.props.col2,
+		'value': 0}
+		];
 		return(
 			<div className="">
 			<div className="titlechart">
@@ -28,6 +34,26 @@ class ValueChart extends PureComponent {
 			data={arrData
 			}
 			/>
+			 <div className="containRightLegendForPredit">
+		      {
+		      <Legend 
+		      data={dataLegend} 
+		      dataId={'key'} 
+		      styles={{
+		        '.legend':{
+		        borderRadius: '12px',
+		        fontSize: '0.8em',
+		        maxWidth: '300px',
+		        padding: '12px',
+		        display: 'block'
+		      },
+		      '.legend li.horizontal':{
+		        display: 'block'
+		      }
+		      }}
+		      />
+		      }
+		      </div>
 			</div>
 			)
 	}

@@ -26,6 +26,9 @@
     width: 120px;
     color: #ffff;
 }
+.Next a{
+  color:#ffffff;
+}
 .Next:hover{
     background-color: #77D9FF;
 }
@@ -312,6 +315,7 @@ a:hover {
 }
 .ContainBtnBox{
   float: right;
+  padding: 15px;
 }
 .paddingRight15{
   padding-right: 15px;

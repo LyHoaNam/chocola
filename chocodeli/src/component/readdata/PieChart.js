@@ -1,33 +1,68 @@
 import React, {PureComponent} from "react";
 import "../../style/main.css";
-import { PieChart } from 'react-easy-chart';
+import { PieChart,Legend } from 'react-easy-chart';
+
 class Infomation extends PureComponent {
-  DefineDataChart(){
+  constructor(props){
+    super(props);
+    this.state={
+      legend:[],
+      dataChart:[]
+    }
+  }
+  componentDidMount(){
     if(this.props.Data !== null){
       let data = JSON.parse(this.props.Data)
-      let result = []
+      let arrDataChart = []
+      let arrLengend = [];
       Object.keys(data).map((keyName, i) => {
         let record = {};
+        let legend = {}
+
         record['key'] = keyName;
         record['value'] = data[keyName];
-        result.push(record);
+        legend['key'] = keyName;
+        legend['value'] = data[keyName];
+
+        arrDataChart.push(record);
+        arrLengend.push(legend);
       })
-      return result;
+      this.setState({dataChart:arrDataChart,
+        legend:arrLengend});
     }
-    return [];
   }
 
   render(){
-    let DataPieChart = this.DefineDataChart();
     return (
       <div className="MarginTop">
       <div className="Infomation">
       <div className="DetailInfo">
-      Type
+      Data types in csv file
+      </div>
+      <div className="containChart">
+      <div className="containRightLegend">
+      {
+      <Legend 
+      data={this.state.legend} 
+      dataId={'key'} 
+      styles={{
+        '.legend':{
+        borderRadius: '12px',
+        fontSize: '0.8em',
+        maxWidth: '300px',
+        padding: '12px',
+        display: 'block'
+      },
+      '.legend li.horizontal':{
+        display: 'block'
+      }
+      }}
+      />
+      }
       </div>
 
       <PieChart
-      data={DataPieChart}
+      data={this.state.dataChart}
       size={150}
       innerHoleSize={90}
       labels
@@ -42,7 +77,7 @@ class Infomation extends PureComponent {
         }
       }}
       />
-
+      </div>
       </div>
       </div>
       )

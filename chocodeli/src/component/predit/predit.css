@@ -107,3 +107,9 @@ th {
 	margin-bottom: 15px;
 	font-size: 14px;
 }
+.containRightLegendForPredit{
+	position: absolute;
+	margin-left: 460px;
+	top: 50%;
+	z-index: 2;
+}

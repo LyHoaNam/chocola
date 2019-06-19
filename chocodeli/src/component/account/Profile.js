@@ -114,7 +114,7 @@ class Profile extends PureComponent {
 		.then(response => {
 			let result = response.status;
 			if(result!=='success'){
-				console.log('success');
+				window.location.href="/";
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -122,7 +122,6 @@ class Profile extends PureComponent {
 	handleChange(event) {
 		let valueChange = event.target.value
 		if(valueChange !== ''){
-			console.log('value',valueChange);
 			this.postData(valueChange);
 			this.setState({value:valueChange});
 		}

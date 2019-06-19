@@ -104,7 +104,9 @@ class Rating extends PureComponent {
 				</Table>{
 					this.state.valueChart !== null ?
 					<ValueChart
-					dataChart={this.state.valueChart}/>: ""}
+					dataChart={this.state.valueChart}
+					col1 = {this.props.selectUser}
+					col2 = {this.props.selectItem}/>: ""}
 					</div>
 					</div>
 					</div>

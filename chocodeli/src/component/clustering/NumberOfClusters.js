@@ -29,7 +29,7 @@ class NumberOfClusters extends PureComponent {
 	render(){
 		let arrData = [];
 		arrData.push(this.props.DataLineChart);
-			return(
+		return(
 			<div className="col-lg-6">
 			<div id="containchart">
 			<div className="titlechart">
@@ -44,33 +44,33 @@ class NumberOfClusters extends PureComponent {
 			width={500}
 			height={300}
 			data={arrData}
-				/>
-				<div className="choseNumber">
-				<input type="number"
-				min="1"
-				max="10"
-				name="NumberOfClusters"
-				className="inputNumber"
-				value = {this.state.valueNumber} 
-				onChange={this.handleNumber}/>
-				<div className="tooltipNoti">
-				<span className={!this.state.tooltipnumber? 
-					"tooltiptext":
-					"tooltipActive"}>
-					{'This number should be ~will update late~ :v!'}
-					</span>
-					</div>
-					<span className="SetNumber"
-					onClick = {this.selectValue}>
-					Set Number of Clusters
-					</span>
-					</div>
+			/>
+			<div className="choseNumber">
+			<input type="number"
+			min="1"
+			max="10"
+			name="NumberOfClusters"
+			className="inputNumber"
+			value = {this.state.valueNumber} 
+			onChange={this.handleNumber}/>
+			<div className="tooltipNoti">
+			<span className={!this.state.tooltipnumber? 
+				"tooltiptext":
+				"tooltipActive"}>
+				{'This number should be ~will update late~ :v!'}
+			</span>
+			</div>
+			<span className="SetNumber"
+			onClick = {this.selectValue}>
+			Set Number of Clusters
+			</span>
+			</div>
 
-					</div>
+			</div>
 
-					</div>
-					)
-		}
+			</div>
+		)
 	}
+}
 
-	export default NumberOfClusters;
+export default NumberOfClusters;
