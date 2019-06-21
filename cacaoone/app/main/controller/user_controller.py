@@ -3,7 +3,7 @@ from flask_restplus import Resource
 from time import gmtime, strftime
 from ..util.dto import UserDto
 from ..service.user_service import (save_new_user, 
-get_all_users, get_a_user, save_new_img)
+get_all_users, get_a_user, save_new_img, changes_password)
 from app.main.service.auth_helper import Auth
 api = UserDto.api
 _user = UserDto.user
@@ -55,6 +55,17 @@ class User(Resource):
             api.abort(404)
         else:
             return user
+
+    @api.response(201, 'Change password complete')
+    @api.doc('change a new password')
+    def post(self):
+        """change password"""
+        response = Auth.get_logged_in_user(new_request=request)
+        user_profile = response[0].get('data')
+        id_user = user_profile.get('user_id')
+
+        new_pass = request.form['new_pass']
+        return changes_password(id_user,new_pass)
 
 @api.route('/import_img')
 class ImportData(Resource):

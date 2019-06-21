@@ -11,7 +11,7 @@ class Profile extends PureComponent {
 			writeList:"",
 			user:""
 		}
-		this.SelectData=this.SelectData.bind(this);
+		
 		this.handleChange = this.handleChange.bind(this);
 	}
 	componentDidMount(){
@@ -31,66 +31,51 @@ class Profile extends PureComponent {
 		}
 		let req = new Request(url,options);
 		fetch(req)
-		.then(res => res.json())
-		.then(response => {
-			let result = response;
-			if(result!=='false'){
-				this.setState({listData:result});
+		.then(res => {
+			if(res.ok) {
+				return res.json();
 			}
+			throw new Error(res.status);
 		})
-		.catch(error => console.error('Error:', error));
-	}
-	readyToNext(result){
-		if(result.status === 'success') {
-			window.location.href="/";
-		}
-		else {
-			alert('Something Invalid, Try again!');
-		}
-	}	SelectData(e){
-		let url = '/data/import';
-		let formdata = new FormData();
-		formdata.append("filecsv", e.target.files[0]);
-		let options = {
-			method: 'POST',
-			headers: {
-				'Authorization': this.state.authorization
-			},
-			body: formdata
-		}
-		let req = new Request(url, options);
-		
-		fetch(req).then(res => res.json())
 		.then(response => {
-			this.readyToNext(response);
+				this.setState({listData:response});
+			
 		})
 		.catch(error => console.error('Error:', error));
 	}
+	
 	saveNameData(name){
 		sessionStorage.setItem('name_data',name);
 		return "fas fa-angle-double-right icCheced";
 	}
 	writeDataFile(listData){
 		let resultDiv=[];
-		if(listData)
+		if(listData !== '')
 		{	
 			listData.map((record,index)=>{
-
 				let checkedBox = record.selected==="True"? 
-				"fas fa-angle-double-right icCheced":""
-				
+				"cellSelected":"";
+
 				resultDiv.push(
-					<tr className="detailData" 
+					<tr className={"detailData "+checkedBox}
 					key={'detailData'+index}>
+					<td key={'index' +index} >
+					{index +1}
+					</td>
 					<td className="nameData" 
 					key={'nameData'+index}>
-					<i className={checkedBox} />
 					{record.data_name}
 					</td>
+					<td className="nameData" 
+					key={'inserted at'+index}>
+					{record.data_name.slice(0,10).replace(/_/g,'/')}
+					</td>
 					</tr>
-					)})
+					)
+			});
+			return resultDiv;
 		}	
-		return resultDiv;
+		return <tr></tr>
 
 	}
 	postData(valueChange){
@@ -126,65 +111,75 @@ class Profile extends PureComponent {
 			this.setState({value:valueChange});
 		}
 	}
-	render(){
-		if(this.state.listData !=='') {
-			let writelist = this.writeDataFile(
-				this.state.listData);
-			return(
-				<div className='containRRD'>
-				<div id="content">
-				<div className="row">
-				<div className="col-lg-8">
-				<Info length={this.state.listData.length}/>
-				</div>
-				<div className="col-lg-4 pad100">
-				<div className="ContaintData">
-				<input id="choseFile" 
-				name='fileName' 
-				type="file"
-				className="importNewData"
-				onChange= {this.SelectData} />
-				<div className="listData">
-				<div className="titlelistData">List data</div>
-				<div className="OverListData">
-				<Table responsive>
-				<tbody striped="true">	
-				{
-					writelist
-				}
-				</tbody>
-				</Table>
-				</div>
-				</div>
-				<div className="selectData">
-				<select value={this.state.value}
-				onChange={this.handleChange}
-				className="select-css">
-				{
-					this.state.listData ?
-					this.state.listData.map((record,index)=>{
-						return record.selected==="True" ? 
-						(<option key={index}
-							className = "selectedLi"
-							value = {record.id_data}>
-							{record.data_name}</option>):
-						(<option key={index}
-							value = {""+record.id_data}>
-							{record.data_name}</option>)
-					}) : ""
-
-				}
-				</select>
-				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-				)
+	writeChangeSelected(listData){
+		let arrResult = [];
+		if(listData !== ''){
+			listData.map((record,index)=>{
+				record.selected==="True" ? 
+				arrResult.splice(0,0,<option key={index}
+					className = "selectedLi"
+					value = {record.id_data}>
+					{record.data_name}</option>):
+				arrResult.push(<option key={index}
+					value = {""+record.id_data}>
+					{record.data_name}</option>)
+			})
+			return arrResult;
 		}
-		return "loading...";
-		
+		return <option>You have no data! Please import data</option>
+	}
+	render(){
+		let writelist = this.writeDataFile(
+			this.state.listData);
+		let writeSelected = this.writeChangeSelected(
+			this.state.listData);
+		return(
+			<div className='containRRD'>
+			<div id="content">
+			<div className="row">
+			<div className="col-lg-6">
+			<Info length={this.state.listData.length}/>
+			</div>
+			<div className="col-lg-6 pad100">
+			<div className="ContaintData">
+			<div className="selectData">
+			<span className="ChangeSeletecTitle">
+			Change selected file:
+			</span>
+			<select value={this.state.value}
+			onChange={this.handleChange}
+			className="select-css">
+			{
+				writeSelected
+
+			}
+			</select>
+			</div>
+			<div className="listData">
+			<div className="OverListData">
+			<Table responsive>
+			<thead>
+	         <tr>
+	         <th>No</th>
+	         <th>Name of data</th>
+	         <th scope="col">date inserted</th>
+	         </tr>
+	         </thead>
+			<tbody striped="true">	
+			{
+				writelist
+			}
+			</tbody>
+			</Table>
+			</div>
+			</div>
+			
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+		)
 	}
 }
 export default Profile;

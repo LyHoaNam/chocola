@@ -138,7 +138,7 @@ class NextAssoRule extends PureComponent {
 			<div className="ContainBtnBox">
 			<span className="paddingRight15">
 			<Button 
-			onClick={this.props.onNeHide}
+			onClick={this.props.onNeAsHide}
 			className="Close">Back</Button>
 			</span>
 			<Button className="Next">

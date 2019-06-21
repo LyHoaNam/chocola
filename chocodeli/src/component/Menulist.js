@@ -18,9 +18,7 @@ class Menulist extends PureComponent {
 
      <div className="menuInfo">
      <span>
-     <p>min conf: {min_conf}</p>
-     <p>min sup: {min_supf}</p>
-     <p>min len: {min_len}</p>
+
      </span>
      </div>
      </div>

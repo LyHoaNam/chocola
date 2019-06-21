@@ -23,10 +23,12 @@ class SetAlgorthm extends PureComponent {
 			authorization: null,
 			clusterPoint: '',
 			preditPoint: '',
-			arrType: []
+			arrType: [],
+			display: 'displayBlock'
 		}
 		this.ReadyToNext = this.ReadyToNext.bind(this);
 		this.modalNeClose = this.modalNeClose.bind(this);
+		this.closeNextBox = this.closeNextBox.bind(this);
 	} 
 	componentDidMount () {
 		if(localStorage.getItem('Auth')){
@@ -93,9 +95,11 @@ class SetAlgorthm extends PureComponent {
 			Count++;
 		}
 		if(Count>0){
-		this.setState({Datatonext:Datatonext});
+		this.setState({Datatonext:Datatonext,display:'displayNone'});
 		}
-		
+	}
+	closeNextBox(){
+		this.setState({display: 'displayBlock',neAsShow:false})
 	}
 	writeNextBox(){
 		let category = this.state.neAsShow;
@@ -103,17 +107,20 @@ class SetAlgorthm extends PureComponent {
 			case 'AssociationRule':
 			return <ChooseColRule
 				listdata={this.state.Datatonext}
-				column={this.props.column}/>;
+				column={this.props.column}
+				onNeHide={this.closeNextBox}/>;
 			case 'Prediction':
 			return <NextPredit 
 				listdata={this.state.Datatonext}
 				column={this.props.column}
-				type={this.state.arrType}/>;
+				type={this.state.arrType}
+				onNeHide={this.closeNextBox}/>;
 			case 'Clustering':
 			return <NextClustering 
 				listdata={this.state.Datatonext}
 				column={this.props.column}
-				type={this.state.arrType}/>;
+				type={this.state.arrType}
+				onNeHide={this.closeNextBox}/>;
 			default:
 				return false;
 		}
@@ -162,6 +169,7 @@ class SetAlgorthm extends PureComponent {
 			aria-labelledby="contained-modal-title-vcenter">
 
 			<Modal.Body>
+			<div className={this.state.display}>
 			<h3>Setting Algorthm</h3>
 			<div className="FontTitle">
 			Choose Algorthm
@@ -253,6 +261,7 @@ class SetAlgorthm extends PureComponent {
 			<Button className="Next"
 			onClick={this.ReadyToNext}>Next
 			</Button>
+			</div>
 			</div>
 			</div>
 			{

@@ -106,8 +106,9 @@ class Content extends PureComponent {
          <thead>
          <tr>
          <th>No</th>
-         <th>Buy Product</th>
-         <th scope="col">Recomend Product</th>
+         <th>Selected items</th>
+         <th scope="col">Recomend item</th>
+         <th>Confidence</th>
          </tr>
          </thead>
          <tbody>

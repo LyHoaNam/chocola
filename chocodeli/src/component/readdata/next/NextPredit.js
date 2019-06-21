@@ -47,7 +47,9 @@ class NextPredit extends PureComponent {
 			Choose User:
 			</span>
 			<div className="SelectCol">
-			<select name="user" onChange={this.handleChange}
+			<select name="user" 
+			onChange={this.handleChange}
+			className='select-css'
 			value={this.state.user}>
 			{
 				this.state.arr.map((item,index)=>
@@ -63,6 +65,7 @@ class NextPredit extends PureComponent {
 			</span>
 			<div className="SelectCol">
 			<select name="item"
+			className='select-css'
 			onChange={this.handleChange}
 			value={this.state.item}>
 			{
@@ -79,7 +82,9 @@ class NextPredit extends PureComponent {
 			Choose Ratings:
 			</span>
 			<div className="SelectCol">
-			<select name="rating" onChange={this.handleChange}
+			<select name="rating" 
+			onChange={this.handleChange}
+			className='select-css'
 			value={this.state.rating}>
 			{
 				this.state.arr.map((item,index)=>

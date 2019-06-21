@@ -312,6 +312,7 @@ a:hover {
 }
 .ModalFooter{
   position: relative;
+  border-top: 1px solid #eeeeee;
 }
 .ContainBtnBox{
   float: right;
@@ -325,7 +326,6 @@ a:hover {
   background-color: #ffffff;
   top:0px;
   left: 0px;
-  min-height: 350px;
   width: 100%;
   padding: 16px;
 

@@ -19,9 +19,10 @@ class Auth:
         try:
             # fetch the user data
             user = User.query.filter_by(username=data.get('username')).first()
-            if user :
+            if user:
+                password_hash = User.check_password(user,data.get('password'))
                 auth_token = user.encode_auth_token(user.id)
-                if auth_token:
+                if auth_token and password_hash:
                     response_object = {
                         'status': 'success',
                         'id': user.id,
@@ -31,6 +32,12 @@ class Auth:
                         'Authorization': auth_token.decode()
                     }
                     return response_object, 200
+                else:
+                    response_object = {
+                    'status': 'fail',
+                    'message': 'email or password does not match.'
+                    }
+                    return response_object, 401
             else:
                 response_object = {
                     'status': 'fail',
@@ -39,7 +46,6 @@ class Auth:
                 return response_object, 401
 
         except Exception as e:
-            print(e)
             response_object = {
                 'status': 'fail',
                 'message': 'Try again'

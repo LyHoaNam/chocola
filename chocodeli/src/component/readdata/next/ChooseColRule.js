@@ -18,6 +18,7 @@ class ChooseColRule extends PureComponent {
     this.chooseAll=this.chooseAll.bind(this);
     this.clearAll=this.clearAll.bind(this);
     this.ReadyToNext=this.ReadyToNext.bind(this);
+    this.CloseNextAssoRule=this.CloseNextAssoRule.bind(this);
   }
   ReadyToNext(){
     if(this.state.indexValue.length >1){
@@ -82,8 +83,10 @@ class ChooseColRule extends PureComponent {
         })}
     return result;
   }
+  CloseNextAssoRule(){
+    this.setState({display:'displayBlock',showNext:false})
+  }
   render(){
-    console.log('index',this.state.indexValue);
     let writeColHave = this.writeFunc();
     return (
       <div>
@@ -153,8 +156,8 @@ class ChooseColRule extends PureComponent {
     <div className="ModalFooter padding15">
       <div className="ContainBtnBox">
       <span className="paddingRight15">
-      <Button onClick={this.props.onHide}
-      className="Close">Close</Button>
+      <Button onClick={this.props.onNeHide}
+      className="Close">Back</Button>
       </span>
       <Button className="Next"
       onClick={this.ReadyToNext}>Next
@@ -166,6 +169,7 @@ class ChooseColRule extends PureComponent {
       this.state.showNext ?
       <NextAssoRule 
       listdata={this.props.listdata}
+      onNeAsHide={this.CloseNextAssoRule}
       column={this.state.indexValue}/>:""
     }
     </div>

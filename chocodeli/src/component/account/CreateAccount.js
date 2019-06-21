@@ -7,8 +7,11 @@ class CreateAccount extends PureComponent {
         this.state = {
             newPass:"",
             newUser:"",
+            nameUser:"",
+            confirmPass:"",
             tooltipnewPass:"",
             tooltipnewUser:"",
+            tooltipconirmPass:"",
             check:false
         }
         this.handleChange=this.handleChange.bind(this);
@@ -30,37 +33,55 @@ class CreateAccount extends PureComponent {
     this.setState({[name]: value});
     }
     readyToNext(result){
-        if(result === 'false') {
-            alert('cannot create an account, try again!');
-            this.setState({newPass:'',newUser:''});
+        if(result.status === 'success') {
+            alert('Create an account successfully, try it now');
+            window.location.href="/";
+            
         }
         else {
-            window.location.href="/";
+            alert('User already exists. Please Log in.!');
+            this.setState({newPass:'',newUser:''});
         }
     }
     handleSubmit(){
         let CheckUser = this.state.newUser;
-        if(CheckUser.indexOf("@") === -1)
-        {this.setState({tooltipnewUser:true,check:false});}
+        if(CheckUser.indexOf("@") === -1){
+            this.setState({tooltipnewUser:true,check:false});
+        }
+        if(this.state.newPass !== this.state.confirmPass) {
+            this.setState({tooltipconirmPass:true,check:false});
+        }
         else {
-        if(this.state.check) {
-            let root = "http://localhost:5000/";
-            let url= root + 'api/createaccount'
-            let formdata = new FormData();
-            formdata.append('user', this.state.newUser);
-            formdata.append('pass', this.state.newPass);
+        if(this.state.check && this.state.newUser !== '' 
+            && this.state.nameUser !=='' && this.state.newPass !=='') {
+            let headers = new Headers();
+                    headers.append('Content-Type', 'application/json',
+                        'Accept': 'application/json');
+            let url= '/user/'
+            let formdata ="{\"name\":\""+
+                    this.state.nameUser+
+                    "\",\"username\":\""+
+                    this.state.newUser +
+                    "\",\"password\":\""+
+                    this.state.newPass +
+                    "\"}";
+            console.log('formdata',formdata);
             let options = {
                 method: 'POST',
-                body: formdata
+                body: formdata,
+                headers: headers
             }
             let req = new Request(url,options);
             fetch(req)
             .then(res => res.json())
             .then(response => {
-                let result = JSON.stringify(response);
-                this.readyToNext(result);
+                //let result = JSON.stringify(response);
+                this.readyToNext(response);
             })
             .catch(error => console.error('Error:', error));
+        }
+        else {
+            alert('oops! you have filled something missing ...')
         }
     }
     }
@@ -87,8 +108,18 @@ class CreateAccount extends PureComponent {
             </div>
             </div>
             <div className="ContainText">
+            <input type="text" value={this.state.nameUser} 
+            placeholder="Enter your name"
+            className="Inputfields"
+            name='nameUser'
+            onChange={this.handleChange}
+            />
+            
+            </div>
+
+            <div className="ContainText">
             <input type="text" value={this.state.newUser} 
-            placeholder="Enter your new username"
+            placeholder="Enter your email"
             className="Inputfields"
             name='newUser'
             onChange={this.handleChange}
@@ -103,7 +134,7 @@ class CreateAccount extends PureComponent {
             </div>
             <div className="ContainText">
             <input type="password" value={this.state.newPass} 
-            placeholder="Enter your new password"
+            placeholder="password"
             className="Inputfields"
             name='newPass'
             onChange={this.handleChange}
@@ -113,6 +144,24 @@ class CreateAccount extends PureComponent {
                 "tooltiptext":
                 "tooltipActive"}>
             {'This new password is Invalid!'}
+            </span>
+            </div>
+            </div>
+            <div className="ContainText">
+            <input type="password" value={this.state.confirmPass} 
+            placeholder="Confirm password"
+            className="Inputfields"
+            name='confirmPass'
+            onChange={this.handleChange}
+            onKeyPress={
+                        event => {if(event.key === 'Enter')
+                        {this.handleSubmit()}}}
+            />
+            <div className="tooltipNoti">
+            <span className={!this.state.tooltipconirmPass? 
+                "tooltiptext":
+                "tooltipActive"}>
+            {'This new password not cofirm!'}
             </span>
             </div>
             </div>

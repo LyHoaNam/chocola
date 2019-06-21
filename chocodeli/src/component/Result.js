@@ -129,9 +129,7 @@ class Result extends PureComponent {
           listAlgorthm.map((Name,index)=>  
               <Menulist key={index} 
                         algorthm={Name} 
-                        min_conf={this.state.min_conf}
-                        min_supf={this.state.min_sup}
-                        min_len={this.state.min_len}/>
+                        />
             )        
         }
         </div>

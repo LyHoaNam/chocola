@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "../style/main.css";
-import {Link } from 'react-router-dom';
+import {Link,Nav,NavLink } from 'react-router-dom';
 class Header extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -8,9 +8,9 @@ class Header extends PureComponent {
 			alg: null,
 			activeYD: 'unactivebtn',
 			activeAc:'unactivebtn',
-			username:'',
-			email:'',
-			imgurl:''
+			username:null,
+			email:null,
+			imgurl:null
 		};
 		this.LogOutAccout = this.LogOutAccout.bind(this);
 	}
@@ -40,7 +40,9 @@ class Header extends PureComponent {
 			tempdata=JSON.parse(tempdata);
 			let linkto= tempdata.ChooseAl[0];
 			return <span  className="BtnYourData">
-			<Link to={'/algorthm/'+linkto} className="unactivebtn">
+			<Link to={'/algorthm/'+linkto} 
+			activeClassName='activebtn'
+			className='unactivebtn'>
 			Your algorthm
 			</Link>
 			</span>
@@ -65,24 +67,26 @@ class Header extends PureComponent {
 			{btnAlg}
 			<span className="BtnYourData "
 			onChange={activeYourData}>
-			<Link to={'/'}
-			className={this.state.activeYD}>
+			<NavLink  to={'/'}
+			activeClassName="activebtn"
+			className='unactivebtn'>
 			Your Data
-			</Link>
+			</NavLink>
 			</span>
 			<span className="BtnYourData" 
 			onChange={activeAccount}>
 			<span className="dropdownAccount">
-			<Link to={'/profile'}
-			className={this.state.activeAc}>
+			<NavLink  to={'/profile'}
+			activeClassName="activebtn"
+			className='unactivebtn'>
 			Account
-			</Link>
+			</NavLink>
 			</span>
 			<ul className="dd-menuAc">
 			<li className="containInfoAc">
 				<span className="containImgAc">
 				{
-				this.state.imgurl === '' ?
+				this.state.imgurl === null ?
 				<img src={
 				require('../img/avatarraw.jpeg')}
 				className="imgAc" alt="avatar"/>:
@@ -113,7 +117,7 @@ class Header extends PureComponent {
 			<li className="divider">
 			</li>
 			<li onClick={this.LogOutAccout}>
-			<Link to={'/login'}>
+			<Link to={'/login'}> 
 			<img src={require('../img/logout.png')}
 			className="imgLogout"
 			alt=""/>

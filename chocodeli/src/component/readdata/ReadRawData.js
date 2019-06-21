@@ -46,6 +46,10 @@ class ReadRawData extends PureComponent {
 				let tempdata = JSON.parse(res.data)
 				this.setState({result:tempdata})
 			}
+			else{
+				alert('Opps! You have no data, Please import it in profile');
+				window.location.href="/profile";
+			}
 		}
 		)
 		.catch(e=>{

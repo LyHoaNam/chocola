@@ -38,7 +38,7 @@ class Start extends PureComponent {
 				
 				localStorage.setItem('Auth',result.Authorization);
 				localStorage.setItem('profile',JSON.stringify(result));
-				window.location.href="/";
+				window.location.href="/profile";
 			}
 			else {
 				alert('Username or password Invalid');

@@ -7,8 +7,9 @@ class Info extends PureComponent {
 			authorization:"",
 			username:"",
 			email:'',
-			imgurl:''
+			imgurl:null
 		}
+		this.SelectData=this.SelectData.bind(this);
 		this.ImportImg=this.ImportImg.bind(this);
 	}
 	componentDidMount(){
@@ -47,30 +48,57 @@ class Info extends PureComponent {
 		})
 		.catch(error => console.error('Error:', error));
 	}
+	readyToNext(result){
+		if(result.status === 'success') {
+			window.location.href="/";
+		}
+		else {
+			alert('Something Invalid, Try again!');
+		}
+	}	
+	SelectData(e){
+		let url = '/data/import';
+		let formdata = new FormData();
+		formdata.append("filecsv", e.target.files[0]);
+		let options = {
+			method: 'POST',
+			headers: {
+				'Authorization': this.state.authorization
+			},
+			body: formdata
+		}
+		let req = new Request(url, options);
+		
+		fetch(req).then(res => res.json())
+		.then(response => {
+			this.readyToNext(response);
+		})
+		.catch(error => console.error('Error:', error));
+	}
 	render(){
-		console.log('propfile ',this.state.imgurl);
-		console.log('propfile type ',typeof this.state.imgurl);
 		return(
 			<div className="ContainProfile">
 			<span className="Avatar">
 			<input
 			type="file"
+			alt="Import your avatar"
 			className="importNewImg"
 			onChange= {this.ImportImg} />
 			{
-				this.state.imgUrl === '' ?
+				this.state.imgurl === null ?
 				<img src={
 					require('../../img/avatarraw.jpeg')} 
-					className="avatarraw" alt="logo" />:
+					className="avatarraw" alt="import your avatar" />:
 				<img src={
-					require('../../img/'+ "2019060504531377.jpg")} 
-					className="avatarraw"/>
+					require('../../img/'+ this.state.imgurl)} 
+					className="avatarraw" alt="avatar"/>
 				
 			}
 			</span>
+			<span  className="ProfileUser">
 			{
 				this.state.email !=='' ? 
-				<span className="ProfileUser">
+				<span>
 				<p className="emailUser">
 				{this.state.email}
 				</p>
@@ -82,6 +110,21 @@ class Info extends PureComponent {
 				</p>
 				</span>:""
 			}
+			<input id="choseFile" 
+				name='fileName' 
+				type="file"
+				className="importNewData"
+				onChange= {this.SelectData} />
+
+				<div className="tooltipNoti">
+				<span className={this.props.length > 0 ? 
+					"tooltiptext":
+					"tooltipActive"}>
+					{'Import Data in here!'}
+					</span>
+					</div>
+				
+			</span>
 			</div>
 				)
 		

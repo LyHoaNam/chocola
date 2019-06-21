@@ -45,7 +45,9 @@ render(){
 		Choose User:
 		</span>
 		<div className="SelectCol">
-		<select name="yaxits" onChange={this.handleChange}
+		<select name="yaxits" 
+		onChange={this.handleChange}
+		className='select-css'
 		value={this.state.yaxits}>
 		{
 			this.state.arr.map((item,index)=>
@@ -60,7 +62,9 @@ render(){
 		Choose Ratings:
 		</span>
 		<div className="SelectCol">
-		<select name="xaxits" onChange={this.handleChange}
+		<select name="xaxits" 
+		onChange={this.handleChange}
+		className='select-css'
 		value={this.state.xaxits}>
 		{
 			this.state.arr.map((item,index)=>
