@@ -33,7 +33,8 @@ class Fpgrowth extends PureComponent {
       tempdata=JSON.parse(tempdata);
       let arrRule = tempdata['rules'];
       this.setState({result:arrRule,
-            time:tempdata.time,len:tempdata.len});
+            time:tempdata.time,
+            len:tempdata.len});
   }
  getData(bearer) {
     let row = parseFloat(sessionStorage.getItem('row'));
@@ -63,11 +64,14 @@ class Fpgrowth extends PureComponent {
   }
 
   render(){ 
-     if(this.state.result){
     return (   
 
       <div id="content" className="row">
-      <Content data={this.state.result}/>
+      {
+        this.state.result.length > 0?
+        <Content data={this.state.result}/>:
+        ""  
+      }
       <div className="col-lg-4">
       <div className="Infomation">
       <div className="spaceInfo">
@@ -91,11 +95,6 @@ class Fpgrowth extends PureComponent {
       </div>
       </div>
       )
-    }
-    else
-      return (
-      <Problem/>
-    )
 
   }
 }

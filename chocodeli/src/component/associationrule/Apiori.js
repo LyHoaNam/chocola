@@ -64,11 +64,13 @@ class Apiori extends PureComponent {
   }
 
   render(){
-    if(this.state.result){
     return (   
-
       <div id="content" className="row">
-      <Content data={this.state.result}/>
+      {
+        this.state.result.length >0 ?
+        <Content data={this.state.result}/>: ""  
+      }
+      
       <div className="col-lg-4">
       <div className="Infomation">
       <div className="spaceInfo">
@@ -92,11 +94,6 @@ class Apiori extends PureComponent {
       </div>
       </div>
       )
-    }
-    else
-      return (
-      <Problem/>
-    )
 
   }
 }

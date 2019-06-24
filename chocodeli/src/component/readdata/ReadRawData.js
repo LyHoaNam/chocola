@@ -1,5 +1,4 @@
 import React, {PureComponent,lazy} from "react";
-import Loading from "../Loading";
 import Infomation from "./Infomation";
 import '../../style/chill.css';
 import Tables from "./Tables";

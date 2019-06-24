@@ -41,7 +41,7 @@ class Header extends PureComponent {
 			let linkto= tempdata.ChooseAl[0];
 			return <span  className="BtnYourData">
 			<Link to={'/algorthm/'+linkto} 
-			activeClassName='activebtn'
+			activeclassname='activebtn'
 			className='unactivebtn'>
 			Your algorthm
 			</Link>

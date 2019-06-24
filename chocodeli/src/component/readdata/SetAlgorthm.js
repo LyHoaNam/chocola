@@ -38,6 +38,20 @@ class SetAlgorthm extends PureComponent {
 		}
 		else{
 		}
+		if(this.props.type){
+			let checkType = JSON.parse(this.props.type);
+			let countT = 0;
+			if (checkType['float64'])
+				countT += checkType['float64'];
+			if(checkType['int64'])
+				 countT += checkType['int64'];
+			
+			if(countT <2)
+				this.setState({clusterPoint:'PointerEventNone'});
+
+			if(countT <3)
+				this.setState({preditPoint:'PointerEventNone'});
+		}
 	}
 	getData(bearer,page) {
 			//ready to fetch data
@@ -123,22 +137,6 @@ class SetAlgorthm extends PureComponent {
 				onNeHide={this.closeNextBox}/>;
 			default:
 				return false;
-		}
-	}
-	componentDidMount(){
-		if(this.props.type){
-			let checkType = JSON.parse(this.props.type);
-			let countT = 0;
-			if (checkType['float64'])
-				countT += checkType['float64'];
-			if(checkType['int64'])
-				 countT += checkType['int64'];
-			
-			if(countT <2)
-				this.setState({clusterPoint:'PointerEventNone'});
-
-			if(countT <3)
-				this.setState({preditPoint:'PointerEventNone'});
 		}
 	}
 	modalNeClose(){

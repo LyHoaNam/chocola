@@ -4,8 +4,8 @@ import "./predit.css";
 import {Table} from "react-bootstrap";
 import InfiniteScroll from 'react-infinite-scroller';
 class List extends PureComponent {
-	constructor(props){
-		super(props);
+  constructor(props){
+  	super(props);
     this.state ={
       inputValue: '',
       ruler:10,
@@ -38,26 +38,28 @@ class List extends PureComponent {
       ruler:endpoint});
   }
 
-}
-filterFunc(e){
+  }
+  filterFunc(e){
     //search value of input search
     let masterData = this.props.data;
     let toSearch= e.target.value;
     let searchData = [];
-    if(toSearch !=="")
-      {masterData.filter(item =>
-        { 
-          if(item.includes(toSearch)===true)
-            searchData.push(item);
-        })
-  }   
-  else {
-    searchData=masterData;
+    if(toSearch !== ""){
+        
+      searchData = masterData.filter(function(item){
+      return item == toSearch;
+      });
+    }   
+    else {
+      searchData = this.props.data.length > 10 ?
+      this.props.data.slice(0,10) : this.props.data;
+    }
+    this.setState({inputValue:toSearch,table:searchData,
+     hasMoreItem:false});
+    
+
   }
-  this.setState({inputValue:toSearch,original:searchData,
-   hasMoreItem:false});
-}
-choseValue(event){
+  choseValue(event){
   let value=event.target.innerHTML;
   this.setState({chosevalue:value});
       // call back value from parent
@@ -69,10 +71,10 @@ choseValue(event){
       // call back value from parent
       this.props.callbackValue(value);
     }
-    writeFunc(){
+    writeFunc(dataTable){
       let result=[];
-      if(this.state.table.length>0)
-        {this.state.table.map((record,index)=>
+      if(dataTable.length>0)
+        {dataTable.map((record,index)=>
           {     
             result.push(  
               <tr key={index} className="ChoseItem">
@@ -88,7 +90,7 @@ choseValue(event){
       return result;
     }
     render(){
-      let items=this.writeFunc();
+      let items=this.writeFunc(this.state.table);
       return (
        <div className="ListPredit">
        <div className="">
@@ -107,6 +109,7 @@ choseValue(event){
        <input type="text" className="formControl"  
        placeholder="Search" 
        value={this.state.textChange} 
+       onChange={this.filterFunc}
        />
        <span className="searchIcon">
        <img src={require('../../img/search.png')}
@@ -142,6 +145,6 @@ choseValue(event){
 
        )
     }
-  };
+};
 
-  export default List;
+export default List;

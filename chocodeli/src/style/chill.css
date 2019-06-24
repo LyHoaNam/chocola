@@ -285,7 +285,7 @@
   background-color: #ffff;
   position: relative;
   text-align: center;
-  height:-webkit-fill-available;
+  height: -webkit-fill-available;
   border-radius: 15px;
 }
 .coinproblem{

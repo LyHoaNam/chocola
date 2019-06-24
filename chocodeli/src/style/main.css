@@ -255,7 +255,7 @@ p {
 .OverFlow {
 	 overflow:auto;
 	width: inherit;
-    height: 400px;
+    height: 80vh;
 }
 .ContainRightText{
 	display: inline;
@@ -281,7 +281,7 @@ p {
 }
 .containtAlG{
 	padding-top: 15px;
-  position: relative;
+  position: fixed;
   width: 100%;
 }
 .Listmenu{
