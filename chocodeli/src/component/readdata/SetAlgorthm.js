@@ -19,7 +19,6 @@ class SetAlgorthm extends PureComponent {
 			showPredic: 'displayNone',
 			kmeans:false,
 			showClustering:'displayNone',
-			types: this.props.type,
 			authorization: null,
 			clusterPoint: '',
 			preditPoint: '',
@@ -31,26 +30,22 @@ class SetAlgorthm extends PureComponent {
 		this.closeNextBox = this.closeNextBox.bind(this);
 	} 
 	componentDidMount () {
-		if(localStorage.getItem('Auth')){
-			let author=localStorage.getItem('Auth');
-			this.setState({authorization:author});
-			this.getData(author);
-		}
-		else{
-		}
+		
 		if(this.props.type){
 			let checkType = JSON.parse(this.props.type);
 			let countT = 0;
-			if (checkType['float64'])
-				countT += checkType['float64'];
-			if(checkType['int64'])
-				 countT += checkType['int64'];
-			
-			if(countT <2)
+			if (checkType['float64'] + checkType['int64'] < 2){
 				this.setState({clusterPoint:'PointerEventNone'});
-
-			if(countT <3)
+			}
+			else{
+				let author=localStorage.getItem('Auth');
+				this.setState({authorization:author});
+				this.getData(author);
+			}
+			if (checkType['float64'] + checkType['int64'] < 3){
 				this.setState({preditPoint:'PointerEventNone'});
+			}
+			
 		}
 	}
 	getData(bearer,page) {
@@ -67,6 +62,7 @@ class SetAlgorthm extends PureComponent {
 			.then(res=>
 			{
 				this.setState({arrType:res['types']})
+				
 			}
 			)
 			.catch(e=>{

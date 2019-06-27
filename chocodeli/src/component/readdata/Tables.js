@@ -7,28 +7,40 @@ class Tables extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state={
-			hasMoreItem:false,
+			hasMoreItem:true,
 			inputValue: '',
-			table: this.props.data,
-			page: 1
+			table: [],
+			page: 0
 		}
 		this.loadFunc = this.loadFunc.bind(this);
 		this.filterFunc = this.filterFunc.bind(this);
 	}
 	getData(page) {
+
 			//ready to fetch data
+			let author=localStorage.getItem('Auth');
 			let url= '/data/page/'+page;
 			let options = {
 				method: 'GET',
 				headers: {
-					'Authorization': this.state.authorization
+					'Authorization': author
 				}
 			}
 			fetch(url,options)
 			.then(res=>res.json())
 			.then(res=>
 			{
-				this.setState({table:res});
+				if(res.status === 'success' && 
+					res.nextpage !== this.state.page){
+					let dataTable = JSON.parse(res.data);
+					this.setState({
+					table:this.state.table.concat(dataTable),
+					page: res.nextpage,
+					hasMoreItem: true});
+				}
+				else {
+					this.setState({hasMoreItem:false});
+				}
 			}
 			)
 			.catch(e=>{
@@ -37,13 +49,7 @@ class Tables extends PureComponent {
 		}
 
 	loadFunc(){
-		if(this.state.hasMoreItem === true){
-			let endPoint = this.state.page +1;
-			//this.setState({page:endPoint});
-			this.getData(endPoint);
-			this.setState({hasMoreItem:false});	
-		}
-
+		this.getData(this.state.page);
 	}
 	filterFunc(e){
 		let masterData = this.props.data;
@@ -63,23 +69,33 @@ class Tables extends PureComponent {
 		original:searchData,
 		hasMoreItem:false});
 }
-writeRow(listValue) {
-	let row = [];
-	listValue.map((record,index)=>{
-		row.push(
-			<tr key={index}>
-			<td key={'i'+index}> {index+1} </td>
-			{record.map((item,i)=>
-			<td key={i}>{item}</td>
-				)
-			}
-			</tr>
-		)
-	})
-	return row;
-}
+	writeRow(listValue) {
+		let row = [];
+		listValue.map((record,index)=>{
+			row.push(
+				<tr key={index}>
+				<td key={'i'+index}> {index+1} </td>
+				{record.map((item,i)=>
+				<td key={i}>{item}</td>
+					)
+				}
+				</tr>
+			)
+		})	
+		return row;
+	}
+	WaitingLoading(){
+		this.setState({hasMoreItem:false})
+		setTimeout(function() { //Start the timer
+	      this.setState({hasMoreItem:true});
+		  }.bind(this), 100000); 
+	}
 render() {
-		let rowvalue = this.writeRow(this.state.table);
+
+		let rowvalue = this.state.table.length >0 ?
+		this.writeRow(this.state.table):
+		 <tr><td></td></tr>
+
 		return (
 			<div className="col-lg-12">
 			<div className="Infomation martop10">
@@ -100,8 +116,10 @@ render() {
 			pageStart={0}
 			loadMore={this.loadFunc}
 			hasMore={this.state.hasMoreItem}
-			loader={<div className="loader" 
-			key={0}>Loading ...</div>}
+			loader={
+			<div className="loader" 
+			key={0}>Loading ...</div>
+			}
 			useWindow={false}
 			>
 			<Table responsive>

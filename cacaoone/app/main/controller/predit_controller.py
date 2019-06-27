@@ -40,8 +40,8 @@ class Result(Resource):
         col_uid = request.args.get('uid', type = str)
         col_iid = request.args.get('iid', type = str)
         col_rati = request.args.get('rati', type = str)
-        value_uid = request.args.get('value_uid', type = int)
-        value_iid = request.args.get('value_iid', type = int)
+        value_uid = request.args.get('value_uid', type = float)
+        value_iid = request.args.get('value_iid', type = float)
         Algorthm = Predit()
         result = {}
         result['result'] = Algorthm.alknnbasic(data_file_name,
@@ -127,7 +127,7 @@ class RawData(Resource):
         result = {}
         result['status'] = 'success'
         result['data'] = Algorthm.read_data_csv(data_file_name, page,
-            col_iid, col_uid, col_rati)
+            col_uid, col_iid, col_rati)
         return result
 
 @api.route('/nmf/result')
@@ -145,8 +145,8 @@ class Result(Resource):
         col_uid = request.args.get('uid', type = str)
         col_iid = request.args.get('iid', type = str)
         col_rati = request.args.get('rati', type = str)
-        value_uid = request.args.get('value_uid', type = int)
-        value_iid = request.args.get('value_iid', type = int)
+        value_uid = request.args.get('value_uid', type = float)
+        value_iid = request.args.get('value_iid', type = float)
 
         Algorthm = Predit()
         result = {}
@@ -202,8 +202,8 @@ class Result(Resource):
         col_uid = request.args.get('uid', type = str)
         col_iid = request.args.get('iid', type = str)
         col_rati = request.args.get('rati', type = str)
-        value_uid = request.args.get('value_uid', type = int)
-        value_iid = request.args.get('value_iid', type = int)
+        value_uid = request.args.get('value_uid', type = float)
+        value_iid = request.args.get('value_iid', type = float)
 
         Algorthm = Predit()
         result = {}

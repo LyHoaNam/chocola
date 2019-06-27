@@ -19,10 +19,10 @@ class Cluster:
         UPLOAD_FOLDER = './container/'
         url = UPLOAD_FOLDER + self.data_file_name
 
-        dt = pd.read_csv(url
-        ,usecols = [self.col1,self.col2])
-        dt = dt.dropna()
-        return dt
+        dt = pd.read_csv(url)
+        store_data = dt[[self.col1,self.col2]]
+        store_data = store_data.dropna()
+        return store_data
         
     def define_optimum_cluster(self):
         arr = []
@@ -73,8 +73,8 @@ class Cluster:
         for i in range(len(data)):
             obj = {}
             obj['type'] = str(label_k[i])
-            obj['x'] = data.iloc[i,0]
-            obj['y'] = data.iloc[i,1]
+            obj['x'] = float(data.iloc[i,0])
+            obj['y'] = float(data.iloc[i,1])
             arr.append(obj)
         result['ScatterPlot']=arr
         return result
@@ -95,8 +95,8 @@ class Cluster:
             while beginPoint != label_k[i] :
                 beginPoint +=1
             temp_arr = []
-            temp_arr.append(data.iloc[i,0])
-            temp_arr.append(data.iloc[i,1])
+            temp_arr.append(float(data.iloc[i,0]))
+            temp_arr.append(float(data.iloc[i,1]))
             arr[beginPoint].append(temp_arr)
        
         return arr

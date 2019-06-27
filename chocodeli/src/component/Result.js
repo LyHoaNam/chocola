@@ -4,10 +4,6 @@ import Menulist from "./Menulist";
 import Loading from "./Loading";
 import Apiori from "./associationrule/Apiori";
 import Fpgrowth from "./associationrule/Fpgrowth";
-import KnnPredit from "./predit/KnnPredit";
-import NmfPredit from "./predit/NmfPredit";
-import SlopOnePredit from "./predit/SlopOnePredit";
-import Clustering from "./clustering/Clustering";
 class Result extends PureComponent {
   constructor(props) {
     super(props);
@@ -17,11 +13,6 @@ class Result extends PureComponent {
       min_sup:null,
       min_len:null,
       listAl: null,
-      user: null,
-      rating: null,
-      item: null,
-      col1:null,
-      col2:null,
       str_col: null
     };
 
@@ -43,26 +34,11 @@ class Result extends PureComponent {
     let tempdata=sessionStorage.getItem('datasend');
     tempdata=JSON.parse(tempdata);
     let nameAlgorthm = this.props.match.params.id;
-    if(nameAlgorthm === 'fpgrowth' || nameAlgorthm ==='apiori')
-    {
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
       min_len:tempdata.min_len,
       str_col:tempdata.str_col,
-      listAl:tempdata.ChooseAl}) }
-    if(nameAlgorthm === 'kmeans') {
-      this.setState ({
-      listAl:tempdata.ChooseAl,
-      col1: tempdata.yaxits,
-      col2: tempdata.xaxits})
-    }
-        if(nameAlgorthm === 'knn'||nameAlgorthm === 'nmf'
-          || nameAlgorthm === 'slopeone') {
-      this.setState ({user: tempdata.user,
-      listAl:tempdata.ChooseAl,
-      item: tempdata.item,
-      rating: tempdata.rating})
-    }
+      listAl:tempdata.ChooseAl}) 
 
   }
   writeContent(){
@@ -81,26 +57,6 @@ class Result extends PureComponent {
       min_supf = {this.state.min_sup}
       min_len={this.state.min_len}
       str_col={this.state.str_col}/>;
-      case 'knn':
-      return <KnnPredit 
-      user = {this.state.user}
-      item = {this.state.item}
-      rating= {this.state.rating} />;
-      case 'nmf':
-      return <NmfPredit 
-      user = {this.state.user}
-      item = {this.state.item}
-      rating= {this.state.rating} />;
-      case 'slopeone':
-      return <SlopOnePredit 
-      user = {this.state.user}
-      item = {this.state.item}
-      rating= {this.state.rating} />;
-      case 'kmeans':
-      return <Clustering
-      col1 = {this.state.col1}
-      col2 = {this.state.col2}
-      />
       default:
        return 'err some thing';
     }

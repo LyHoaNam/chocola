@@ -42,7 +42,6 @@ getData(bearer) {
       .then(res=>
       {
         if(res){
-          console.log('res1',res);
           localStorage.setItem("itemcol",JSON.stringify(res));
           this.setDataToState();}
       }

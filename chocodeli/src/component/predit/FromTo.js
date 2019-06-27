@@ -9,6 +9,7 @@ class FromTo extends PureComponent {
 			hasMoreItem:false,
 			inputValue: '',
 			table: [],
+			origin: [],
 			from_uid :'',
 			to_uid:'',
 			from_iid:'',
@@ -16,43 +17,32 @@ class FromTo extends PureComponent {
 			authorization: '',
 			time:''
 		}
-		this.loadFunc = this.loadFunc.bind(this);
 		this.filterFunc = this.filterFunc.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.getResultFromTo = this.getResultFromTo.bind(this);
 	}
-handleChange(event) {
-	const value= event.target.value;
-	const name= event.target.name;
-	this.setState({[name]:value});
-}
-loadFunc(){
-	if(this.state.hasMoreItem === true){
-		let endPoint = this.state.page +1;
-			//this.setState({page:endPoint});
-			this.getData(endPoint);
-			this.setState({hasMoreItem:false});	
-		}
-
+	handleChange(event) {
+		const value= event.target.value;
+		const name= event.target.name;
+		this.setState({[name]:value});
 	}
 	filterFunc(e){
-		let masterData = this.props.data;
+		let masterData = this.state.origin;
 		let toSearch= e.target.value;
 		let searchData = [];
-		if(toSearch !=="")
-			{masterData.filter(item =>
+		if(toSearch !==""){
+			toSearch = Number(toSearch);
+			searchData = masterData.filter(item =>
 				{ 
-					if(item.includes(toSearch)===true)
-						searchData.push(item);
+					return item.indexOf(toSearch) !== -1
 				})
-	}		
-	else {
-		searchData=masterData;
+		}		
+		else {
+			searchData=masterData;
+		}
+		this.setState({inputValue:toSearch,
+			table:searchData});
 	}
-	this.setState({inputValue:toSearch,
-		original:searchData,
-		hasMoreItem:false});
-}
 getResultFromTo(){
 	let from_uid = this.state.from_uid;
 	let to_uid = Number(this.state.to_uid)+1;
@@ -82,6 +72,7 @@ getResultFromTo(){
 				if(res.result)
 				{
 					this.setState({table:res.result,
+						origin: res.result,
 						time:res.time});
 				}
 			}
@@ -122,7 +113,11 @@ render() {
 		</span>
 		<input type="number" className="ipFromTo"
 		name="to_iid" value={this.state.to_iid}
-		onChange={this.handleChange}/>
+		onChange={this.handleChange}
+		onKeyPress={
+			event => {if(event.key === 'Enter')
+			{this.getResultFromTo()}}
+		}/>
 		</div>
 		<span className="btnPredit"
 		onClick={this.getResultFromTo}>Get Result</span>
@@ -140,7 +135,7 @@ render() {
 		Result
 		</span>
 		<span className="SerachButton">
-		<input type="text" className="form-control"  
+		<input type="number" className="form-control"  
 		placeholder="Search" 
 		value={this.state.inputValue}
 		onChange={this.filterFunc}
@@ -149,6 +144,13 @@ render() {
 		</div>
 		<div className="OverFlow">    
 		<Table responsive>
+		<thead>
+	     <tr>
+	     <th>No</th>
+	     <th>Uid</th>
+	     <th>Iid</th>
+	     </tr>
+	    </thead>
 		<tbody striped="true">	
 		{
 			this.state.table.length > 0 ?

@@ -118,7 +118,7 @@ class List extends PureComponent {
        </span>
        </span>
        </div>
-       <div className="OverFlow">
+       <div className="OverFlowList">
        <InfiniteScroll
        pageStart={0}
        loadMore={()=>this.loadFunc()}

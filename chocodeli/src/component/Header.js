@@ -39,13 +39,59 @@ class Header extends PureComponent {
 			let tempdata=sessionStorage.getItem('datasend');
 			tempdata=JSON.parse(tempdata);
 			let linkto= tempdata.ChooseAl[0];
-			return <span  className="BtnYourData">
-			<Link to={'/algorthm/'+linkto} 
-			activeclassname='activebtn'
-			className='unactivebtn'>
-			Your algorthm
-			</Link>
-			</span>
+			
+			switch(linkto){
+              case 'fpgrowth':
+                return <span  className="BtnYourData">
+					<Link to={'/algorthm/'+linkto} 
+					activeclassname='activebtn'
+					className='unactivebtn'>
+					Your algorthm
+					</Link>
+					</span>
+              case 'apiori':
+                return <span  className="BtnYourData">
+						<Link to={'/algorthm/'+linkto} 
+						activeclassname='activebtn'
+						className='unactivebtn'>
+						Your algorthm
+						</Link>
+						</span>
+              case 'kmeans':
+                return <span  className="BtnYourData">
+					<Link to={'/cluster/'+linkto} 
+					activeclassname='activebtn'
+					className='unactivebtn'>
+					Your algorthm
+					</Link>
+					</span>;	
+                case 'knn':
+                return <span  className="BtnYourData">
+						<Link to={'/predit/'+linkto} 
+						activeclassname='activebtn'
+						className='unactivebtn'>
+						Your algorthm
+						</Link>
+						</span>;
+                case 'nmf':
+                return <span  className="BtnYourData">
+						<Link to={'/predit/'+linkto} 
+						activeclassname='activebtn'
+						className='unactivebtn'>
+						Your algorthm
+						</Link>
+						</span>;
+                case 'slopeone':
+                return <span  className="BtnYourData">
+						<Link to={'/predit/'+linkto} 
+						activeclassname='activebtn'
+						className='unactivebtn'>
+						Your algorthm
+						</Link>
+						</span>;
+              default:
+                return 'err something';
+            }
 		}
 		return ''
 	}

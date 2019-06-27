@@ -7,18 +7,15 @@ class RawData extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state={
-			hasMoreItem:false,
+			hasMoreItem:true,
 			inputValue: '',
-			table: '',
-			page: 0
+			table: [],
+			page: 1
 		}
 		this.loadFunc = this.loadFunc.bind(this);
 		this.filterFunc = this.filterFunc.bind(this);
 	}
-	componentDidMount () {
-		this.getData();
-	}
-	getData() {
+	loadFunc() {
 			//ready to fetch data
 			let col_uid = '&uid='+this.props.colUser;
 			let col_iid = '&iid='+this.props.colItem;
@@ -38,24 +35,22 @@ class RawData extends PureComponent {
 			{
 				if(res.status === "success")
 				{
-					this.setState({table:res.data});
-}
-}
-)
-.catch(e=>{
-	this.setState({hasMoreItem:false});
-});   
-}
-
-loadFunc(){
-	if(this.state.hasMoreItem === true){
-		let endPoint = this.state.page +1;
-			//this.setState({page:endPoint});
-			this.getData(endPoint);
-			this.setState({hasMoreItem:false});	
-		}
-
+					this.setState({
+					table:this.state.table.concat(res.data),
+					page: this.state.page+1,
+					hasMoreItem:true
+					});
+				}
+				else{
+					this.setState({hasMoreItem:false});
+				}
+			}
+			)
+			.catch(e=>{
+				this.setState({hasMoreItem:false});
+			});   
 	}
+
 	filterFunc(e){
 		let masterData = this.props.data;
 		let toSearch= e.target.value;

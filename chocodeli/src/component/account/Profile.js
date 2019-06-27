@@ -99,7 +99,7 @@ class Profile extends PureComponent {
 		.then(response => {
 			let result = response.status;
 			if(result!=='success'){
-				window.location.href="/";
+				console.log('success');
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -109,7 +109,22 @@ class Profile extends PureComponent {
 		if(valueChange !== ''){
 			this.postData(valueChange);
 			this.setState({value:valueChange});
+			this.removeCache();
+			window.location.href="/";
 		}
+	}
+	removeCache(){
+  	//remove session datasend (obj = {minsup... min conf...})
+  	if (sessionStorage.getItem('datasend'))
+  		sessionStorage.removeItem('datasend');
+	//remove localStorage fpgrowth
+	if(localStorage.getItem('fpgrowth'))
+		localStorage.removeItem('fpgrowth');
+	//remove localStorage apiori
+	if(localStorage.getItem('usercol'))
+		localStorage.removeItem('usercol');
+	if(localStorage.getItem('itemcol'))
+		localStorage.removeItem('itemcol');
 	}
 	writeChangeSelected(listData){
 		let arrResult = [];

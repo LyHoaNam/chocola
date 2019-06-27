@@ -36,7 +36,7 @@ class Content extends PureComponent {
   }
   checkArrayHaveValue(arr,searchText){
     for(let i=0; i<arr.length; i++){
-      if(arr[i].indexOf(searchText) !== -1)
+      if(arr[i].toString().indexOf(searchText) !== -1)
         return true;
     }
     return false;

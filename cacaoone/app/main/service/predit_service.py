@@ -74,13 +74,13 @@ class Predit:
             keep_default_na = False,
             header=None,
             nrows=50)
-            data_col_cho = store_data
+            data_col_cho = store_data[[uid, iid, rati]]
         else:
             store_data = pd.read_csv(DataFileName, 
             keep_default_na = False,
             skiprows=[i for i in range(1,page*50)],
             nrows=50)
-            data_col_cho = store_data[[uid, iid,rati]]
+            data_col_cho = store_data[[uid, iid, rati]]
         return ast.literal_eval(data_col_cho.to_json(orient='values'))
     def nmf(self,namefile,uid,iid,rati,value_uid,value_iid):
         test_data=pd.read_csv('./container/'+namefile)
@@ -131,7 +131,7 @@ class Predit:
         trainset = data.build_full_trainset()
         algo = SlopeOne()
         algo.fit(trainset)
-        pred = algo.predict(int(value_uid), int(value_iid), r_ui=1, verbose=True)
+        pred = algo.predict(float(value_uid), float(value_iid), r_ui=1, verbose=True)
         #var_rmse = accuracy.rmse(pred)
         #return result to json
         jsondata={}

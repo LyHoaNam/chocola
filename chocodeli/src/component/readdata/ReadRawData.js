@@ -1,11 +1,11 @@
 import React, {PureComponent,lazy} from "react";
 import Infomation from "./Infomation";
 import '../../style/chill.css';
-import Tables from "./Tables";
 import PieChart from "./PieChart";
 import Unique from "./Unique";
 import Describe from "./Describe";
 const Title = lazy(()=> import('./Title'));
+const Tables = lazy(()=> import('./Tables'));
 class ReadRawData extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -17,45 +17,18 @@ class ReadRawData extends PureComponent {
 			filename:'',
 			shape:[],
 			type:null,
-			unique: null
+			unique: null,
+			header: null
 		}
 	}
 	componentDidMount () {
 		if(localStorage.getItem('Auth')){
 			let author=localStorage.getItem('Auth');
 			this.setState({authorization:author});
-			this.getData(author,this.state.page);
 			this.getInfoData(author);	
 		}
 	}
-	getData(bearer,page) {
-			//ready to fetch data
-		let url= '/data/page/'+page;
-		let options = {
-			method: 'GET',
-			headers: {
-				'Authorization': bearer
-			}
-		}
-		fetch(url,options)
-		.then(res=>res.json())
-		.then(res=>
-		{
-			if(res.status === 'success'){
-				let tempdata = JSON.parse(res.data)
-				this.setState({result:tempdata})
-			}
-			else{
-				alert('Opps! You have no data, Please import it in profile');
-				window.location.href="/profile";
-			}
-		}
-		)
-		.catch(e=>{
-			//window.location.href="/login";
-		});   
-	}
-
+	
 	getInfoData(bearer){
 		let url= '/data/info';
 		let options = {
@@ -74,7 +47,8 @@ class ReadRawData extends PureComponent {
 					filename:res.filename,
 					shape:res.shape,
 					unique:res.unique,
-					type:res.type
+					type:res.type,
+					header: res.header
 				})
 				sessionStorage.setItem("row",res.shape[0]);
 			}
@@ -91,9 +65,9 @@ class ReadRawData extends PureComponent {
 			<div className='containRRD'>
 			<div id="content">
 			{
-				this.state.result.length >0 ?
+				this.state.header !== null ?
 				<Title
-				Column={this.state.result[0]}
+				Column={this.state.header}
 				Type={this.state.type}
 				/>: ""
 			}
@@ -116,10 +90,7 @@ class ReadRawData extends PureComponent {
 				<Unique
 				Data = {this.state.unique}/>: ""
 			}
-			{
-				this.state.result.length >0 ?
-				<Tables data={this.state.result}/>:""
-			}
+			<Tables />
 			</div>
 			</div>
 

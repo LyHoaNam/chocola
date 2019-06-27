@@ -19,103 +19,109 @@ class Describe extends PureComponent {
       this.getData(author);
     }
   }
-    getData(bearer) {
-      //ready to fetch data
-      let url= '/data/describe'
-      let options = {
-        method: 'GET',
-        headers: {
-          'Authorization': bearer
-        }
+  getData(bearer) {
+    //ready to fetch data
+    let url= '/data/describe'
+    let options = {
+      method: 'GET',
+      headers: {
+        'Authorization': bearer
       }
-      fetch(url,options)
-      .then(res=>res.json())
-      .then(res=>
-      {
-        let data = JSON.parse(res)
+    }
+    fetch(url,options)
+    .then(res=>res.json())
+    .then(res=>
+    {
+      let data = JSON.parse(res)
+      let checkNull = Object.keys(data);
+      if(data[checkNull[0]].min !== null){
         this.setState({data:data})
-        try{
-          this.DefineDataLineChart(data);  
-        }
-        catch(err){
-          this.getRuleData(bearer);
-        }
-        
+        this.DefineDataLineChart(data);  
       }
-      )
-      .catch(e=>{
-        //window.location.href="/login";
-      });   
-
+      else {
+        this.getRuleData();
+      }
     }
-    getRuleData(bearer) {
-      //ready to fetch data
-      let url= '/rule/describe'
-      let options = {
-        method: 'GET',
-        headers: {
-          'Authorization': this.state.authorization
-        }
-      }
-      fetch(url,options)
-      .then(res=>res.json())
-      .then(res=>
-      {
-        let data = JSON.parse(res);
-        this.setState({data:data});
-        this.DefineDataLineChart(data);
-      }
-      )
-      .catch(e=>{
-        //window.location.href="/login";
-      });   
+    )
+    .catch(e=>{
+      //window.location.href="/login";
+    });   
 
+  }
+  getRuleData() {
+    //ready to fetch data
+    let url= '/rule/describe'
+    let options = {
+      method: 'GET',
+      headers: {
+        'Authorization': this.state.authorization
+      }
     }
+    fetch(url,options)
+    .then(res=>res.json())
+    .then(res=>
+    {
+      let data = JSON.parse(res);
+      this.setState({data:data});
+      this.DefineDataLineChart(data);
+    }
+    )
+    .catch(e=>{
+      //window.location.href="/login";
+    });   
+
+  }
     
     DefineDataLineChart(data){
-      if(data !== null){
-        let result = [];
-        let arrLengend = [];
-        let DataChart = this.state.data;
-        Object.keys(DataChart).map((keyName,i)=>{
-          let arr = [];
-          let legend = {}
+      try{
+        if(data !== null){
+          let result = [];
+          let arrLengend = [];
+          let DataChart = this.state.data;
+          Object.keys(DataChart).map((keyName,i)=>{
+            let arr = [];
+            let legend = {}
 
-          legend['key'] = keyName;
-          legend['value'] = data[keyName];
+            legend['key'] = keyName;
+            legend['value'] = data[keyName];
 
-          let obj1 = {
-            'x': 0,
-            'y': DataChart[keyName]['min']
-          };
+            let obj1 = {
+              'x': 0,
+              'y': DataChart[keyName]['min']
+            };
 
-          let obj2 = {
-            'x': 25,
-            'y': DataChart[keyName]['25%']
-          };
+            let obj2 = {
+              'x': 25,
+              'y': DataChart[keyName]['25%']
+            };
 
 
-          let obj3 = {
-            'x': 50,
-            'y': DataChart[keyName]['50%']
-          };
+            let obj3 = {
+              'x': 50,
+              'y': DataChart[keyName]['50%']
+            };
 
-          let obj4 = {
-            'x': 75,
-            'y': DataChart[keyName]['75%']
-          };
+            let obj4 = {
+              'x': 75,
+              'y': DataChart[keyName]['75%']
+            };
 
-          let obj5 = {
-            'x': 100,
-            'y': DataChart[keyName]['max']
-          };
-          arrLengend.push(legend);
-          arr.push(obj1,obj2,obj3,obj4,obj5);
-          result.push(arr);
-        })
-        this.setState({dataChart:result,
-        legend:arrLengend});
+            let obj5 = {
+              'x': 100,
+              'y': DataChart[keyName]['max']
+            };
+            arrLengend.push(legend);
+            arr.push(obj1,obj2,obj3,obj4,obj5);
+            result.push(arr);
+          })
+          this.setState({dataChart:result,
+          legend:arrLengend});
+        }
       }
+      catch(err){
+        this.getRuleData();
+      }
+        
       
     }
     writeTable(){

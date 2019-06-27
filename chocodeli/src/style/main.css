@@ -257,6 +257,11 @@ p {
 	width: inherit;
     height: 80vh;
 }
+.OverFlowList {
+	 overflow:auto;
+	width: inherit;
+    height: 400px;
+}
 .ContainRightText{
 	display: inline;
 	float:right;
@@ -282,6 +287,10 @@ p {
 .containtAlG{
 	padding-top: 15px;
   position: fixed;
+  width: 100%;
+}
+.containtPredit{
+	padding-top: 15px;
   width: 100%;
 }
 .Listmenu{

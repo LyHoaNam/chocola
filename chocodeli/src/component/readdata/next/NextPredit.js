@@ -13,7 +13,20 @@ class NextPredit extends PureComponent {
 		}
 		this.handleChange=this.handleChange.bind(this);
 	}
-
+	componentDidMount(){
+		let allColmn = this.props.column;
+		let tempCol = [];
+			this.props.type.map((records,item)=> {
+				records !== 'object' ?
+				tempCol.push(
+					allColmn[item]
+				): ''
+			})
+		this.setState({arr:tempCol,
+			rating:tempCol[0],
+			user:tempCol[1],
+			item:tempCol[2]});
+	}
 	handleChange(event){
 		const value=event.target.value;
 		const name= event.target.name;
@@ -103,7 +116,7 @@ class NextPredit extends PureComponent {
 			 </span>
 			<Button className="Next">
 				<Link to={{
-				pathname:'/algorthm/'+this.props.listdata[0],
+				pathname:'/predit/'+this.props.listdata[0],
 				datasend: {
 					ChooseAl:this.props.listdata,
 					user:this.state.user,

@@ -6,11 +6,9 @@ import Profile from "./account/Profile";
 import Login from "./account/Login";
 const ReadRawData = lazy(()=> import('./readdata/ReadRawData'));
 const Result = lazy(()=> import('./Result'));
-
+const PreditResult = lazy(()=> import('./PreditResult'));
+const ClusterResult = lazy(()=> import('./ClusterResult'));
 class App extends PureComponent {
-
-
-
   render() {
      return (
       <Router>
@@ -22,6 +20,10 @@ class App extends PureComponent {
           <Route exact path='/login' render={()=><Login/>} />
           <Route path='/algorthm/:id' 
           render={(props)=> <Result  {...props}/>} />
+          <Route path='/predit/:id' 
+          render={(props)=> <PreditResult  {...props}/>} />
+          <Route path='/cluster/:id' 
+          render={(props)=> <ClusterResult  {...props}/>} />
           <Route path='/profile' 
           render={(props)=><Profile  {...props}/>} />
           </Switch>

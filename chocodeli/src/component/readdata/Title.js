@@ -8,17 +8,53 @@ class Title extends PureComponent {
         this.state ={
             seShow: false
         }
-        }
+    }
     writeButton(){
         if(sessionStorage.getItem('datasend')) {
             let tempdata=sessionStorage.getItem('datasend');
             tempdata=JSON.parse(tempdata);
             let linkto= tempdata.ChooseAl[0];
-            return <Button variant="primary" className="GetStart">
-            <Link to={'/algorthm/'+linkto} className="whiretext">
-            Your algorthm
-            </Link>
-            </Button>
+
+           switch(linkto){
+              case 'fpgrowth':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/algorthm/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+              case 'apiori':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/algorthm/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+              case 'kmeans':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/cluster/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+                case 'knn':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/predit/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+                case 'nmf':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/predit/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+                case 'slopeone':
+                return <Button variant="primary" className="GetStart">
+                        <Link to={'/predit/'+linkto} className="whiretext">
+                        Your algorthm
+                        </Link>
+                        </Button>;
+              default:
+                return 'err something';
+            }
         }
         return ''
     }

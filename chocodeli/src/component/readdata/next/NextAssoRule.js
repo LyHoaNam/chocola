@@ -77,8 +77,10 @@ class NextAssoRule extends PureComponent {
 	if(localStorage.getItem('fpgrowth'))
 		localStorage.removeItem('fpgrowth');
 	//remove localStorage apiori
-	if(localStorage.getItem('apiori'))
-		localStorage.removeItem('apiori');
+	if(localStorage.getItem('usercol'))
+		localStorage.removeItem('usercol');
+	if(localStorage.getItem('itemcol'))
+		localStorage.removeItem('itemcol');
 	}
 	render(){
 		return(

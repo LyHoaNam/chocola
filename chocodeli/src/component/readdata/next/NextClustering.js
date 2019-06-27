@@ -6,11 +6,24 @@ class NextPredit extends PureComponent {
 	constructor(props){
 		super(props);
 		this.state ={
-			xaxits:this.props.column[0],
-			yaxits :this.props.column[1],
-			arr:this.props.column
+			xaxits:this.props.column[1],
+			yaxits :this.props.column[2],
+			arr:[]
 		}
 		this.handleChange=this.handleChange.bind(this);
+	}
+	componentDidMount(){
+		let allColmn = this.props.column;
+		let tempCol = [];
+			this.props.type.map((records,item)=> {
+				records !== 'object' ?
+				tempCol.push(
+					allColmn[item]
+				): ''
+			})
+		this.setState({arr:tempCol,
+			axits:tempCol[0],
+			yaxits:tempCol[1]});
 	}
 	handleChange(event){
 		const value=event.target.value;
@@ -30,6 +43,11 @@ class NextPredit extends PureComponent {
 	//remove localStorage apiori
 	if(localStorage.getItem('apiori'))
 		localStorage.removeItem('apiori');
+	
+	if(localStorage.getItem('usercol'))
+		localStorage.removeItem('usercol');
+	if(localStorage.getItem('itemcol'))
+		localStorage.removeItem('itemcol');
 }
 render(){
 	return(
@@ -42,13 +60,13 @@ render(){
 
 		<div className="NextPreLine">
 		<span className="NextPreTitle">
-		Choose User:
+		X axits:
 		</span>
 		<div className="SelectCol">
-		<select name="yaxits" 
+		<select name="xaxits" 
 		onChange={this.handleChange}
 		className='select-css'
-		value={this.state.yaxits}>
+		value={this.state.xaxits}>
 		{
 			this.state.arr.map((item,index)=>
 				<option value={item} key={index}>{item}</option>)
@@ -59,13 +77,13 @@ render(){
 
 		<div className="NextPreLine">
 		<span className="NextPreTitle">
-		Choose Ratings:
+		Y axits
 		</span>
 		<div className="SelectCol">
-		<select name="xaxits" 
+		<select name="yaxits" 
 		onChange={this.handleChange}
 		className='select-css'
-		value={this.state.xaxits}>
+		value={this.state.yaxits}>
 		{
 			this.state.arr.map((item,index)=>
 				<option value={item} key={index}>{item}</option>)
@@ -83,7 +101,7 @@ render(){
 		</span>
 		<Button className="Next">
 		<Link to={{
-			pathname:'/algorthm/kmeans',
+			pathname:'/cluster/kmeans',
 			datasend: {
 				ChooseAl:this.props.listdata,
 				yaxits:this.state.yaxits,

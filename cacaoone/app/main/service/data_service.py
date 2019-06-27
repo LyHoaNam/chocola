@@ -63,17 +63,32 @@ def save_changes(data):
     db.session.add(data)
     db.session.commit()
 
+def get_header_csv(u_id,page):
+    file_name = get_a_data(u_id)
+    DataFileName= "./container/"+str(file_name)
+    result = {}
+    result['status'] = 'success'
+    store_data = pd.read_csv(DataFileName, 
+    keep_default_na = False,
+    header=None,
+    nrows=1)
+    result['header'] = store_data.to_json(orient='values')
+    return result
+
 def read_data_csv(u_id,page):
     file_name = get_a_data(u_id)
     DataFileName= "./container/"+str(file_name)
     result = {}
     result['status'] = 'success'
+    result['nextpage'] = page+1
     try:
         if page == 0:
             store_data = pd.read_csv(DataFileName, 
             keep_default_na = False,
             header=None,
             nrows=50)
+            if store_data.shape[0] == 0:
+                result['status'] = 'fail'
             result['data'] = store_data.to_json(orient='values')
             return result
         else:
@@ -81,6 +96,8 @@ def read_data_csv(u_id,page):
             keep_default_na = False,
             skiprows=[i for i in range(1,page*50)],
             nrows=50)
+            if store_data.shape[0] == 0:
+                result['status'] = 'fail'
             result['data'] = store_data.to_json(orient='values')
             return result
         
@@ -95,7 +112,7 @@ def read_data_csv(u_id,page):
 def read_all_data_csv(u_id,str_te):
     file_name = get_a_data(u_id)
     DataFileName= "./container/"+str(file_name)
-    store_data = pd.read_csv(DataFileName)
+    store_data = pd.read_csv(DataFileName, keep_default_na=False)
 
     arr_sel = str_te.split(',')
     arr_sel = list(map(int, arr_sel))
@@ -105,7 +122,7 @@ def read_all_data_csv(u_id,str_te):
     records = []
     for row_index in range(0,count_row):
         row_data = select_data.iloc[row_index].dropna()
-        records.append(list(row_data))
+        records.append(list(row_data.astype(str)))
     return records
 
 def describe_col_select_cout_value_csv(u_id,arr_raw):
@@ -174,6 +191,7 @@ def info_data_csv(u_id):
     data_info['unique'] = store_data.nunique().to_json(orient='index')
     data_info['type'] = store_data.get_dtype_counts().to_json(orient='index')
     data_info['shape'] = store_data.shape
+    data_info['header'] = list(store_data.columns.values)
     return data_info
 
 def type_data_csv(u_id):
