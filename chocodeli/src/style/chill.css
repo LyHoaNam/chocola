@@ -262,7 +262,12 @@
 .menuTitle {
   font-weight: 700;
   color: #004C9E;
-  font-size: 1em;
+  font-size: 0.9em;
+}
+.nameAlgorithmList{
+ font-weight: 400;
+ padding-left: 5px;
+ font-size: 1.1em;
 }
 .menuInfo {
   font-weight: 400;

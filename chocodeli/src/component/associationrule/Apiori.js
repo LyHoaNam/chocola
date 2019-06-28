@@ -89,6 +89,22 @@ class Apiori extends PureComponent {
       {this.state.len}
       </span>
       </div>
+      <div className="spaceInfo">
+      <span className="textInfo">
+      min support: 
+      </span>
+      <span className="explainInfo">
+      {this.state.min_sup}
+      </span>
+      </div>
+      <div className="spaceInfo">
+      <span className="textInfo">
+      min confidence: 
+      </span>
+      <span className="explainInfo">
+      {this.state.min_conf}
+      </span>
+      </div>
       </div>
       <ChartForRule />
       </div>

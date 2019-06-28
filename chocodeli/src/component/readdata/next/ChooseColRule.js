@@ -170,7 +170,8 @@ class ChooseColRule extends PureComponent {
       <NextAssoRule 
       listdata={this.props.listdata}
       onNeAsHide={this.CloseNextAssoRule}
-      column={this.state.indexValue}/>:""
+      column={this.state.indexValue}
+      nameColumn={this.state.chosevalue}/>:""
     }
     </div>
     )

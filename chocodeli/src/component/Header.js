@@ -46,7 +46,7 @@ class Header extends PureComponent {
 					<Link to={'/algorthm/'+linkto} 
 					activeclassname='activebtn'
 					className='unactivebtn'>
-					Your algorthm
+					Your algorithm
 					</Link>
 					</span>
               case 'apiori':

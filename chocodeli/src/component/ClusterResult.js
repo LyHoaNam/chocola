@@ -10,8 +10,7 @@ class Result extends PureComponent {
       result: null, 
       listAl: null,
       col1:null,
-      col2:null,
-      str_col: null
+      col2:null
     };
 
   }
@@ -35,8 +34,8 @@ class Result extends PureComponent {
 
       this.setState ({
       listAl:tempdata.ChooseAl,
-      col1: tempdata.yaxits,
-      col2: tempdata.xaxits})
+      col1: tempdata.xaxits,
+      col2: tempdata.yaxits})
 
   }
   
@@ -47,10 +46,31 @@ class Result extends PureComponent {
         <div className="row marginright0">
         <div className='col-lg-2 paddingLeft0'>
         <div className='Listmenu'>
-       <Menulist key={'menulistCluster'} 
-            algorthm='K mean' 
-        />
+         <Menulist key={'menulistCluster'} 
+              algorthm='/algorthm/kmeans' 
+              algorthm='k means'
+              linkto='/predit/kmeans'
+          />
+          <div className="containColSel">
+          <div className="Infomation">
+          <div className="DetailInfo">
+          the columns you selected
+          </div>
+          <div className="colSelected">
+          column for x axits:
+          <span className="nameCol">
+          {this.state.col1}
+          </span>
+          </div>
+          <div className="colSelected">
+          column for y axits:
+          <span className="nameCol">
+          {this.state.col2}
+          </span>
+          </div>
 
+          </div>
+          </div>  
         </div>
         </div>
         <div className="col-lg-10 pading0">

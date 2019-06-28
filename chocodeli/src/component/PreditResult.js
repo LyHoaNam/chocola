@@ -81,15 +81,42 @@ class PreditResult extends PureComponent {
       return (
         <div className="containtPredit">
         <div className="row marginright0">
-        <div className='col-lg-2 paddingLeft0'>
+        <div className='col-lg-2'>
         <div className='Listmenu'>
         {
           listAlgorthm.map((Name,index)=>  
               <Menulist key={index} 
-                        algorthm={Name} 
-                        />
-            )        
-        }
+                  algorthm={Name} 
+                  linkto={'/predit/'+Name}
+              />
+            )   
+        }  
+        <div className="containColSel">
+          <div className="Infomation">
+          <div className="DetailInfo">
+          the columns you selected
+          </div>
+          <div className="colSelected">
+          column for user:
+          <span className="nameCol">
+          {this.state.user}
+          </span>
+          </div>
+          <div className="colSelected">
+          column for item:
+          <span className="nameCol">
+          {this.state.item}
+          </span>
+          </div>
+          <div className="colSelected">
+          column for rating:
+          <span className="nameCol">
+          {this.state.rating}
+          </span>
+          </div>
+          </div>
+        </div>   
+        
         </div>
         </div>
         <div className="col-lg-10 pading0">

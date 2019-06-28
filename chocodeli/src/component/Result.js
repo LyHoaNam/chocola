@@ -28,6 +28,7 @@ class Result extends PureComponent {
         JSON.stringify(this.props.location.datasend));
       this.setDatasend();
     }
+
   }
   setDatasend(){
     //get data from Next Algorthm and setState
@@ -72,9 +73,11 @@ class Result extends PureComponent {
       _xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};
       console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
       */
+
+
     if(this.state.listAl){
       let listAlgorthm=this.state.listAl;
-
+      let nameCol = JSON.parse(sessionStorage.getItem('nameCol'));
       let showcontent = this.writeContent();
       return (
         <div className="containtAlG">
@@ -84,10 +87,29 @@ class Result extends PureComponent {
         {
           listAlgorthm.map((Name,index)=>  
               <Menulist key={index} 
-                        algorthm={Name} 
-                        />
+                algorthm={Name} 
+                linkto={'/predit/'+Name}
+              />
             )        
         }
+        <div className="containColSel">
+          <div className="Infomation">
+
+          <div className="DetailInfo">
+          the columns you selected
+          </div>
+
+          {
+           nameCol.map((records, items)=>(
+            <div className="colSelected"
+            key={items}>
+          {records}
+          </div>))
+          }
+          
+
+          </div>
+        </div>   
         </div>
         </div>
         <div className="col-lg-10 pading0">

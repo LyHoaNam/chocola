@@ -4,15 +4,16 @@ import {Link} from 'react-router-dom';
 class Menulist extends PureComponent {
   render(){ 
     let Algorthm= this.props.algorthm;
-    let min_conf= this.props.min_conf;
-    let min_supf=this.props.min_supf;
-    let min_len=this.props.min_len;
+    let linkto=this.props.linkto;
     return (   
-    <Link to={'/algorthm/'+Algorthm}>
+    <Link to={linkto}>
      <div className="menu">
      <div className="menuTitle">
      <span>
-     Algorthm: {Algorthm}
+     Algorithm: 
+     </span>
+     <span className="nameAlgorithmList">
+     {Algorthm}
      </span>
      </div>
 

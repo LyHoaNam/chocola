@@ -50,7 +50,6 @@ class NextAssoRule extends PureComponent {
       .then(res=>res.json())
       .then(res=>
       {
-      	console.log('res',res);
       	if(res.des)
       	{
       		sessionStorage.setItem('des',res.des);
@@ -68,6 +67,9 @@ class NextAssoRule extends PureComponent {
 	componentDidMount () {
 	let author=localStorage.getItem('Auth');
 	this.getRuleData(author);
+	if(this.props.nameColumn.length>0){
+		sessionStorage.setItem('nameCol',
+			JSON.stringify(this.props.nameColumn));}
 	}
 	removeCache(){
   	//remove session datasend (obj = {minsup... min conf...})

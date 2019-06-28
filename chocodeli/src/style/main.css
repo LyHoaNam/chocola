@@ -294,7 +294,7 @@ p {
   width: 100%;
 }
 .Listmenu{
-	height: 100%;
+	position: fixed;
 	padding: 50px 15px 15px 15px;
 }
 .marginright0 {
@@ -402,4 +402,15 @@ p {
 }
 .containChart{
 	padding: 10px 0px;
+}
+.colSelected{
+	font-size: 0.8em;
+	color: #666666;
+}
+.colSelected .nameCol{
+	font-weight: 700;
+	padding-left: 5px;
+}
+.containColSel{
+	
 }
