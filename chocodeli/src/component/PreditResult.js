@@ -79,7 +79,7 @@ class PreditResult extends PureComponent {
 
       let showcontent = this.writeContent();
       return (
-        <div className="containtPredit">
+        <div className="containtPredit" id="containtPredit">
         <div className="row marginright0">
         <div className='col-lg-2'>
         <div className='Listmenu'>

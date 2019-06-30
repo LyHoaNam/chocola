@@ -73,7 +73,7 @@ constructor(props) {
 	}
 	render(){
 		return(
-			<div id="content" className="row left15">
+			<div id="contentCluster" className="row">
 			<NumberOfClusters
 			DataLineChart = {this.state.dataLineChart}
 			callbackValue={this.selectedvalue}/>

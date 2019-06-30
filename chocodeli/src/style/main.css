@@ -53,10 +53,17 @@
 	top: 50px;
 	width: 100%;
 }
+#contentCluster{
+	width: 100%;
+}
 .sidebar-header {
 	color: #9999;
 	font-size: 13px;
 	margin-bottom: 10px;
+}
+.top50{
+	top: 50px;
+	position: relative;
 }
 .btnsidebar {
 	border: 0px;
@@ -413,4 +420,13 @@ p {
 }
 .containColSel{
 	
+}
+.titlePrintBtn{
+	float: right;
+    margin-bottom: 10px;
+}
+.customPrtn{
+	padding: 5px 10px;
+	cursor: pointer;
+	width: auto !important;
 }

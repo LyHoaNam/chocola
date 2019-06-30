@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import "../style/main.css";
 import Menulist from "./Menulist";
 import Loading from "./Loading";
+import PrintButton from "./PrintButton";
 import Clustering from "./clustering/Clustering";
 class Result extends PureComponent {
   constructor(props) {
@@ -44,7 +45,7 @@ class Result extends PureComponent {
       return (
         <div className="containtPredit">
         <div className="row marginright0">
-        <div className='col-lg-2 paddingLeft0'>
+        <div className='col-lg-2'>
         <div className='Listmenu'>
          <Menulist key={'menulistCluster'} 
               algorthm='/algorthm/kmeans' 
@@ -56,7 +57,7 @@ class Result extends PureComponent {
           <div className="DetailInfo">
           the columns you selected
           </div>
-          <div className="colSelected">
+          <div className="colSelected" id="colSelected">
           column for x axits:
           <span className="nameCol">
           {this.state.col1}
@@ -73,11 +74,15 @@ class Result extends PureComponent {
           </div>  
         </div>
         </div>
-        <div className="col-lg-10 pading0">
+        <div className="col-lg-10">
+        <div className="top50">
+        <PrintButton id={"singlePage"} 
+        label={"Print pdf"} />
         <Clustering
         col1 = {this.state.col1}
         col2 = {this.state.col2}
         />
+        </div>
         </div>
         </div>
         </div>
