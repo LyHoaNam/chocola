@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import "../../style/chill.css";
 import List from "./List";
-import Problem from "../Problem"
 class UserList extends PureComponent {
 	constructor(props) {
 		super(props)
@@ -69,7 +68,7 @@ class UserList extends PureComponent {
       this.state.user ?
       <List 
         data={this.state.user}
-        colName="user"
+        colName={this.state.usercol}
         callbackValue={this.selectValue}/>: ""
     }
       </div>

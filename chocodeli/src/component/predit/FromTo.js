@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import '../../style/chill.css';
 import {Table} from "react-bootstrap";
-import InfiniteScroll from 'react-infinite-scroller';
+import PrintButton from "../PrintButton";
 class FromTo extends PureComponent {
 	constructor(props){
 		super(props);
@@ -15,7 +15,8 @@ class FromTo extends PureComponent {
 			from_iid:'',
 			to_iid:'',
 			authorization: '',
-			time:''
+			time:'',
+			resultBtn :''
 		}
 		this.filterFunc = this.filterFunc.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -65,6 +66,8 @@ getResultFromTo(){
 					'Authorization': author
 				}
 			}
+			this.setState({resultBtn:'cursorNone'});
+
 			fetch(url,options)
 			.then(res=>res.json())
 			.then(res=>
@@ -73,7 +76,8 @@ getResultFromTo(){
 				{
 					this.setState({table:res.result,
 						origin: res.result,
-						time:res.time});
+						time:res.time,
+						resultBtn:''});
 				}
 			}
 			)
@@ -85,7 +89,8 @@ getResultFromTo(){
 render() {
 	return (
 		<div className="col-lg-6">
-		<div className="Infomation martop10">
+		<div className="Infomation martop10"
+		id="containtFromTo">
 		<div className="selectFromTo">
 		<div>
 		<span className="DetailInfo">
@@ -119,8 +124,25 @@ render() {
 			{this.getResultFromTo()}}
 		}/>
 		</div>
-		<span className="btnPredit"
-		onClick={this.getResultFromTo}>Get Result</span>
+		<div className="btnFromTo">
+		{
+			this.state.from_iid  !== '' &&
+			this.state.from_uid !== '' &&
+			this.state.to_iid !== '' &&
+			this.state.to_uid !== '' ?
+			<span 
+			className ={"btnPredit "+this.state.resultBtn}
+			onClick={this.getResultFromTo}>
+			Get Result
+			</span> : ""
+		}
+		{
+			this.state.time !== '' ?
+			<PrintButton 
+			id="containtFromTo"
+			label={"Print pdf"}/> :""
+		}
+		</div>
 		</div>
 		<div className="selectFromTo">
 		<span className="DetailInfo">

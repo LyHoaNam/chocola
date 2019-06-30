@@ -1,29 +1,29 @@
 import React, {PureComponent} from "react";
 import '../style/chill.css';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 class Menulist extends PureComponent {
   render(){ 
     let Algorthm= this.props.algorthm;
     let linkto=this.props.linkto;
+    let isActive = (path, match, location) => 
+    !!(match || path === location.pathname);
     return (   
-    <Link to={linkto}>
-     <div className="menu">
-     <div className="menuTitle">
-     <span>
+    <NavLink to={linkto}
+    exact={true}
+    className="menu"
+     activeStyle={{
+                  backgroundColor: '#0D84E8',
+                  color: '#ffff'
+                }}
+        isActive={isActive.bind(this, '/my/path')}>
+
+     <span className="menuTitle">
      Algorithm: 
      </span>
      <span className="nameAlgorithmList">
      {Algorthm}
      </span>
-     </div>
-
-     <div className="menuInfo">
-     <span>
-
-     </span>
-     </div>
-     </div>
-    </Link>
+    </NavLink>
     
 
 

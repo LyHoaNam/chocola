@@ -88,7 +88,7 @@ class Result extends PureComponent {
           listAlgorthm.map((Name,index)=>  
               <Menulist key={index} 
                 algorthm={Name} 
-                linkto={'/predit/'+Name}
+                linkto={'/algorthm/'+Name}
               />
             )        
         }

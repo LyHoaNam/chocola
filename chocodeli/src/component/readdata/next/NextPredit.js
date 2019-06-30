@@ -45,6 +45,10 @@ class NextPredit extends PureComponent {
 	//remove localStorage apiori
 	if (localStorage.getItem('apiori'))
 		localStorage.removeItem('apiori');
+	if(localStorage.getItem('usercol'))
+		localStorage.removeItem('usercol');
+	if(localStorage.getItem('itemcol'))
+		localStorage.removeItem('itemcol');
   }
 	render(){
 		return(

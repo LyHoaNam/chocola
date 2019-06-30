@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import "./clustering.css";
-import {Table} from "react-bootstrap";
 import DetailTable from "./DetailTable";
 class TableClustering extends PureComponent {
 	constructor(props){

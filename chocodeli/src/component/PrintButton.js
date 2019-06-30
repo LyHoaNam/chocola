@@ -26,14 +26,13 @@ const PrintButton = ({id, label}) => (<div className="titlePrintBtn">
   <div
     className="GetStart customPrtn"
     onClick={() => {
-      const input = document.getElementById('contentCluster');
+      const input = document.getElementById(id);
       //let input = document.getElementById('colSelected');
       //input.appendChild(contentCluster);
       
       html2canvas(input)
         .then((canvas) => {
           const imgData = canvas.toDataURL('../img/jpge');
-          console.log('imgData ',typeof imgData);
 
           // Document of a4WidthMm wide and inputHeightMm high
 
@@ -45,7 +44,7 @@ const PrintButton = ({id, label}) => (<div className="titlePrintBtn">
             var width = pdf.internal.pageSize.getWidth();
             var height = pdf.internal.pageSize.getHeight();
            pdf.addImage(imgData, 'JPEG', 0, 0,width,height);
-            pdf.save(`kmeans.pdf`);
+            pdf.save(`${id}.pdf`);
 
           
           

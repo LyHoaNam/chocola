@@ -121,8 +121,8 @@ class Info extends PureComponent {
 					"tooltiptext":
 					"tooltipActive"}>
 					{'Import Data in here!'}
-					</span>
-					</div>
+				</span>
+				</div>
 				
 			</span>
 			</div>

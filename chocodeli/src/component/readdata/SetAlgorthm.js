@@ -33,7 +33,6 @@ class SetAlgorthm extends PureComponent {
 		
 		if(this.props.type){
 			let checkType = JSON.parse(this.props.type);
-			let countT = 0;
 			if (checkType['float64'] + checkType['int64'] < 2){
 				this.setState({clusterPoint:'PointerEventNone'});
 			}

@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import "./predit.css";
 import {Table} from "react-bootstrap";
 import ValueChart from "./ValueChart";
+import PrintButton from "../PrintButton";
 class Rating extends PureComponent {
 	constructor(props){
 		super(props);
@@ -13,12 +14,14 @@ class Rating extends PureComponent {
 			colrating:this.props.colRating,
 			rating:false,
 			valueChart: null,
-			time:null
+			time:null,
+			resultBtn :''
 		}
 		this.getData=this.getData.bind(this);
 	}
 
 	getData() {
+
 		let bearer=localStorage.getItem('Auth');
 		let col_uid = '?uid='+this.state.coluser;
 		let col_iid = '&iid='+this.state.colitem;
@@ -35,6 +38,7 @@ class Rating extends PureComponent {
 				'Authorization': bearer
 			}
 		}
+		this.setState({resultBtn:'cursorNone'});
 		this.getPreditValue(urlgetValue,options);
 		this.getDataChart(urlgetDatChart,options);
 	}
@@ -47,7 +51,8 @@ class Rating extends PureComponent {
 				this.setState({rating:res.result.rati,
 					selectuser:this.props.selectUser,
 					selectitem:this.props.selectItem,
-					time:res.time});
+					time:res.time,
+					resultBtn:''});
 			}
 		}
 		)
@@ -73,18 +78,34 @@ class Rating extends PureComponent {
 	render(){
 		return(
 			<div className="col-lg-8">
-			<div className="containRating">
-			<span className ="btnPredit"
-			onClick={this.getData}>
-			Result
+			<div className="containRating" id="containRating">
+			<span>
+			{
+				this.props.selectUser !== '' &&
+				 this.props.selectItem !== '' ?
+				(
+					<span 
+					className ={"btnPredit "+this.state.resultBtn}
+					onClick={this.getData}>
+					Result
+					</span>
+				)
+				: ""
+			}
+			{
+				this.state.time !== null ?
+				<PrintButton 
+				id="containRating"
+				label={"Print pdf"}/> :""
+			}
 			</span>
 			<div className="tableResult">
 			<Table responsive>
 			<thead>
 			<tr>
-			<th>User</th>
-			<th>Item</th>
-			<th>Rating</th>
+			<th>{this.props.colUser}</th>
+			<th>{this.props.colItem}</th>
+			<th>{this.props.colRating}</th>
 			<th>Time</th>
 			</tr>
 			</thead>

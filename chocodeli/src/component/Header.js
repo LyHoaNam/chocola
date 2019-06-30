@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "../style/main.css";
-import {Link,Nav,NavLink } from 'react-router-dom';
+import {Link,NavLink  } from 'react-router-dom';
 class Header extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -43,11 +43,11 @@ class Header extends PureComponent {
 			switch(linkto){
               case 'fpgrowth':
                 return <span  className="BtnYourData">
-					<Link to={'/algorthm/'+linkto} 
+					<NavLink to={'/algorthm/'+linkto} 
 					activeclassname='activebtn'
 					className='unactivebtn'>
 					Your algorithm
-					</Link>
+					</NavLink>
 					</span>
               case 'apiori':
                 return <span  className="BtnYourData">
@@ -114,8 +114,9 @@ class Header extends PureComponent {
 			<span className="BtnYourData "
 			onChange={activeYourData}>
 			<NavLink  to={'/'}
-			activeClassName="activebtn"
-			className='unactivebtn'>
+			exact
+			activeStyle={{color:'#000000'}}
+			>
 			Your Data
 			</NavLink>
 			</span>
@@ -123,8 +124,9 @@ class Header extends PureComponent {
 			onChange={activeAccount}>
 			<span className="dropdownAccount">
 			<NavLink  to={'/profile'}
-			activeClassName="activebtn"
-			className='unactivebtn'>
+			exact
+			activeStyle={{color:'#000000'}}
+			>
 			Account
 			</NavLink>
 			</span>

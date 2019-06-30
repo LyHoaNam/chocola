@@ -22,7 +22,7 @@ class NextPredit extends PureComponent {
 				): ''
 			})
 		this.setState({arr:tempCol,
-			axits:tempCol[0],
+			xaxits:tempCol[0],
 			yaxits:tempCol[1]});
 	}
 	handleChange(event){

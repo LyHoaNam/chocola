@@ -76,7 +76,7 @@ class Result extends PureComponent {
         </div>
         <div className="col-lg-10">
         <div className="top50">
-        <PrintButton id={"singlePage"} 
+        <PrintButton id={"contentCluster"} 
         label={"Print pdf"} />
         <Clustering
         col1 = {this.state.col1}

@@ -14,14 +14,16 @@ class ValueChart extends PureComponent {
 		arrData.push(this.props.dataChart.line2);
 		let dataLegend = [
 		{'key':'Value user at '+this.props.col1,
-		'value': 0},
+		'value': 0,
+		'color':'rgb(63, 76, 85)'},
 		{'key':'Value item at '+this.props.col2,
-		'value': 0}
+		'value': 0,
+		'color':'rgb(227, 165, 26)'}
 		];
 		return(
 			<div className="">
 			<div className="titlechart">
-			Number Of Clusters
+			Number of occurrences of values
 			</div>
 			<LineChart
 			axes

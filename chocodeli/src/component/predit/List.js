@@ -49,13 +49,16 @@ class List extends PureComponent {
       searchData = masterData.filter(function(item){
       return item == toSearch;
       });
+      this.setState({inputValue:toSearch,table:searchData,
+     hasMoreItem:false});
     }   
     else {
       searchData = this.props.data.length > 10 ?
       this.props.data.slice(0,10) : this.props.data;
+      this.setState({inputValue:toSearch,table:searchData,
+     hasMoreItem:true});
     }
-    this.setState({inputValue:toSearch,table:searchData,
-     hasMoreItem:false});
+    
     
 
   }
@@ -94,6 +97,15 @@ class List extends PureComponent {
       return (
        <div className="ListPredit">
        <div className="">
+
+       <div className="tooltipNoti">
+        <span className={this.state.chosevalue !== '' ? 
+          "tooltiptext preditTooltip":
+          "tooltipActive preditTooltip"}>
+          {'Enter the number here!'}
+        </span>
+        </div>
+
        <div className="DetailContent">
        <div className="ContainChose">      
        <span className="rightTitle">
@@ -104,6 +116,11 @@ class List extends PureComponent {
        onChange={this.handleChange}
        />
        </span>
+       </div>
+       <div className="TitleList">
+       {"Unique values of column "
+       +this.props.colName}
+
        </div>
        <span className="SerachButton">
        <input type="text" className="formControl"  

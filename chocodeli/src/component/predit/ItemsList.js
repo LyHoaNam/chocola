@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import List from "./List";
-import Problem from "../Problem"
 class ItemsList extends PureComponent {
 	constructor(props) {
 		super(props)
@@ -62,7 +61,7 @@ getData(bearer) {
       this.state.item ?
       <List 
         data={this.state.item}
-        colName="item"
+        colName={this.state.itemcol}
         callbackValue={this.selectValue}/>:""}
       </div>
 			)

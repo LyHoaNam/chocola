@@ -39,12 +39,18 @@
 	height: 50px;
     width: 100%;
     position: fixed;
-  	color: #000;
     z-index: 1; 
 	padding: 5px 50px;
     background-color: #fff;
 	top: 0px !important;
 	border:1px solid #eeeeee;
+	
+}
+.BtnYourData a{
+	color:#999999;
+}
+#sidebar .activebtn{
+	color:#000000 !important;
 }
 
 #content {
@@ -284,12 +290,6 @@ p {
 .BtnYourData:hover {
 	background-color: #eeeeee;
 	border-radius: 15px;
-}
-.unactivebtn{
-	color:#999999 !important;
-}
-.activebtn{
-	color:#000000 !important;
 }
 .containtAlG{
 	padding-top: 15px;

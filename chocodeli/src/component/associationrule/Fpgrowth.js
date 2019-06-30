@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import '../../style/chill.css';
 import Content from "./Content";
-import Problem from "../Problem";
 import ChartForRule from "./ChartForRule";
 class Fpgrowth extends PureComponent {
   constructor(props) {

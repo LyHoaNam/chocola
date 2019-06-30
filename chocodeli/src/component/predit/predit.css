@@ -113,3 +113,25 @@ th {
 	top: 50%;
 	z-index: 2;
 }
+.preditTooltip {
+	top: -23px;
+    left: 30px;
+    opacity: 0.3;
+}
+.cursorNone{
+	pointer-events: none;
+	opacity: 0.5;
+}
+.TitleList{
+	color: #999999;
+	font-weight: 700;
+	font-size: 0.8em;
+	text-align: center;
+}
+.titlechart{
+	text-align: center;
+	font-weight: 700;
+}
+.btnFromTo{
+	padding: 15px 0px 0px 0px;
+}

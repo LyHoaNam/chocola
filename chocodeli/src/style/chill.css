@@ -256,12 +256,13 @@
   background-color: #fff;
   border-radius: 15px;
   padding: 15px;
+  display: block;
   margin-bottom: 25px;
+  color: #004C9E;
   border: 1px solid #eeeeee;
 }
 .menuTitle {
   font-weight: 700;
-  color: #004C9E;
   font-size: 0.9em;
 }
 .nameAlgorithmList{
@@ -290,7 +291,7 @@
   background-color: #ffff;
   position: relative;
   text-align: center;
-  height: -webkit-fill-available;
+  height: -webkit-fill;
   border-radius: 15px;
 }
 .coinproblem{

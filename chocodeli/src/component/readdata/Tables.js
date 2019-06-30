@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import '../../style/chill.css';
-import Loading from "../Loading";
 import {Table} from "react-bootstrap";
 import InfiniteScroll from 'react-infinite-scroller';
 class Tables extends PureComponent {
