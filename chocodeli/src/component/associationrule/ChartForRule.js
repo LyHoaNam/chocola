@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "../../style/main.css";
-import { LineChart } from 'react-easy-chart';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import {Table} from "react-bootstrap";
 class ChartForRule extends PureComponent {
   constructor(props){
@@ -17,34 +18,16 @@ class ChartForRule extends PureComponent {
       let DataChart = sessionStorage.getItem('des');
       DataChart = JSON.parse(DataChart);
       Object.keys(DataChart).map((keyName,i)=>{
-        let arr = [];
-        let obj1 = {
-          'x': 0,
-          'y': DataChart[keyName]['min']
-        };
-
-        let obj2 = {
-          'x': 25,
-          'y': DataChart[keyName]['25%']
-        };
-
-
-        let obj3 = {
-          'x': 50,
-          'y': DataChart[keyName]['50%']
-        };
-
-        let obj4 = {
-          'x': 75,
-          'y': DataChart[keyName]['75%']
-        };
-
-        let obj5 = {
-          'x': 100,
-          'y': DataChart[keyName]['max']
-        };
-        arr.push(obj1,obj2,obj3,obj4,obj5);
-        result.push(arr);
+        let arrData = {};
+            let arr = [];
+            arr.push(DataChart[keyName]['min'])
+            arr.push(DataChart[keyName]['25%']);
+            arr.push(DataChart[keyName]['50%']);
+            arr.push(DataChart[keyName]['75%']);
+            arr.push( DataChart[keyName]['max']);
+            arrData['data'] = arr;
+            arrData['name'] = keyName;
+            result.push(arrData);
       })
       return result;
     }
@@ -87,16 +70,26 @@ class ChartForRule extends PureComponent {
         Describe
         </div>
 
-        <LineChart
-        axes
-        axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
-        grid
-        verticalGrid
-        margin={{top: 30, right: 60, bottom: 30, left: 60}}
-        width={400}
-        height={300}
-        data={DataLineChart}
-        />
+         <HighchartsReact
+      highcharts={Highcharts}
+    options={{
+          title: {
+            text: 'The incremental value of items in the selected column'
+          },
+          series: DataLineChart,
+          credits: {
+          enabled: false
+        }, 
+        yAxis: {
+          title: {
+                    text: ''
+                }
+        },
+        xAxis: {
+            categories: ['Min', '25%', '50%', '75%', 'Max']
+        }
+      }}
+      />
         <Table responsive>
         <thead>
         <tr>

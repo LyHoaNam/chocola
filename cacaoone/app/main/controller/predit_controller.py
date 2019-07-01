@@ -99,11 +99,18 @@ class ChartValue(Resource):
         iid_value = request.args.get('value_iid', type = float)
         Algorthm = Predit()
         result = {}
-        result['line1'] = Algorthm.chart_of_value(data_file_name,
+        arr = []
+        obj1 = {}
+        obj1['data'] = Algorthm.chart_of_value(data_file_name,
             col_uid, col_iid, col_rati, uid_value)
-            
-        result['line2'] = Algorthm.chart_of_value(data_file_name,
+        obj1['name'] = 'Values appear the same value ' + str(uid_value)
+        arr.append(obj1)
+        obj2 = {}
+        obj2['data'] = Algorthm.chart_of_value(data_file_name,
             col_iid, col_uid, col_rati, iid_value)
+        obj2['name'] = 'Values appear the same value ' + str(iid_value)
+        arr.append(obj2)
+        result['result'] = arr
         return result
 
 

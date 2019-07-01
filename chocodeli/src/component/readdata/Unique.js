@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "./readdata.css";
-import { BarChart,Legend } from 'react-easy-chart';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 /*
 data={[{ x: '10-Jan-15', y: 20, color: '#f00' },
                 { x: '12-Jan-15', y: 10 , color: 'orange' },
@@ -23,13 +24,13 @@ class Unique extends PureComponent {
     
       Object.keys(data).map((keyName, i) => {
           let record = {};
-          let legend = {}
+          let legend = {};
+          let arr = [];
+          arr.push(data[keyName])
+          record['name'] = keyName;
+          record['data'] = arr;
 
-          record['x'] = keyName;
-          record['y'] = data[keyName];
-
-          legend['key'] = keyName;
-          legend['value'] = data[keyName];
+          arrLengend.push(keyName);
 
           arrDataChart.push(record);
           arrLengend.push(legend);
@@ -39,36 +40,42 @@ class Unique extends PureComponent {
   }
 
 render(){
-
+  
   return (
     <div className="col-lg-8">
     <div className="Infomation">
     <div className="DetailInfo">
     Unique value of each column
     </div>
-    {
-      <BarChart
-      axisLabels={{ x: 'My x Axis', y: 'My y Axis' }}
-      axes
-      colorBars
-      grid
-      height={275}
-      width={500}
-      xTickNumber={5}
-      yTickNumber={5}
-      data = {this.state.dataChart}
-      />
-    }
-    <div className="containLegend">
-    {
-      <Legend 
-      data={this.state.legend} 
-      dataId={'key'} 
-      horizontal
+     <HighchartsReact
+      highcharts={Highcharts}
+    options={{
+          title: {
+            text: ''
+          },
+          chart: {
+              type: 'column'
+          },
+          series: this.state.dataChart,
+          credits: {
+          enabled: false
+        },
+        labels:
+        {
+          enabled: false
+        },
+          yAxis: {
+          title: {
+                    text: ''
+                }
+        },
+        xAxis: {
+            categories: this.state.legend
+        }
+
+      }}
       />
 
-    }
-    </div>
     </div>
     </div>
     )

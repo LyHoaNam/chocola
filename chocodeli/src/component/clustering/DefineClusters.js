@@ -1,55 +1,79 @@
 import React, {PureComponent} from "react";
 import "./clustering.css";
-import {ScatterplotChart,Legend} from 'react-easy-chart';
-
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 class DefineClusters extends PureComponent {
-	setDataLegend(){
-		let k = this.props.K_cluster;
-		if(k !== null){
-			let arrLegend = [];
-			for(let i = 0 ; i< parseInt(k); i++){
-				let legend = {};
-
-				legend['key'] = 'Cluster '+ (i+1);
-				legend['value'] = i;
-
-				arrLegend.push(legend);
-			}
-			return arrLegend;
+	setDataForChart(){
+		let result = [];
+		if(this.props.DataScatterPlot.length >0){
+			this.props.DataScatterPlot.map((records,items)=>{
+				let obj = {};
+				obj['name'] = 'cluster '+items;
+				obj['data'] = records;
+				result.push(obj);
+			})
 		}
-		return [];
+		return result;
 	}
 	render(){
-		let dataLengend = this.setDataLegend();
+		let DataForChart = this.setDataForChart();
 		return(
 			<div className="col-lg-6">
 			<div id="containchart">
 			<div className="titlechart">
 			Define Clusters
 			</div>
-			<ScatterplotChart 
-			axes
-			axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
-			grid
-			verticalGrid
-			margin={{top: 15, right: 20, bottom: 5, left: 70}}
-			width={500}
-			height={280}
-			data={this.props.DataScatterPlot}
+			
+			<HighchartsReact
+			highcharts={Highcharts}
+			options={{
+				chart: {
+			        type: 'scatter',
+			        zoomType: 'xy',
+			        height: 375
+			    },
+				title: {
+					text: ''
+				},
+			    plotOptions: {
+			        scatter: {
+			            marker: {
+			                radius: 5,
+			                states: {
+			                    hover: {
+			                        enabled: true,
+			                        lineColor: 'rgb(100,100,100)'
+			                    }
+			                }
+			            },
+			            states: {
+			                hover: {
+			                    marker: {
+			                        enabled: false
+			                    }
+			                }
+			            },
+			            tooltip: {
+			                headerFormat: '<b>{series.name}</b><br>',
+			                pointFormat: '{point.x}, {point.y}'
+			            }
+			        }
+			    },
+				series: DataForChart,
+				credits: {
+					enabled: false
+				}, 
+				yAxis: {
+					title: {
+						text: ''
+					}
+				}
+				
+			}}
 			/>
-			<div className="containLegend">
-		    {
-		      <Legend 
-		      data={dataLengend} 
-		      dataId={'key'} 
-		      horizontal
-		      />
-
-		    }
-		    </div>
 			</div>
 			</div>
-		)
+			)
 	}
 }
 export default DefineClusters;

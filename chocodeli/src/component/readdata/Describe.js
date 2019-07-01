@@ -1,7 +1,8 @@
 import React, {PureComponent} from "react";
 import "../../style/main.css";
-import { LineChart,Legend } from 'react-easy-chart';
 import {Table} from "react-bootstrap";
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 class Describe extends PureComponent {
   constructor(props){
     super(props);
@@ -76,46 +77,22 @@ class Describe extends PureComponent {
       try{
         if(data !== null){
           let result = [];
-          let arrLengend = [];
+          
           let DataChart = this.state.data;
           Object.keys(DataChart).map((keyName,i)=>{
+            let arrData = {};
             let arr = [];
-            let legend = {}
-
-            legend['key'] = keyName;
-            legend['value'] = data[keyName];
-
-            let obj1 = {
-              'x': 0,
-              'y': DataChart[keyName]['min']
-            };
-
-            let obj2 = {
-              'x': 25,
-              'y': DataChart[keyName]['25%']
-            };
-
-
-            let obj3 = {
-              'x': 50,
-              'y': DataChart[keyName]['50%']
-            };
-
-            let obj4 = {
-              'x': 75,
-              'y': DataChart[keyName]['75%']
-            };
-
-            let obj5 = {
-              'x': 100,
-              'y': DataChart[keyName]['max']
-            };
-            arrLengend.push(legend);
-            arr.push(obj1,obj2,obj3,obj4,obj5);
-            result.push(arr);
+            arr.push(DataChart[keyName]['min'])
+            arr.push(DataChart[keyName]['25%']);
+            arr.push(DataChart[keyName]['50%']);
+            arr.push(DataChart[keyName]['75%']);
+            arr.push( DataChart[keyName]['max']);
+            arrData['data'] = arr;
+            arrData['name'] = keyName;
+            result.push(arrData);
           })
-          this.setState({dataChart:result,
-          legend:arrLengend});
+          this.setState({dataChart:result
+          });
         }
       }
       catch(err){
@@ -156,30 +133,27 @@ class Describe extends PureComponent {
 		return (
       <div className="col-lg-4">
       <div className="Infomation">
+      
+      <HighchartsReact
+      highcharts={Highcharts}
+    options={{
+          title: {
+            text: 'Chart of incremental values of columns'
+          },
+          series: this.state.dataChart,
+          credits: {
+          enabled: false
+        },
+        xAxis: {
+            categories: ['Min', '25%', '50%', '75%', 'Max']
+        }
+      }}
+      />
       <div className="DetailInfo">
       Describe the data
       </div>
 
-       <LineChart
-      axes
-      axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
-      grid
-      verticalGrid
-      margin={{top: 30, right: 60, bottom: 30, left: 60}}
-      width={400}
-      height={300}
-      data={this.state.dataChart}
-        />
-      <div className="containLegend">
-      {
-        <Legend 
-        data={this.state.legend} 
-        dataId={'key'} 
-        horizontal
-        />
 
-      }
-      </div>
         <Table responsive>
         <thead>
           <tr>
@@ -200,6 +174,7 @@ class Describe extends PureComponent {
           }
         </tbody>
         </Table>
+
         </div>
         </div>
         )

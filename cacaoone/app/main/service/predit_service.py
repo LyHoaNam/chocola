@@ -61,8 +61,8 @@ class Predit:
         is_value = dt[uid]  == uid_value
         result = dt[is_value]
         sort_result = result[[iid,rati]].sort_values(by=[iid])
-        chart_value = sort_result.rename(index=str, columns={iid: "x", rati: "y"})
-        result_to_json = chart_value.to_json(orient='records')
+        #chart_value = sort_result.rename(index=str, columns={iid: "x", rati: "y"})
+        result_to_json = sort_result.to_json(orient='values')
         result_to_arr = ast.literal_eval(result_to_json)
         return result_to_arr
 

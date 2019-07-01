@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react";
 import {LineChart,Legend} from 'react-easy-chart';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 class ValueChart extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -9,53 +11,60 @@ class ValueChart extends PureComponent {
 	}
 
 	render(){
-		let arrData = [];
-		arrData.push(this.props.dataChart.line1);
-		arrData.push(this.props.dataChart.line2);
-		let dataLegend = [
-		{'key':'Value user at '+this.props.col1,
-		'value': 0,
-		'color':'rgb(63, 76, 85)'},
-		{'key':'Value item at '+this.props.col2,
-		'value': 0,
-		'color':'rgb(227, 165, 26)'}
-		];
+		
 		return(
 			<div className="">
 			<div className="titlechart">
 			Number of occurrences of values
 			</div>
-			<LineChart
-			axes
-			axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
-			grid
-			verticalGrid
-			margin={{top: 30, right: 60, bottom: 30, left: 60}}
-			width={500}
-			height={300}
-			data={arrData
-			}
+			<HighchartsReact
+			highcharts={Highcharts}
+			options={{
+				chart: {
+			        type: 'scatter',
+			        zoomType: 'xy',
+			        height: 375
+			    },
+				title: {
+					text: ''
+				},
+				
+			    plotOptions: {
+			        scatter: {
+			            marker: {
+			                radius: 5,
+			                states: {
+			                    hover: {
+			                        enabled: true,
+			                        lineColor: 'rgb(100,100,100)'
+			                    }
+			                }
+			            },
+			            states: {
+			                hover: {
+			                    marker: {
+			                        enabled: false
+			                    }
+			                }
+			            },
+			            tooltip: {
+			                headerFormat: '<b>{series.name}</b><br>',
+			                pointFormat: '{point.x}, {point.y}'
+			            }
+			        }
+			    },
+				series: this.props.dataChart,
+				credits: {
+					enabled: false
+				}, 
+				yAxis: {
+					title: {
+						text: ''
+					}
+				}
+				
+			}}
 			/>
-			 <div className="containRightLegendForPredit">
-		      {
-		      <Legend 
-		      data={dataLegend} 
-		      dataId={'key'} 
-		      styles={{
-		        '.legend':{
-		        borderRadius: '12px',
-		        fontSize: '0.8em',
-		        maxWidth: '300px',
-		        padding: '12px',
-		        display: 'block'
-		      },
-		      '.legend li.horizontal':{
-		        display: 'block'
-		      }
-		      }}
-		      />
-		      }
-		      </div>
 			</div>
 			)
 	}

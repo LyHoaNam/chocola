@@ -8,7 +8,7 @@ constructor(props) {
 		super(props);
 		this.state ={
 			dataLineChart: [],
-			dataScatterPlot: [],
+			Result: [],
 			authorization: null,
 			k_cluster: 3
 		}
@@ -35,19 +35,19 @@ constructor(props) {
 		.then(res=>res.json(  ))
 		.then(res=>
 		{
-			if(res.line)
-				this.setState({dataLineChart:res.line});
+			if(res.data)
+				this.setState({dataLineChart:res});
 		}
 		)
 		.catch(e=>{
 			console.log(e);
 		});  
 	}
-	getDefineData(bearer,k) {
+	getDefineData(bearer,NumberTable) {
 		let col1 = '?col1='+this.props.col1;
 		let col2 = '&col2='+this.props.col2;
-		let k_cluster = '&k='+k;
-		let url= '/cluster/define'+col1+col2+k_cluster;
+		let k_cluster = '&k='+ NumberTable;
+		let url= '/cluster/table'+col1+col2+k_cluster;
 		let options = {
 			method: 'GET',
 			headers: {
@@ -58,14 +58,15 @@ constructor(props) {
 		.then(res=>res.json(  ))
 		.then(res=>
 		{
-			if(res.ScatterPlot)
-				this.setState({dataScatterPlot:res.ScatterPlot});
+			if(res.length >0)
+				this.setState({Result:res});
 		}
 		)
 		.catch(e=>{
 			console.log(e);
 		});  
 	}
+	
 	selectedvalue(value){
 		if(value !== this.state.k_cluster){
 			this.setState({k_cluster:value});
@@ -79,13 +80,10 @@ constructor(props) {
 			callbackValue={this.selectedvalue}/>
 			<DefineClusters
 			K_cluster = {this.state.k_cluster} 
-			DataScatterPlot = {this.state.dataScatterPlot}
+			DataScatterPlot = {this.state.Result}
 			/>
 			<TableClustering 
-			col1 = {this.props.col1}
-			col2 = {this.props.col2}
-			Baerer = {this.state.authorization}
-			NumberTable = {this.state.k_cluster}/>
+			Table = {this.state.Result}/>
 			</div>
 			)
 	}

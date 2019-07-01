@@ -53,14 +53,9 @@ class Cluster:
 
     def convert_optimum_to_json(self):
         data = {}
-        arr = []
         records = self.define_optimum_cluster()
-        for i in range(len(records)):
-            obj = {}
-            obj['x'] = i
-            obj['y'] = records[i]
-            arr.append(obj)
-        data["line"]=arr
+        data['name']='Number Of Clusters', 
+        data["data"]=records
         return data
     def define_cluster(self, k_cluster):
         data = self.input_data()

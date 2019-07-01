@@ -66,8 +66,8 @@ class Rating extends PureComponent {
 		.then(res=>res.json())
 		.then(res=>
 		{
-			if(res){
-				this.setState({valueChart:res});
+			if(res.result){
+				this.setState({valueChart:res.result});
 			}
 		}
 		)

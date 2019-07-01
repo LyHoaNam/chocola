@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "./clustering.css";
-import {LineChart} from 'react-easy-chart';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 class NumberOfClusters extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -35,16 +36,29 @@ class NumberOfClusters extends PureComponent {
 			<div className="titlechart">
 			Number Of Clusters
 			</div>
-			<LineChart
-			axes
-			axisLabels={{x: 'My x Axis', y: 'My y Axis'}}
-			grid
-			verticalGrid
-			margin={{top: 30, right: 60, bottom: 30, left: 60}}
-			width={500}
-			height={300}
-			data={arrData}
-			/>
+			<HighchartsReact
+		      highcharts={Highcharts}
+		    options={{
+		          title: {
+		            text: ''
+		          },
+		          series: arrData,
+		          credits: {
+		          enabled: false
+		        },
+		        xAxis: {
+		            categories: [1,2,3,4,5,6,7,8,9,10,11,12,13]
+		        },
+		        chart:{
+		        	height: 325
+		        },
+		        yAxis: {
+					title: {
+						text: ''
+					}
+				}
+		      }}
+		      />
 			<div className="choseNumber">
 			<input type="number"
 			min="1"
