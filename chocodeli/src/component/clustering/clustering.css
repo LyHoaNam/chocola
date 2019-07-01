@@ -44,9 +44,15 @@
 	border: 1px solid #eeeeee;
 	border-radius: 15px;
 	margin-top: 15px;
+	height: 500px;
+}
+.ExportCsvDiv{
+	display: table;
+	width: -webkit-fill-available;
+}
+.TableCluster{
 	display: flex;
 	overflow: auto;
-	height: 500px;
 }
 .containTableDetail{
 	display: inline-block;

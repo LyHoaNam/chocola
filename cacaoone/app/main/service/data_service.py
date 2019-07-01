@@ -7,7 +7,7 @@ import json
 
 def save_new_data(id_u,data_name):
     userid = Data.query.filter_by(id_user=id_u).first()
-    if not userid:
+    if userid:
         response_object = {
             'status': 'fail',
             'message': 'User already exists. Please Log in.'
@@ -112,7 +112,7 @@ def read_data_csv(u_id,page):
 def read_all_data_csv(u_id,str_te):
     file_name = get_a_data(u_id)
     DataFileName= "./container/"+str(file_name)
-    store_data = pd.read_csv(DataFileName, keep_default_na=False)
+    store_data = pd.read_csv(DataFileName)
 
     arr_sel = str_te.split(',')
     arr_sel = list(map(int, arr_sel))

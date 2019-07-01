@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import {LineChart,Legend} from 'react-easy-chart';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 class ValueChart extends PureComponent {

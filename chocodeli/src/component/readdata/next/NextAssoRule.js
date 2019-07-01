@@ -75,6 +75,9 @@ class NextAssoRule extends PureComponent {
   	//remove session datasend (obj = {minsup... min conf...})
   	if (sessionStorage.getItem('datasend'))
   		sessionStorage.removeItem('datasend');
+  	
+	if(localStorage.getItem('apiori'))
+		localStorage.removeItem('apiori');
 	//remove localStorage fpgrowth
 	if(localStorage.getItem('fpgrowth'))
 		localStorage.removeItem('fpgrowth');

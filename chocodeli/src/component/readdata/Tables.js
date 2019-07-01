@@ -100,14 +100,7 @@ render() {
 			<div className="Infomation martop10">
 			<div className="DetailContent">
 			<span className="DetailInfo">
-			Result
-			</span>
-			<span className="SerachButton">
-			<input type="text" className="form-control"  
-			placeholder="Search" 
-			value={this.state.inputValue}
-			onChange={this.filterFunc}
-			/>
+			Data in file csv
 			</span>
 			</div>
 			<div className="OverFlow">    

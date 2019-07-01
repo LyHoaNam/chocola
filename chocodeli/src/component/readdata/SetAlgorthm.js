@@ -23,17 +23,21 @@ class SetAlgorthm extends PureComponent {
 			clusterPoint: '',
 			preditPoint: '',
 			arrType: [],
-			display: 'displayBlock'
+			display: 'displayBlock',
+			assoPoint:''
 		}
 		this.ReadyToNext = this.ReadyToNext.bind(this);
 		this.modalNeClose = this.modalNeClose.bind(this);
 		this.closeNextBox = this.closeNextBox.bind(this);
 	} 
-	componentDidMount () {
+	componentDidMount(){
 		
 		if(this.props.type){
 			let checkType = JSON.parse(this.props.type);
-			if (checkType['float64'] + checkType['int64'] < 2){
+
+			if (checkType['float64'] + checkType['int64'] < 2 ||
+				checkType['float64'] === undefined ||
+				checkType['int64'] === undefined){
 				this.setState({clusterPoint:'PointerEventNone'});
 			}
 			else{
@@ -41,8 +45,14 @@ class SetAlgorthm extends PureComponent {
 				this.setState({authorization:author});
 				this.getData(author);
 			}
-			if (checkType['float64'] + checkType['int64'] < 3){
+			if (checkType['float64'] + checkType['int64'] < 3 ||
+				checkType['float64'] === undefined ||
+				checkType['int64'] === undefined){
 				this.setState({preditPoint:'PointerEventNone'});
+			}
+			console.log('len ',Object.keys(checkType).length);
+			if(Object.keys(checkType).length < 2) {
+				this.setState({'assoPoint':'PointerEventNone'})
 			}
 			
 		}
@@ -170,7 +180,7 @@ class SetAlgorthm extends PureComponent {
 			<div>
 			{// Name of Algorthm
 			}
-			<label className="containerRadio"
+			<label className={"containerRadio "+this.state.assoPoint}
 			onChange={ShowAssoRule}>
 			Association rules
 			<input type="radio"  name="radio"/>
@@ -262,7 +272,6 @@ class SetAlgorthm extends PureComponent {
 			}
 			
 			</Modal.Body>
-
 			</Modal>
 			</div>
 			)

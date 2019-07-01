@@ -430,3 +430,18 @@ p {
 	cursor: pointer;
 	width: auto !important;
 }
+.customPrtnCSV{
+	background-color: #0D84E8;
+    color: #ffff !important;
+    border-radius: 15px;
+    width: auto;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+    float: right;
+}
+.customPrtnCSV a{
+	color:#ffffff;
+}
+.customPrtnCSV:hover{
+	opacity: 0.5;
+}

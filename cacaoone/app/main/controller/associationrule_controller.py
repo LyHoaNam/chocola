@@ -54,7 +54,7 @@ class Data(Resource):
 
         Algorthm = Apiori(store_data, minsup, minconf)
         result = Algorthm.write_json()
-
+        
         g.request_time = lambda: "%.5fs" % (time.time() - g.request_start_time)
         result['time'] = g.request_time()
 

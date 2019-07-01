@@ -57,10 +57,11 @@ class Apiori:
         for item in rules:
             len_of_rule += 1
             values = {}
-            values["left"] = [x for x in item[2][0][0]]
-            values["right"] = [x for x in item[2][0][1]]
-            values["conf"] = round(item[2][0][2],2)
-            arr.append(values)
+            if len(item[2][0][0]) >0 :
+                values["left"] = [x for x in item[2][0][0]]
+                values["right"] = [x for x in item[2][0][1]]
+                values["conf"] = round(item[2][0][2],2)
+                arr.append(values)
         data["rules"] = arr
         data["len"] = len_of_rule 
         return data

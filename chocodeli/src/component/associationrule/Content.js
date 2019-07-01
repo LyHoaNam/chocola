@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import "../../style/main.css";
 import {Table} from "react-bootstrap";
+import ExportToCSV  from "../ExportToCSV";
 import InfiniteScroll from 'react-infinite-scroller';
 class Content extends PureComponent {
 	constructor(props){
@@ -36,7 +37,7 @@ class Content extends PureComponent {
   }
   checkArrayHaveValue(arr,searchText){
     for(let i=0; i<arr.length; i++){
-      if(arr[i].toString().indexOf(searchText) !== -1)
+      if(arr[i].toString().toLowerCase().indexOf(searchText) !== -1)
         return true;
     }
     return false;
@@ -45,7 +46,7 @@ class Content extends PureComponent {
     //search value of input search
     let masterData = this.props.data;
     let toSearch= e.target.value;
-    toSearch = toSearch.toString();
+    toSearch = toSearch.toString().toLowerCase();
     let searchData = [];
     if(toSearch !==""){    
       searchData = masterData.filter(item =>
@@ -103,13 +104,14 @@ class Content extends PureComponent {
      <span className="DetailInfo">
      Result
      </span>
+     <ExportToCSV data={this.props.data}/>
      <span className="SerachButton">
      <input type="text" className="form-control"  placeholder="Search" 
      value={this.state.textChange} onChange={this.filterFunc} />
      </span>
      </div>
      <div className="OverFlow">
-      <InfiniteScroll
+    <InfiniteScroll
      pageStart={0}
      loadMore={()=>this.loadFunc()}
      hasMore={this.state.hasMoreItem}

@@ -74,7 +74,7 @@ class ChartForRule extends PureComponent {
       highcharts={Highcharts}
     options={{
           title: {
-            text: 'The incremental value of items in the selected column'
+            text: 'The number of repetitions (incremental) of the values in the selected column'
           },
           series: DataLineChart,
           credits: {
