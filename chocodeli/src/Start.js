@@ -1,26 +1,18 @@
 import React, { PureComponent } from 'react';
-import ChoseData from './component/ChoseData';
 import App from './component/App';
+import Login from "./component/account/Login";
 
 class Start extends PureComponent {
-  constructor(props){
-    super(props);
-    this.state = {
-      ShowApp:"hide"
-    }
-  }
-  choseFileCallBack = (result) =>{
-    this.setState({ShowApp:result},console.log(""));
-    
-  }
-
   render() {
+    let Auth = localStorage.getItem('Auth') !== null ?
+    localStorage.getItem('Auth'): false
     return (
       <div>
       {
-          this.state.ShowApp ==='hide' ?
-              <ChoseData SendSuccess={this.choseFileCallBack}/>:
-              <App/>           
+          Auth === false ?
+          <Login />:
+          <App/>
+         
       }
       
       </div>

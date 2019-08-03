@@ -1,0 +1,137 @@
+.backgroupWhite {
+	background-color: #ffffff;
+}
+.preditContent{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 15px;
+}
+.ListPredit{
+	border: 1px solid #dddddd;
+	background-color: #ffffff;
+	border-radius: 15px;
+	padding: 15px;
+	min-height: 500px;
+}
+.ChoseItem {
+}
+.ChoseItem:hover{
+	background-color:#dddddd;
+	cursor: pointer;
+}
+.ChoseItem:after{
+	background-color: #005b97;
+}
+.ContainChose{
+	padding: 15px 0;
+
+}
+.LeftTitle{
+	font-weight: 700;
+	font-size: 14px;
+	color:#999999;
+}
+.rightTitle{
+
+}
+.btnPredit{
+	background-color: #65C7F7;
+	font-weight:700;
+	font-size: 14px;
+	cursor: pointer;
+	color: #ffffff;
+	border-radius: 15px;
+	padding: 10px 15px;
+}
+.resultPredit{
+
+}
+.ContainLineChart{
+	background-color: #ffffff;
+	border-radius: 15px;
+	min-height: 500px;
+	border: 1px solid #eeeeee;
+}
+.SerachButton{
+	margin-bottom: 15px;
+	position: relative;
+}
+.formControl{
+	height: 30px;
+	border-radius: 15px !important;
+	border: 1px solid #dddddd;
+	padding: 15px;
+	width: -webkit-fill-available;
+}
+.searchIcon{
+	cursor: pointer;
+	position: absolute;
+	background-color: #65C7F7;
+	padding: 4px 10px;
+	border-radius: 15px;
+	right: 0;
+}
+.containRating{
+	background-color: #ffffff;
+	border-radius: 15px;
+	border: 1px solid #dddddd;
+	min-height: 500px;
+	padding: 15px;
+}
+th {
+	border-top: 0 !important;
+}
+.tableResult{
+	padding-top: 15px;
+}
+.selectFromTo{
+	padding: 15px;
+	width: -webkit-fill-available;
+}
+.ipFromTo{
+	width: 70px;
+	padding: 6px 12px;
+	border: 1px solid #ced4da;
+	border-radius: 15px;
+}
+.formChoseValue{
+	height: 40px;
+	border-radius: 15px !important;
+	border: 1px solid #dddddd;
+	padding: 15px;
+	width: -webkit-fill-available;
+	font-weight: 700;
+	float: right;
+	background-color: #65c7f7;
+	margin-bottom: 15px;
+	font-size: 12px;
+	color:#ffffff;
+}
+.containRightLegendForPredit{
+	position: absolute;
+	margin-left: 460px;
+	top: 50%;
+	z-index: 2;
+}
+.preditTooltip {
+	top: -23px;
+    left: 30px;
+    opacity: 0.3;
+}
+.cursorNone{
+	pointer-events: none;
+	opacity: 0.5;
+}
+.TitleList{
+	color: #999999;
+	font-weight: 700;
+	font-size: 0.8em;
+	text-align: center;
+}
+.titlechart{
+	text-align: center;
+	font-weight: 700;
+}
+.btnFromTo{
+	padding: 15px 0px 0px 0px;
+}

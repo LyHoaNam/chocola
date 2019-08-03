@@ -1,10 +1,9 @@
 .GetStart{
-	right: 40px;
 	background-color: #0D84E8;
-	color: #ffff;
-	position: absolute;
+	color: #ffff !important;
 	border-radius: 15px;
 	width: 150px;
+  margin-right: 30px;
 }
 .GetStart:hover{
 	background-color: #77D9FF;
@@ -18,11 +17,17 @@
 .Close:hover{
   background-color: #eeeeee;
 }
+.floatright{
+  float: right;
+}
 .Next{
   background-color: #0D84E8;
       border-radius: 15px;
     width: 120px;
     color: #ffff;
+}
+.Next a{
+  color:#ffffff;
 }
 .Next:hover{
     background-color: #77D9FF;
@@ -190,7 +195,7 @@
 }
 .InputGroup {
   width: inherit;
-  padding: 10px;
+  padding: 5px;
 
 }
 .Inputfields{
@@ -246,18 +251,24 @@
   padding: 30px 15px;
 }
 .menu {
-  min-width: 270px;
   min-height: 70px;
   z-index: 3;
   background-color: #fff;
   border-radius: 15px;
   padding: 15px;
+  display: block;
   margin-bottom: 25px;
+  color: #004C9E;
+  border: 1px solid #eeeeee;
 }
 .menuTitle {
   font-weight: 700;
-  color: #004C9E;
-  font-size: 1em;
+  font-size: 0.9em;
+}
+.nameAlgorithmList{
+ font-weight: 400;
+ padding-left: 5px;
+ font-size: 1.1em;
 }
 .menuInfo {
   font-weight: 400;
@@ -275,4 +286,118 @@
 }
 .menu:hover .menuInfo{
   color:#eeeeee;
+}
+.propblem{
+  background-color: #ffff;
+  position: relative;
+  text-align: center;
+  height: -webkit-fill;
+  border-radius: 15px;
+}
+.coinproblem{
+    position: absolute;
+  top: 45%;
+  text-align: center;
+  left: 40%;
+}
+.strproblem{
+  color: #666666;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5em;
+
+}
+.whiretext{
+    color: #ffffff !important;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none !important;
+}
+.ModalFooter{
+  position: relative;
+  border-top: 1px solid #eeeeee;
+}
+.ContainBtnBox{
+  float: right;
+  padding: 15px;
+}
+.paddingRight15{
+  padding-right: 15px;
+}
+.NextModal {
+  position: absolute;
+  background-color: #ffffff;
+  top:0px;
+  left: 0px;
+  width: 100%;
+  padding: 16px;
+
+}
+.NextPreLine{
+  position: relative;
+  padding: 15px;
+}
+.ColumnPara{
+
+  color: #333333;
+}
+.SelectCol{
+  padding-left: 30px;
+  display: inline-block;
+}
+.ColumnPara:hover{
+  cursor: pointer;
+
+}
+.PointerEventNone {
+  pointer-events: none;
+  color: #333333;
+}
+.textInfo{
+  line-height: 1.5;
+   color: #212529;
+   font-weight: 700;
+   font-size: 1rem;
+}
+.explainInfo{
+  color: #333333;
+  padding-left: 15px;
+  font-size: 0.9rem;
+}
+.spaceInfo{
+  padding: 10px;
+}
+.margin30 {
+  margin-top: 30px;
+}
+.chooseColTable{
+      overflow: auto;
+    width: 200px;
+    height: 200px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #dee2e691;
+}
+.cellCol{
+  font-size: 0.9rem !important;
+  padding: 10px !important;
+  border-radius: 15px !important;
+  cursor: pointer;
+}
+.btnChooseRuleTable{
+  border-radius: 15px;
+    border: 1px solid #dee2e691;
+    width: 200px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.btnChooseRuleTable:hover{
+  background-color: #dddddd;
+}
+.padding15{
+  padding: 15px;
 }

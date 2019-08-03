@@ -2,9 +2,8 @@ import React, {PureComponent} from "react";
 import "../style/main.css";
 import Menulist from "./Menulist";
 import Loading from "./Loading";
-import Apiori from "./Apiori";
-import Fpgrowth from "./Fpgrowth";
-
+import Apiori from "./associationrule/Apiori";
+import Fpgrowth from "./associationrule/Fpgrowth";
 class Result extends PureComponent {
   constructor(props) {
     super(props);
@@ -12,7 +11,9 @@ class Result extends PureComponent {
       result: null, 
       min_conf: null,
       min_sup:null,
-      listAl: null
+      min_len:null,
+      listAl: null,
+      str_col: null
     };
 
   }
@@ -27,14 +28,19 @@ class Result extends PureComponent {
         JSON.stringify(this.props.location.datasend));
       this.setDatasend();
     }
+
   }
   setDatasend(){
     //get data from Next Algorthm and setState
     let tempdata=sessionStorage.getItem('datasend');
     tempdata=JSON.parse(tempdata);
+    let nameAlgorthm = this.props.match.params.id;
     this.setState({min_conf:tempdata.min_conf,
       min_sup:tempdata.min_supf,
-      listAl:tempdata.ChooseAl})
+      min_len:tempdata.min_len,
+      str_col:tempdata.str_col,
+      listAl:tempdata.ChooseAl}) 
+
   }
   writeContent(){
     //write result of algorthm
@@ -43,11 +49,15 @@ class Result extends PureComponent {
       case 'fpgrowth':
       return  <Fpgrowth 
       min_conf= {this.state.min_conf} 
-       min_supf= {this.state.min_sup}/>;
+       min_supf= {this.state.min_sup}
+       min_len={this.state.min_len}
+       str_col={this.state.str_col}/>;
       case 'apiori':
       return <Apiori 
       min_conf = {this.state.min_conf} 
-      min_supf = {this.state.min_sup}/>;
+      min_supf = {this.state.min_sup}
+      min_len={this.state.min_len}
+      str_col={this.state.str_col}/>;
       default:
        return 'err some thing';
     }
@@ -55,30 +65,54 @@ class Result extends PureComponent {
   }
 
   render() {
+    /*
+    //check size of localStorage
+    var _lsTotal=0,_xLen,_x;
+    for(_x in localStorage)
+      { if(!localStorage.hasOwnProperty(_x)){continue;} 
+      _xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};
+      console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
+      */
+
+
     if(this.state.listAl){
       let listAlgorthm=this.state.listAl;
-      //get id from url
-
+      let nameCol = JSON.parse(sessionStorage.getItem('nameCol'));
       let showcontent = this.writeContent();
       return (
         <div className="containtAlG">
         <div className="row marginright0">
-        <div className='col-lg-3'>
+        <div className='col-lg-2 paddingLeft0'>
         <div className='Listmenu'>
         {
-
           listAlgorthm.map((Name,index)=>  
-            <Menulist key={index} 
-            algorthm={Name} 
-            min_conf={this.state.min_conf}
-            min_supf={this.state.min_sup}/>
-
-            )
+              <Menulist key={index} 
+                algorthm={Name} 
+                linkto={'/algorthm/'+Name}
+              />
+            )        
         }
+        <div className="containColSel">
+          <div className="Infomation">
 
+          <div className="DetailInfo">
+          the columns you selected
+          </div>
+
+          {
+           nameCol.map((records, items)=>(
+            <div className="colSelected"
+            key={items}>
+          {records}
+          </div>))
+          }
+          
+
+          </div>
+        </div>   
         </div>
         </div>
-        <div className="col-lg-9">
+        <div className="col-lg-10 pading0">
         {showcontent}
         </div>
         </div>

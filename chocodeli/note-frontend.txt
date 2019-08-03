@@ -25,3 +25,11 @@ npm install webpack-dev-server --save-dev
 npm install react-router-dom
 #react scroller loading
 npm install react-infinite-scroller --save
+#react write chart (hightchat lib)
+npm install highcharts-react-official
+
+npm i @types/highcharts
+
+npm install jquery --save
+
+npm install react-easy-chart --save

@@ -39,11 +39,18 @@
 	height: 50px;
     width: 100%;
     position: fixed;
-  	color: #000;
     z-index: 1; 
 	padding: 5px 50px;
     background-color: #fff;
 	top: 0px !important;
+	border:1px solid #dddddd;
+	
+}
+.BtnYourData a{
+	color:#999999;
+}
+#sidebar .activebtn{
+	color:#000000 !important;
 }
 
 #content {
@@ -52,10 +59,17 @@
 	top: 50px;
 	width: 100%;
 }
+#contentCluster{
+	width: 100%;
+}
 .sidebar-header {
 	color: #9999;
 	font-size: 13px;
 	margin-bottom: 10px;
+}
+.top50{
+	top: 50px;
+	position: relative;
 }
 .btnsidebar {
 	border: 0px;
@@ -219,7 +233,7 @@
 	padding-left: 10px;
 }
 body {
-	background-color:rgb(238, 238, 238);
+	background-color:#fafafa;
 }
 .ContainerContent {
 	padding: 0px 15px;
@@ -229,10 +243,11 @@ body {
 	color:#133b4f;
 }
 .Infomation {
+	position: relative;
 	border-radius: 10px;
 	background-color: #fff;
-	margin-right:10px;
 	padding: 10px;
+	border:1px solid #eeeeee;
 }
 .DetailInfo {
 	font-size: 13px;
@@ -253,7 +268,12 @@ p {
 .OverFlow {
 	 overflow:auto;
 	width: inherit;
-    height: -webkit-fill-available;
+    height: 80vh;
+}
+.OverFlowList {
+	 overflow:auto;
+	width: inherit;
+    height: 400px;
 }
 .ContainRightText{
 	display: inline;
@@ -262,9 +282,9 @@ p {
 }
 .BtnYourData{
 	text-align: center;
-	color:#005b97 !important;
+	position: relative;
 	font-weight: 700;
-	font-size: 1.1em;
+	font-size: 0.9em;
 	padding: 5px 10px;
 }
 .BtnYourData:hover {
@@ -273,13 +293,155 @@ p {
 }
 .containtAlG{
 	padding-top: 15px;
-  position: relative;
+  position: fixed;
+  width: 100%;
+}
+.containtPredit{
+	padding-top: 15px;
   width: 100%;
 }
 .Listmenu{
-	height: 100%;
-	padding: 50px 0px 50px 30px;
+	position: fixed;
+	padding: 50px 15px 15px 15px;
 }
 .marginright0 {
 	margin-right: 0;
+}
+.dd-inputAc {
+	display: none;
+}
+.dd-menuAc{
+	right: 0;
+	max-width: 300px;
+	min-width: 250px;
+ position: absolute;
+  top: 75%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  font-weight: 400;
+}
+.dd-menuAc li:hover {
+  background-color: #eeeeee;
+  cursor:pointer;
+}
+.dd-menuAc li {
+	cursor: pointer;
+	padding: 8px 16px;
+	font-size: 14px;
+	min-width: 120px;
+	text-align: left;
+}
+.dd-menuAc {
+	display: none;
+}
+.dd-menuAc a{
+	color: #999999;
+}
+.dd-menuA a:hover{
+	color: #999999;
+}
+.dropdownAccount:hover +.dd-menuAc {
+  display: block;
+}
+.dropdownAccount:after + .dd-menuAc:hover {
+  display: block;
+}
+.BtnYourData li:hover {
+	color:#999999;
+}
+.dd-menuAc:hover{
+	display: block;
+}
+.imgAc{
+	max-width: 30px;
+	border-radius: 50%;
+}
+.containImgAc{
+	padding-top: 5px;
+	display: inline-block;
+	position: absolute;
+}
+.conatinDetailInfo{
+	display: inline-block;
+	padding-left: 50px;
+	color:#999999;
+}
+.containInfoAc{
+	text-align: left;
+	padding: 8px 16px;
+	cursor: default;
+}
+.containInfoAc:hover{
+	background-color: #ffffff !important;
+}
+.dd-menuAc li.divider{
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+}
+.infoAcName{
+	font-weight: 700;
+	color:#333333;
+	margin-right: 15px;
+}
+.imgLogout{
+	margin-right: 15px;
+}
+.MarginTop{
+	margin-top: 20px;
+}
+.displayGird {
+	display: inline-grid;
+}
+.containLegend{
+	padding: 0 15px;
+	text-align: center;
+}
+.containRightLegend{
+	position: absolute;
+	display: inline-block;
+	margin-left: 160px;
+	float: right;
+}
+.containChart{
+	padding: 10px 0px;
+}
+.colSelected{
+	font-size: 0.8em;
+	color: #666666;
+}
+.colSelected .nameCol{
+	font-weight: 700;
+	padding-left: 5px;
+}
+.containColSel{
+	width: 200px;
+}
+.titlePrintBtn{
+	float: right;
+    margin-bottom: 10px;
+}
+.customPrtn{
+	padding: 5px 10px;
+	cursor: pointer;
+	width: auto !important;
+}
+.customPrtnCSV{
+	background-color: #0D84E8;
+    color: #ffff !important;
+    border-radius: 15px;
+    width: auto;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+    float: right;
+}
+.customPrtnCSV a{
+	color:#ffffff;
+}
+.customPrtnCSV:hover{
+	opacity: 0.5;
 }
