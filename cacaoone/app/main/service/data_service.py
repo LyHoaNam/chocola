@@ -7,24 +7,17 @@ import json
 
 def save_new_data(id_u,data_name):
     userid = Data.query.filter_by(id_user=id_u).first()
-    if userid:
-        response_object = {
-            'status': 'fail',
-            'message': 'User already exists. Please Log in.'
-        }
-        return response_object, 409
-    else:
-        new_data = Data(
-            data_name=data_name,
-            id_user=id_u,
-            selected=True
-        )
-        save_changes(new_data)
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully registered.'
-        }
-        return response_object, 201
+    new_data = Data(
+        data_name=data_name,
+        id_user=id_u,
+        selected=True
+    )
+    save_changes(new_data)
+    response_object = {
+        'status': 'success',
+        'message': 'Successfully registered.'
+    }
+    return response_object, 201
 
 def get_all_data(u_id):
     return Data.query.filter_by(id_user=u_id).all()

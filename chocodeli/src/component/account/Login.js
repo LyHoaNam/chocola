@@ -88,7 +88,9 @@ class Start extends PureComponent {
 				Recommender System Tool For Everyone
 				</p>
 				<div className="toChocola">
-				Welcome to Chocola, this tool can help you make everything great than. Click a button below, choose a best data and get a good result
+				Welcome to Chocola,
+				 this tool can help you make everything better.
+				  Sign in. choose the best data and get a best result
 				</div>
 				</div>
 				</div>
